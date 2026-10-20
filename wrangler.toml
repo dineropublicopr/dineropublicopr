@@ -2,23 +2,26 @@ name = "dineropublicopr"
 compatibility_date = "2026-09-01"
 pages_build_output_dir = "web"
 
-# El API consultable vive en web/functions/api/v1/[[route]].js y se publica junto al sitio,
-# asi que queda en dineropublicopr.com/api/v1/... sin subdominios.
+# El API consultable vive en functions/api/v1/[[route]].js, en la raiz del proyecto y NO
+# dentro de web/. Esto importa: wrangler busca el directorio `functions` en la raiz, no en
+# el directorio de salida. Con el archivo en web/functions se subio como asset estatico,
+# el worker nunca se compilo y /api/v1/ devolvia el index.html con HTTP 200.
+# Queda publicado en dineropublicopr.com/api/v1/... sin subdominios.
 #
-# Puesta en linea:
+# El proyecto de Pages es de SUBIDA DIRECTA, no esta conectado a git. Un push no publica
+# nada; el despliegue lo hace `wrangler pages deploy` (a mano o desde el workflow).
 #
-#   npm install -g wrangler
-#   wrangler login
+# Publicar el sitio:
 #
-#   # 1. Crear la base y anotar el database_id que imprime
-#   wrangler d1 create dineropublicopr
+#   wrangler pages deploy web --project-name=dineropublicopr --branch=main
 #
-#   # 2. Cargarla desde el SQLite local
-#   sqlite3 data/out/contratos.sqlite .dump > /tmp/contratos.sql
-#   wrangler d1 execute dineropublicopr --remote --file=/tmp/contratos.sql
+# Recargar la base D1 desde el SQLite local. OJO: el dump de sqlite3 no se puede importar
+# tal cual, D1 rechaza BEGIN TRANSACTION, COMMIT y PRAGMA:
 #
-#   # 3. Publicar el sitio
-#   wrangler pages deploy web --project-name=dineropublicopr
+#   sqlite3 data/out/contratos.sqlite .dump \
+#     | grep -v -e '^PRAGMA foreign_keys=OFF;$' -e '^BEGIN TRANSACTION;$' -e '^COMMIT;$' \
+#     > /tmp/contratos_d1.sql
+#   wrangler d1 import dineropublicopr --remote --file=/tmp/contratos_d1.sql
 #
 # Limites del plan gratuito de D1 a tener presentes: 500 MB por base y 5 millones de filas
 # leidas por dia. Con ~270,000 contratos la base ronda los 100 MB, asi que cabe con holgura;
@@ -29,4 +32,4 @@ pages_build_output_dir = "web"
 [[d1_databases]]
 binding = "DB"
 database_name = "dineropublicopr"
-database_id = "PEGA_AQUI_EL_ID_QUE_IMPRIME_WRANGLER"
+database_id = "b9727f72-f90b-4d08-befa-e6069eb30f94"

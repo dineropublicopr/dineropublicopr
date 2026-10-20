@@ -22,6 +22,12 @@ jobs:
     # asi que una corrida completa toma su tiempo.
     timeout-minutes: 300
 
+    # A nivel de job para que los pasos puedan preguntar por ellos en su `if`. El contexto
+    # env de un paso no esta disponible en el condicional de ese mismo paso.
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -55,8 +61,8 @@ jobs:
           print(f"ok: {data['contratos']:,} contratos")
           PY
 
-      # Cloudflare Pages esta conectado al repositorio y publica solo al detectar el push,
-      # asi que aqui basta con dejar los datos nuevos en main.
+      # El push deja el historial de los datos en main, pero no publica nada: el proyecto
+      # de Pages es de subida directa, asi que el despliegue va en el paso siguiente.
       - name: Publicar cambios
         run: |
           git config user.name "github-actions[bot]"
@@ -69,19 +75,26 @@ jobs:
             git push
           fi
 
-      # El API consultable corre sobre D1, que no se actualiza con el push. Este paso solo
-      # se ejecuta si los secretos estan configurados, para que el resto del flujo funcione
-      # aunque nunca se monte el API.
+      # Pages es de subida directa, asi que el sitio se publica desde aqui. Sin el token
+      # configurado este paso se salta y el repositorio queda actualizado igual.
+      - name: Desplegar el sitio en Pages
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@4 pages deploy web --project-name=dineropublicopr --branch=main --commit-dirty=true
+
+      # El API consultable corre sobre D1, que no se actualiza con el despliegue del sitio.
+      # Tambien se salta si no hay token.
       - name: Refrescar la base D1
-        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        if: env.CLOUDFLARE_API_TOKEN != ''
         run: |
-          npm install -g wrangler
           # Se recrea desde cero: es mas simple y seguro que calcular diferencias, y la
           # base entera son ~100 MB.
-          sqlite3 data/out/contratos.sqlite .dump > /tmp/contratos.sql
-          wrangler d1 execute dineropublicopr --remote \
+          npx --yes wrangler@4 d1 execute dineropublicopr --remote --yes \
             --command "DROP TABLE IF EXISTS contracts; DROP TABLE IF EXISTS contractors; DROP TABLE IF EXISTS entities; DROP TABLE IF EXISTS meta;"
-          wrangler d1 execute dineropublicopr --remote --file=/tmp/contratos.sql
+
+          # D1 rechaza BEGIN TRANSACTION, COMMIT y PRAGMA, que es justo lo que mete
+          # `sqlite3 .dump`. Hay que quitar esas tres lineas o la importacion falla.
+          sqlite3 data/out/contratos.sqlite .dump \
+            | grep -v -e '^PRAGMA foreign_keys=OFF;$' -e '^BEGIN TRANSACTION;$' -e '^COMMIT;$' \
+            > /tmp/contratos_d1.sql
+
+          npx --yes wrangler@4 d1 import dineropublicopr --remote --file=/tmp/contratos_d1.sql
