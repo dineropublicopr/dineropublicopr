@@ -1,0 +1,87 @@
+name: Actualizar datos
+
+# Domingos a las 23:00 UTC (7:00 PM en Puerto Rico). El portal de la Contralora recibe
+# registros nuevos durante toda la semana, incluyendo contratos con fecha retroactiva, asi
+# que el pipeline refresca los dos anos fiscales mas recientes en cada corrida.
+on:
+  schedule:
+    - cron: "0 23 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: actualizar-datos
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    # La ingesta se autolimita a una peticion cada 1.5s por respeto al servidor publico,
+    # asi que una corrida completa toma su tiempo.
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Los JSONL crudos no van al repositorio (son cientos de MB), asi que se cachean
+      # entre corridas. Sin esto, cada semana volveria a bajar cuatro anos completos.
+      - name: Restaurar cache de datos crudos
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: contratos-raw-${{ github.run_id }}
+          restore-keys: |
+            contratos-raw-
+
+      - name: Correr el pipeline
+        run: python3 pipeline/run.py
+
+      - name: Verificar que hay datos
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys
+          resumen = pathlib.Path("web/datos/resumen.json")
+          if not resumen.exists():
+              sys.exit("no se genero resumen.json")
+          data = json.loads(resumen.read_text(encoding="utf-8"))
+          if (data.get("contratos") or 0) < 50_000:
+              sys.exit(f"muy pocos contratos: {data.get('contratos')}")
+          print(f"ok: {data['contratos']:,} contratos")
+          PY
+
+      # Cloudflare Pages esta conectado al repositorio y publica solo al detectar el push,
+      # asi que aqui basta con dejar los datos nuevos en main.
+      - name: Publicar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web/datos web/descargas
+          if git diff --staged --quiet; then
+            echo "sin cambios"
+          else
+            git commit -m "Actualizacion automatica de datos: $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      # El API consultable corre sobre D1, que no se actualiza con el push. Este paso solo
+      # se ejecuta si los secretos estan configurados, para que el resto del flujo funcione
+      # aunque nunca se monte el API.
+      - name: Refrescar la base D1
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npm install -g wrangler
+          # Se recrea desde cero: es mas simple y seguro que calcular diferencias, y la
+          # base entera son ~100 MB.
+          sqlite3 data/out/contratos.sqlite .dump > /tmp/contratos.sql
+          wrangler d1 execute dineropublicopr --remote \
+            --command "DROP TABLE IF EXISTS contracts; DROP TABLE IF EXISTS contractors; DROP TABLE IF EXISTS entities; DROP TABLE IF EXISTS meta;"
+          wrangler d1 execute dineropublicopr --remote --file=/tmp/contratos.sql

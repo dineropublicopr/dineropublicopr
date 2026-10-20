@@ -1,0 +1,2541 @@
+{
+  "entities": [
+    {
+      "Id": "24d05b23-3c1b-4a3e-b9fd-4e14bb924def",
+      "Code": 400,
+      "Name": "Oficina de la Contralora del Gobierno de Puerto Rico",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "ca12373d-c15a-41ca-820f-7db4b870a41a",
+      "Code": 1000,
+      "Name": "Departamento de Agricultura",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2aa7c111-6ad7-47ab-b7e4-2e81cd3826a0",
+      "Code": 1010,
+      "Name": "Administración de Fomento Comercial",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e2e3766e-bee7-4d57-989f-afc678c8b3bf",
+      "Code": 1020,
+      "Name": "Departamento de Estado",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "60c34210-54f5-4fdd-bcf2-b04654c15ec3",
+      "Code": 1031,
+      "Name": "Departamento de Hacienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f20345f2-c5a6-4b43-82bc-2d26f5057888",
+      "Code": 1201,
+      "Name": "Departamento de Educación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7cc1f580-353f-412d-a284-938ae80686ef",
+      "Code": 1201,
+      "Name": "Departamento de Educación",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "af560249-02cf-4bfc-a327-cacd50abe4b7",
+      "Code": 1227,
+      "Name": "Consejo General de Educación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "83fc715b-8ccb-4e8f-9e58-c61310e20074",
+      "Code": 1228,
+      "Name": "Oficina para el Mejoramiento de las Escuelas Públicas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7425e089-a3b3-47e7-88e0-f247de3d5302",
+      "Code": 1300,
+      "Name": "Departamento de la Vivienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7e8e5bc9-a4c7-4427-88bf-8f5d42b776cc",
+      "Code": 1301,
+      "Name": "Administración de Desarrollo y Mejoras de Vivienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "49499b31-ee2a-4e97-af74-498351a8b1f0",
+      "Code": 1302,
+      "Name": "Administración de Vivienda Pública",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "52440db2-eb34-407c-9862-6d88ffe8370f",
+      "Code": 1401,
+      "Name": "Administración de la Industria y el Deporte Hípico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1d7e4e53-82d9-455e-926d-c9bb327c70fc",
+      "Code": 1402,
+      "Name": "Administración de Fomento Cooperativo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "27635993-f39d-4fb1-b2f8-c426329cee96",
+      "Code": 1404,
+      "Name": "Administración de los Sistemas de Retiro de los Empleados del Gobierno y la Judicatura",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f6112670-4679-48e6-bc97-5b151e810a23",
+      "Code": 1405,
+      "Name": "Departamento de Recreación y Deportes",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e3150a39-552a-4b1e-86eb-a55038df7adf",
+      "Code": 1406,
+      "Name": "Oficina de Gerencia de Permisos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0ca2bcfe-e2f2-41bb-b5fc-599c0f1141ae",
+      "Code": 1406,
+      "Name": "Administración de Reglamentos y Permisos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e806cf13-0306-4a1b-bf8c-b2941c872780",
+      "Code": 1407,
+      "Name": "Oficina del Comisionado de Asuntos Municipales del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c2eea185-958f-4dee-b615-95a02b0df738",
+      "Code": 1408,
+      "Name": "Agencia Estatal para el Manejo de Emergencias y Administración de Desastres de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3dcdab24-5ef8-490e-a68d-0bad3de7b07b",
+      "Code": 1408,
+      "Name": "Negociado para el Manejo de Emergencias y Administración de Desastres",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "dbbfe62f-66f9-42d1-a0b7-845d6d9db42c",
+      "Code": 1410,
+      "Name": "Comisión Estatal de Elecciones",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f3c93618-8519-4351-b99e-11618751e0eb",
+      "Code": 1411,
+      "Name": "Comisión Industrial de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3ed8bd4b-8eb9-48e1-a112-2d9ea684bd2b",
+      "Code": 1413,
+      "Name": "Oficina de la Procuradora de las Mujeres",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1f0a1e5a-65b6-46f0-b413-18cb4205592b",
+      "Code": 1413,
+      "Name": "Comisión para los Asuntos de la Mujer",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "86525912-ea23-4364-9810-0f6dce6a1f0e",
+      "Code": 1414,
+      "Name": "Comisión para Ventilar Querellas Municipales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "31c48d28-1bb7-404e-81c3-354b5b343a9c",
+      "Code": 1422,
+      "Name": "Guardia Nacional de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1f0c3944-550c-48b4-807e-5d80c07ab827",
+      "Code": 1423,
+      "Name": "Fideicomiso Institucional de la Guardia Nacional de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7b425383-171d-41ab-9416-6998059a2cff",
+      "Code": 1425,
+      "Name": "Junta de Apelaciones del Sistema de Administración de Personal",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "fa3c1aed-f38d-4ced-979e-320e5a9457c2",
+      "Code": 1426,
+      "Name": "Junta Revisora de Permisos y Usos de Terrenos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "53acf5cf-6546-4f7a-baa4-8926ffdab23b",
+      "Code": 1426,
+      "Name": "Junta de Apelaciones sobre Construcciones y Lotificaciones",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a6836b60-6ce6-44cd-b86c-19b6c5dc3156",
+      "Code": 1427,
+      "Name": "Junta de Planificación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e562f147-532e-4ded-8de6-230f9a7c2f97",
+      "Code": 1428,
+      "Name": "Junta de Relaciones del Trabajo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c693f9f0-828f-419f-ba91-db6427f7d4f4",
+      "Code": 1430,
+      "Name": "Oficina de Gerencia y Presupuesto",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "cf7d2efb-6e90-4b59-8279-6e4b18856e0a",
+      "Code": 1431,
+      "Name": "Oficina de Administración y Transformación de los Recursos Humanos del Gobierno de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9969395c-d6da-4b61-b50d-23ae2118e66b",
+      "Code": 1431,
+      "Name": "Oficina Central de Asesoramiento Laboral y Administración de Recursos Humanos (OCALARH)\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f5204640-67b5-4ba8-8456-520a3ae95ed2",
+      "Code": 1431,
+      "Name": "Oficina de Capacitación y Asesoramiento en Asuntos Laborales y de Administración de Recursos Humanos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "972195d3-57ec-4187-9d4f-68a8dddc72fa",
+      "Code": 1432,
+      "Name": "Comisión Apelativa del Sistema de Administración de Recursos Humanos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d3a3adfb-7491-45dc-87aa-1b47809f5e0f",
+      "Code": 1433,
+      "Name": "Oficina de Energía de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "eeefa8e1-e45e-4479-8f68-9db4c90e338e",
+      "Code": 1433,
+      "Name": "Administración de Asuntos  Energéticos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9e500cf4-a069-437a-8bda-cb6298151482",
+      "Code": 1434,
+      "Name": "Oficina de Exención Contributiva Industrial",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7bd05f70-4003-4f86-b002-19cf6027b46b",
+      "Code": 1435,
+      "Name": "Oficina de Oportunidad Económica",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "643063a8-d61c-43a8-ad06-f08a32677a89",
+      "Code": 1436,
+      "Name": "Oficina del Comisionado de Seguros del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3fa39844-8f9f-4805-bf0b-64327176a5c3",
+      "Code": 1437,
+      "Name": "Oficina del Gobernador",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a7f60a20-a615-47fb-9950-3235e3d87132",
+      "Code": 1438,
+      "Name": "Oficina del Inspector de Cooperativas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a791f814-3993-45db-80a9-5404bd7822c7",
+      "Code": 1440,
+      "Name": "Policía de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4c3099f2-0fb8-4340-acb0-3d5bc4306cf6",
+      "Code": 1440,
+      "Name": "Negociado de la Policía de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ad303150-5179-4eec-8889-dd8e6edf656c",
+      "Code": 1440,
+      "Name": "Policía de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2b25cf6e-daed-403a-bd10-91a4eeea04f2",
+      "Code": 1441,
+      "Name": "Colegio Universitario de Justicia Criminal de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f9055a6b-f53e-4bba-8216-de2957617fd4",
+      "Code": 1445,
+      "Name": "Cuerpo de Bomberos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9ef697ac-05bb-46b6-afce-d395ff19aa10",
+      "Code": 1445,
+      "Name": "Negociado del Cuerpo de Bomberos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bae03e64-3d67-43f9-9afb-b5058a6ae21e",
+      "Code": 1448,
+      "Name": "Oficina de Asuntos Laborales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3af27087-e633-429a-a740-4097849984f8",
+      "Code": 1452,
+      "Name": "Oficina de Ética Gubernamental",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7f2915c7-b2db-451a-a183-668fdbfd1620",
+      "Code": 1452,
+      "Name": "Oficina de Ética Gubernamental de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "669a42f8-f9e5-4973-829a-db409df879e5",
+      "Code": 1453,
+      "Name": "Oficina del Comisionado de Instituciones Financieras",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "75ab623c-fabf-4e75-8e4a-0651f57c6eb4",
+      "Code": 1454,
+      "Name": "Oficina del Procurador de Personas con Impedimentos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f2400a8d-24da-4780-9a2f-f4935b9330ec",
+      "Code": 1454,
+      "Name": "Oficina del Procurador de las Personas con Impedimentos del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0e3a7271-cd63-4b70-8aad-487eb22ccd31",
+      "Code": 1457,
+      "Name": "Comisión Especial Permanente sobre los Sistemas de Retiro del Servicio Público",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ca5af450-afff-456a-a65b-0ec0b68f9efa",
+      "Code": 1458,
+      "Name": "Oficina de Asuntos de la Juventud",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c0698308-92dc-474b-ab28-477f02c67cd6",
+      "Code": 1459,
+      "Name": "Oficina del Procurador(a) de las Personas de Edad Avanzada",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d2f61afd-00ad-4f13-8267-6fcde99f8c33",
+      "Code": 1459,
+      "Name": "Oficina del Procurador de las Personas de Edad Avanzada del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4e5f82f7-8c52-44b3-bee6-9581526a71da",
+      "Code": 1459,
+      "Name": "Oficina del Procurador de Personas Pensionadas y de la Tercera Edad",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d9073acb-1ef7-4620-8061-d68d3ec20687",
+      "Code": 1459,
+      "Name": "Oficina para los Asuntos de la Vejez",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4768a890-e2c2-4579-9409-b1b09169fbc1",
+      "Code": 1463,
+      "Name": "Junta de Calidad Ambiental",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6004cf38-91ea-4777-a75a-5ced8aa4635d",
+      "Code": 1464,
+      "Name": "Centro de Recaudación de Ingresos Municipales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6257be8f-3226-4977-91dc-62d7820aced6",
+      "Code": 1465,
+      "Name": "Oficina Estatal de Conservación Histórica",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a5d1b0c4-2a30-4621-9428-1fd0497a0777",
+      "Code": 1467,
+      "Name": "Consejo de Desarrollo Ocupacional y Recursos Humanos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e998e3c1-ac66-49e0-9990-8f3493d74772",
+      "Code": 1468,
+      "Name": "Comisión de Investigación, Procesamiento y Apelación",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d552390d-6352-487a-939a-6bb3a1d23f10",
+      "Code": 1470,
+      "Name": "Puerto Rico Innovation and Technology Service (PRITS)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "591dd99f-5a03-47e1-839c-bffe29d1e355",
+      "Code": 1470,
+      "Name": "Oficina del Principal Ejecutivo del Información del Gobierno de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "10cae9ae-6569-4681-b2b7-25646c94a704",
+      "Code": 1513,
+      "Name": "Oficina Central de Comunicaciones",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d430f73d-2445-46f8-a7c4-7f1e5f097dec",
+      "Code": 1516,
+      "Name": "Oficina del Procurador de Veteranos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0fd556f7-9424-4a5d-9f87-3f7bdda085db",
+      "Code": 1516,
+      "Name": "Oficina del Procurador del Veterano del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "70659740-ee8d-4463-82f9-08c23178ea13",
+      "Code": 1516,
+      "Name": "Oficina del Procurador de  los Veteranos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "11a64c1b-95db-4630-80fe-7d49f10bebf4",
+      "Code": 1521,
+      "Name": "Negociado del Cuerpo de Emergencias Médicas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f8a524fd-87ec-4bf4-b506-109b16ed0ab7",
+      "Code": 1521,
+      "Name": "Cuerpo de Emergencias Médicas del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "99974c67-d23b-4589-adca-31ea8d7037c1",
+      "Code": 1523,
+      "Name": "Oficina del Comisionado Especial para Vieques",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "8174aedc-5391-4842-9490-bded92a48bc2",
+      "Code": 1524,
+      "Name": "Oficina del Coordinador General para el Financiamiento Socio-Económico y la Autogestión",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "5155b1d6-3d76-4a78-b931-5ac23e088d73",
+      "Code": 1524,
+      "Name": "Oficina para el Desarrollo Socioeconómico y Comunitario de Puerto Rico (ODSEC)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "b8ddeb16-7c9c-45e2-a847-13334cdc8214",
+      "Code": 1525,
+      "Name": "Oficina del Control de Drogas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6020bd80-a58e-4d00-af44-3e93b83534de",
+      "Code": 1526,
+      "Name": "Oficina para Asuntos de Seguridad Pública",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c35737d8-b655-4739-a297-e4415272a7a0",
+      "Code": 1527,
+      "Name": "Instituto de Estadísticas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a5084c02-db6b-437d-a231-180b0ad54728",
+      "Code": 1528,
+      "Name": "Comisión de Desarrollo Cooperativo de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "84361740-31d7-4bcb-be81-0099fcccbd25",
+      "Code": 1529,
+      "Name": "Oficina del Inspector General de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7aa5cb09-57cc-4a1d-b010-5ae85581c7ea",
+      "Code": 1529,
+      "Name": "Oficina del Inspector General del Gobierno de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bd6a8ffa-6277-4fe1-91e3-44c8cbd2d4c0",
+      "Code": 1530,
+      "Name": "Oficina del Inspector General de Permisos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "414c93d9-8ba0-40dc-a6a9-6b43da48fdd6",
+      "Code": 1531,
+      "Name": "Comisión Apelativa del Servicio Público",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bd7d6ad8-91a8-4e68-86d0-cb80c0529abc",
+      "Code": 1532,
+      "Name": "Administración para el Desarrollo de Empresas Agropecuarias",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e097afae-ddf2-4f1a-a785-823e01e3a79d",
+      "Code": 1533,
+      "Name": "Oficina de Gerencia de Permisos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "256c9631-5d6b-4132-8b43-e7787791bbaf",
+      "Code": 1534,
+      "Name": "Junta Revisora de Permisos y Uso de Terrenos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9ae5e7eb-c0f6-44bb-b1e9-109863d0fa07",
+      "Code": 1535,
+      "Name": "Oficina de Administración de las Procuradurías",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e9597fd3-9c0d-4b55-b9f6-73e683ebf22b",
+      "Code": 1537,
+      "Name": "Oficina del Contralor Electoral",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "023cee27-febd-43ea-b7b8-7e77593a66e5",
+      "Code": 1539,
+      "Name": "Programa de Parques Nacionales de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e24592a9-d059-4ba5-b554-352adc9a0907",
+      "Code": 1540,
+      "Name": "Oficina Estatal de Política Pública Energética (OEPPE)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1abb7f34-6fe8-4f57-a45b-3a9a931ec8f0",
+      "Code": 1541,
+      "Name": "Administración de Energía de Puerto Rico (AEPR)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "cbabfea0-6a47-4daa-9ccb-ac4f593b8aed",
+      "Code": 1542,
+      "Name": "Negociado de Energía de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4ef33191-4e12-41ad-807f-c585189df97a",
+      "Code": 1542,
+      "Name": "Comisión de Energía",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "de3cd298-5532-4fa5-a0fa-51274ffa3971",
+      "Code": 1543,
+      "Name": "Oficina Independiente de Protección al Consumidor (OIPC)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c5567421-2932-441f-a8e2-504f41c574ca",
+      "Code": 1545,
+      "Name": "Defensoría de las Personas con Impedimentos del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a0731ef8-321a-42c1-ae17-9ecaae924cb2",
+      "Code": 1547,
+      "Name": "Junta de Supervisión y Administración Financiera para Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a90704ab-8960-4267-9503-862d284c5db2",
+      "Code": 1548,
+      "Name": "Comisión para la Auditoría Integral del Crédito Público",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "658d070b-a344-4470-8267-a5052959930c",
+      "Code": 1549,
+      "Name": "Oficina de Protección y Defensa de Personas con Impedimentos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "49d01544-1beb-42e3-9c97-9b4db9a069be",
+      "Code": 1551,
+      "Name": "Departamento de Seguridad Pública de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "97733e25-61e2-4a1d-a061-0d01a6a9b6b4",
+      "Code": 1552,
+      "Name": "Junta de Retiro del Gobierno de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4633ee45-5f06-427b-99e6-165962fc02d2",
+      "Code": 1553,
+      "Name": "Comisión de Juegos del Gobierno de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a03183d8-9822-43d9-8de4-68a7cd1ad55e",
+      "Code": 1554,
+      "Name": "Commonwealth Plan Adjustment Pension Reserve Trust",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "61f8ba31-d4be-42fb-9541-5cbe46c4301f",
+      "Code": 1556,
+      "Name": "Commonwealth Plan of Adjustment Pension Benefits Council Corp.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "8ca680d8-78ba-4e77-a0c7-5d9e66a1ea36",
+      "Code": 2000,
+      "Name": "Cámara de Representantes",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "bab62ff1-8f67-4241-a44e-6f1092d25817",
+      "Code": 2001,
+      "Name": "Comisión Conjunta sobre Informes Especiales del Contralor",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "412b0557-2f73-4fd0-87bb-21fa44ca315f",
+      "Code": 2002,
+      "Name": "Comisión Conjuta sobre Donativos Legislativos",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "dca56910-fafc-4760-a137-123d922f472f",
+      "Code": 2002,
+      "Name": "Comisión Especial Conjunta De Fondos Legislativos Para Impacto Comunitario",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "6a551fbb-fdd5-4171-b34c-480bde31e0f0",
+      "Code": 2003,
+      "Name": "Comisión Conjunta Permanente para la Revisión y Reforma del Código Civil",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "eb877216-c5f1-462b-b57f-ae4cd39fafa5",
+      "Code": 2004,
+      "Name": "Oficina de Servicios Legislativos de la Asamblea Legislativa de Puerto Rico",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "6955d298-1b17-402e-8f90-64ecc8017b9f",
+      "Code": 2005,
+      "Name": "Superintendencia del Capitolio Estatal de la Asamblea Legislativa de Puerto Rico",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "30df0442-f409-49e7-bb12-15060d76eca1",
+      "Code": 2006,
+      "Name": "Senado de Puerto Rico",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "b813e5da-8343-48f2-add4-7255a10969e0",
+      "Code": 2009,
+      "Name": "Oficina de Presupuesto de la Asamblea Legislativa",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "e76aab1b-bf4e-43a5-83b7-b528645a1171",
+      "Code": 2099,
+      "Name": "Departamento de Corrección y Rehabilitación",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "79e9298b-657f-4141-b94a-842e6fb14aff",
+      "Code": 2100,
+      "Name": "Administración de Corrección",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "96648fe4-cac3-40d8-a856-a28afc7819e4",
+      "Code": 2129,
+      "Name": "Administración de Seguros de Salud de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2cd5e0c4-c9ce-4184-b229-b7c5849d5df2",
+      "Code": 2152,
+      "Name": "Registro General Demográfico de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9aa40cdc-90ff-4976-8a8e-81dadb733e92",
+      "Code": 2153,
+      "Name": "Junta de Licenciamiento y Disciplina Médica",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3c77bd05-b7c5-441c-bdd7-1f06043f98fe",
+      "Code": 2153,
+      "Name": "Tribunal Examinador de Médicos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a73e225b-115b-46c2-9c2b-ae3cf2540025",
+      "Code": 2155,
+      "Name": "Administración de Fomento Económico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "8c209dcd-d18e-4f01-bf56-1a588a31139b",
+      "Code": 2156,
+      "Name": "Commonwealth of Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "110aa8e7-b1a9-4f42-844d-d7340931bc44",
+      "Code": 2160,
+      "Name": "Administración de Servicios Médicos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "58a77ca0-b2da-45a9-ba95-df4901ded710",
+      "Code": 2166,
+      "Name": "Administración de Servicios Generales de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "cb97a8f6-a9c1-4bf2-bf71-245e0265c829",
+      "Code": 2166,
+      "Name": "Admininistración de Servicios Generales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "07e9d2eb-f929-48d7-bb6f-bfbb5bef00f6",
+      "Code": 2178,
+      "Name": "Autoridad de Conservación y Desarrollo de Culebra",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a27fd8ac-048f-4ec9-bb70-a026450eb044",
+      "Code": 2180,
+      "Name": "Comisión de Derechos Civiles",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "18578c64-ee92-45f8-8359-ea44e4b96bf0",
+      "Code": 2181,
+      "Name": "Comisión de Seguridad en el Tránsito",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "05e43c63-42cf-46bc-881e-6ede2bea86e6",
+      "Code": 2182,
+      "Name": "Comisión de Investigación, Procesamiento y Apelación",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "88cb5c88-917f-4b08-9585-49e25df444ff",
+      "Code": 2184,
+      "Name": "Negociado de Transporte y otros Servicios Públicos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4979c7b3-afaf-4267-b40b-970769a7ca3f",
+      "Code": 2184,
+      "Name": "Comisión de Servicio Público de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d60716e3-f7dd-4676-b733-c2569538cdae",
+      "Code": 2188,
+      "Name": "Corporación de Empresas de Adiestramiento y Trabajo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "dd753532-074f-4587-a619-b0e8afac15e1",
+      "Code": 2191,
+      "Name": "Corporación del Centro Cardiovascular de Puerto Rico y el Caribe",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "aef9b31a-c0c6-4a32-b279-90e2d86f1a85",
+      "Code": 2196,
+      "Name": "Departamento de Asuntos del Consumidor",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bbd22531-fcc5-468a-b3d7-41ef61b172cb",
+      "Code": 2199,
+      "Name": "Oficina del Panel sobre el Fiscal Especial Independiente",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "97e559d3-dc95-4b33-ac45-9d976abc5368",
+      "Code": 2200,
+      "Name": "Departamento de Justicia",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "9c141362-f675-433c-8a31-bd2511d28e39",
+      "Code": 2230,
+      "Name": "Departamento de Recursos Naturales y Ambientales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d581218c-59ec-413b-82f2-aaba2ca4f223",
+      "Code": 2235,
+      "Name": "Departamento de Salud",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "23fa4364-a3e7-47c2-b72e-d15ebd763a7d",
+      "Code": 2245,
+      "Name": "Administración de Servicios de Salud Mental y Contra la Adicción",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "8f4ff774-40d0-4779-92a2-008675bf7fac",
+      "Code": 2246,
+      "Name": "Oficina del Procurador del Paciente del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3f0f396c-4487-4bf0-b6d6-7395353c7160",
+      "Code": 2246,
+      "Name": "Oficina del Procurador del Paciente",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0955aca6-b686-4ac6-8665-cc7088438369",
+      "Code": 2246,
+      "Name": "Oficina del Procurador de la Salud",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "46b38248-ebb8-4558-b905-dc5bdd51184d",
+      "Code": 2250,
+      "Name": "Departamento de la Familia",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "b402256f-9b67-4423-9da0-9968e9b2ba60",
+      "Code": 2251,
+      "Name": "Administración para el Cuidado y Desarrollo Integral de la Niñez",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4b9677ae-4355-4ff6-8ab0-c2e095f70a67",
+      "Code": 2252,
+      "Name": "Administración de Desarrollo Socioeconómico de la Familia",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "64aa8470-9714-4ee9-b5a9-e36d10214b80",
+      "Code": 2253,
+      "Name": "Administración para el Sustento de Menores",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "039a1fa6-ff8e-4456-9a28-bd2a70d37abb",
+      "Code": 2254,
+      "Name": "Administración de Rehabilitación Vocacional",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ff39dced-6567-4119-8fce-9deb9e8bc53f",
+      "Code": 2256,
+      "Name": "Administración de Familias y Niños",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "5a946895-17e5-42f0-9c78-efc5c6372e14",
+      "Code": 2257,
+      "Name": "Administración de Instituciones Juveniles",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7a9fc2db-c2cc-47cd-9b7a-677194049e4d",
+      "Code": 2265,
+      "Name": "Departamento del Trabajo y Recursos Humanos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d44ec9c9-e850-42af-84d7-e94b72854d59",
+      "Code": 2266,
+      "Name": "Administración para el Adiestramiento de Futuros Empresarios y Trabajadores",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "90799feb-26ef-4979-88ec-7bd8ba4854b3",
+      "Code": 2267,
+      "Name": "Consejo de Desarrollo Ocupacional y Recursos Humanos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "075bfd64-a450-4ec6-b53b-a734f3270211",
+      "Code": 2267,
+      "Name": "Administración de Desarrollo Laboral",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1696f040-3af5-437e-a9a2-6cfd94e30c99",
+      "Code": 2280,
+      "Name": "Departamento de Transportación y Obras Públicas",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "06126be0-ad4f-42ba-a6d8-0b525283d5cd",
+      "Code": 2291,
+      "Name": "Oficina del Procurador del Ciudadano",
+      "GroupName": "Rama Legislativa"
+    },
+    {
+      "Id": "c5460e01-c667-46c0-99aa-41bd195caf78",
+      "Code": 2292,
+      "Name": "Administración de Asuntos Federales de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "83aee40c-3cbd-490a-96a6-1f1dbed0e62d",
+      "Code": 2294,
+      "Name": "Negociado de Ciencias Forenses",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1d41c9e2-7315-4a11-a45c-fd003b1e58c3",
+      "Code": 2294,
+      "Name": "Instituto de Ciencias Forenses",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "8dc5ef17-f26f-4308-9ace-8985a8b5bf90",
+      "Code": 2294,
+      "Name": "Instituto de Ciencias Forenses de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e478aa04-c6bc-4503-a60d-a1e4fc5f065c",
+      "Code": 2297,
+      "Name": "Junta de Libertad Bajo Palabra",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7c9d56da-6536-4ef4-9e52-eb8bb82da082",
+      "Code": 2299,
+      "Name": "Oficina de Servicios con Antelación al Juicio",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "edf8355f-7acb-4754-93e8-4af49ddf8fe4",
+      "Code": 2300,
+      "Name": "Oficina de Administración de los Tribunales",
+      "GroupName": "Rama Judicial"
+    },
+    {
+      "Id": "590586f0-a73b-4352-85f5-59c66acf8867",
+      "Code": 2301,
+      "Name": "Tribunal Supremo de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "5dcdd1aa-0eb4-4c3d-a9c8-68e7a7d3af64",
+      "Code": 2392,
+      "Name": "Junta Constitucional de Revisión de Distritos Electorales, Senatoriales y Representativos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c06a9c77-2a29-4404-b0ff-e2a1e8e7e6c3",
+      "Code": 2500,
+      "Name": "Comisión de Relaciones del Trabajo del Servicio Público de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4045f016-06a4-4700-88c3-1a72a521af51",
+      "Code": 3000,
+      "Name": "Autoridad de Tierras de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2848181e-eab2-4742-805f-eeb21da26f5c",
+      "Code": 3002,
+      "Name": "Fondo de Innovación para el Desarrollo Agrícola de Puerto Rico (FIDA)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "64a69050-a6f1-4c34-827a-6ce995ed9919",
+      "Code": 3005,
+      "Name": "Corporación Azucarera de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "54ab12bf-1f71-4080-bca0-ea463825cd6c",
+      "Code": 3020,
+      "Name": "Autoridad de Acueductos y Alcantarillados de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4473a51f-d6ff-46be-a878-affdf2a58741",
+      "Code": 3025,
+      "Name": "Corporación de Comunicaciones de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "481aee9b-8324-4105-a7cc-c41885aff505",
+      "Code": 3030,
+      "Name": "Autoridad de Teléfonos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "af583598-3eef-4203-ab07-8cd89c35cfe3",
+      "Code": 3031,
+      "Name": "Corporación de Puerto Rico para la Difusión Pública",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d8f2844b-8189-4d74-8b63-508b5a7c37d8",
+      "Code": 3032,
+      "Name": "Negociado de Telecomunicaciones de Puerto Rico (NET)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ec4dd667-165e-4ef9-8d8a-b48353779eeb",
+      "Code": 3032,
+      "Name": "Junta Reglamentadora de Telecomunicaciones de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "692dbaf5-1f80-4b18-aa1e-b7da1e95cf41",
+      "Code": 3033,
+      "Name": "Comisión de Puerto Rico para El Nuevo Milenio",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "aa29ceb8-e203-4ea4-aa4a-d479077d0cbf",
+      "Code": 3035,
+      "Name": "Compañía de Parques Nacionales de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "46553214-5160-4acb-93ab-6ae835091f66",
+      "Code": 3035,
+      "Name": "Compañía de Fomento Recreativo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f1484432-1034-4eaa-90a6-b85b503ee96c",
+      "Code": 3036,
+      "Name": "Fideicomiso para el Desarrollo Conservación y Operación de los Parques Nacionales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6b6dcda9-5b6a-4c7b-8f4f-377d3861d2dd",
+      "Code": 3040,
+      "Name": "Autoridad de Desperdicios Sólidos en Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "971b55d0-f25e-4577-9f9c-b59b8e512c4d",
+      "Code": 3045,
+      "Name": "Administración de Terrenos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2c8f9212-5ed5-43cd-b903-38fefa72395a",
+      "Code": 3049,
+      "Name": "University of Puerto Rico Parking System, Inc.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bbc9e84a-3780-4dca-a0ec-e23e5e40bb3e",
+      "Code": 3050,
+      "Name": "Consejo de Educación Superior",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ab831c3f-06bb-4083-a88d-30ca3475caba",
+      "Code": 3050,
+      "Name": "Consejo de Educación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2b1b39ec-f02b-414d-bfd7-f441ae9dd16c",
+      "Code": 3051,
+      "Name": "Recinto de Río Piedras de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "096fd048-4874-43d9-9f92-270afa423fb5",
+      "Code": 3052,
+      "Name": "Recinto Universitario de Mayagüez de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "086ccc16-6809-46eb-a50a-2ebb8de055ba",
+      "Code": 3053,
+      "Name": "Recinto de Ciencias Médicas de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7749c276-1d76-4bc3-bb47-fd15a94f7af2",
+      "Code": 3054,
+      "Name": "Sistema de Retiro de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6a616df7-3a7d-4bfa-97eb-179049b92d0c",
+      "Code": 3055,
+      "Name": "Estación Experimental Agrícola",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "95d594ce-bd9b-401f-b18e-c440f2258f77",
+      "Code": 3056,
+      "Name": "Servicio de Extensión Agrícola",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "cbaf825e-2742-40ce-93fd-08f9baaa590f",
+      "Code": 3057,
+      "Name": "Universidad de Puerto Rico en Cayey",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a56a6448-933e-47a7-968f-294e42c1d08b",
+      "Code": 3058,
+      "Name": "Universidad de Puerto Rico en Humacao",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "48deef07-3440-4d60-991b-267159987b60",
+      "Code": 3059,
+      "Name": "Administración de Colegios Regionales - U.P.R",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3987e86e-b03e-4404-9c09-b6e696253452",
+      "Code": 3060,
+      "Name": "Universidad de Puerto Rico en Aguadilla",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "cefb97f7-6525-46c8-9dde-8894f8f5c941",
+      "Code": 3061,
+      "Name": "Universidad de Puerto Rico en Arecibo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "37543907-17cc-45da-a1ba-dd0d4cbe58a5",
+      "Code": 3062,
+      "Name": "Universidad de Puerto Rico en Bayamón",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2ad215ea-05cc-452a-afe4-f3c8798b8a90",
+      "Code": 3063,
+      "Name": "Universidad de Puerto Rico en Ponce",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "84d3a84a-f28f-4b2b-852a-0655404ffb48",
+      "Code": 3064,
+      "Name": "Universidad de Puerto Rico en Carolina",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4864705e-333b-41aa-85c0-50aba944edd0",
+      "Code": 3065,
+      "Name": "Junta de Síndicos de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "70a48e28-b100-4ac2-b8df-d0e6a52905f4",
+      "Code": 3066,
+      "Name": "Centro de Estudios Especializados en Gerencia del Gobierno",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e75b63be-6539-4d0a-a9ff-b78bc414c992",
+      "Code": 3067,
+      "Name": "Universidad de Puerto Rico Administración Central",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0f287e3f-f0aa-4885-a4f7-cbd5539f3ced",
+      "Code": 3068,
+      "Name": "Universidad de Puerto Rico en Utuado",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "b0843de9-a400-4b4e-8398-ad75ed74194e",
+      "Code": 3069,
+      "Name": "Junta de Gobierno de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "32c0d2c8-b81d-4156-9e46-0bc68c682d7a",
+      "Code": 3070,
+      "Name": "Servicios Médicos Universitarios, Inc.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7e3ae25c-ae0a-44eb-a7e1-223df8256bea",
+      "Code": 3072,
+      "Name": "Centro de Cáncer de la Universidad de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "b73c6ed1-a733-484f-8069-3ff3c0e3c2a9",
+      "Code": 3074,
+      "Name": "Centro Interamericano para la Administración de Justicia y Política Pública",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4cb2340d-7b4b-479c-acaf-2642b8af7b24",
+      "Code": 3075,
+      "Name": "Autoridad de Energía Eléctrica de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "54102be5-3ea8-4aa1-9449-0b1614b18632",
+      "Code": 3076,
+      "Name": "Sistema de Retiro de los Empleados de la Autoridad de Energía Eléctrica",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "3c81cec0-da66-4361-99fe-d441379eaa0e",
+      "Code": 3077,
+      "Name": "PREPA Networks Corp.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f284bee5-d631-4d96-b172-d7956d2a391d",
+      "Code": 3080,
+      "Name": "Administración de Compensaciones por Accidentes de Automóviles",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "103f02cf-db9a-4561-a19e-60ad2792eb07",
+      "Code": 3085,
+      "Name": "Banco Gubernamental de Fomento para Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "b3f67a75-92d9-45b6-99f7-3b071978fc75",
+      "Code": 3086,
+      "Name": "Autoridad de Puerto Rico para el Financiamiento de Facilidades Industriales, Turísticas, Educativas, Médicas y de Control Ambiental",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "fdab3f21-9dea-4aab-be28-c658052b73a4",
+      "Code": 3087,
+      "Name": "Agencia de Financiamiento Municipal de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a116c938-1c79-4449-b6cd-fb3c5c550c53",
+      "Code": 3088,
+      "Name": "Banco de Desarrollo Económico para Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ec9fe1c2-54d4-4e49-a1dc-d077118551bc",
+      "Code": 3089,
+      "Name": "Corporación para el Desarrollo de las Exportaciones de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "24526c62-59b6-486d-91c2-e7b4ac22f4d7",
+      "Code": 3090,
+      "Name": "Autoridad para el Financiamiento de la Infraestructura de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "68dafcdd-ea04-479a-a433-740bee4c5b67",
+      "Code": 3095,
+      "Name": "Autoridad de Navieras de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d74bef3e-9aeb-47ac-b5f5-a9056c1c5160",
+      "Code": 3098,
+      "Name": "Fideicomiso de los Niños",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c2bfb0cb-2b8c-4c2d-9034-05c825ca502c",
+      "Code": 3099,
+      "Name": "Compañía de Comercio y Exportación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "329dd237-f42c-4b8d-bfa3-8a627df705ef",
+      "Code": 3100,
+      "Name": "Administración de Servicios y Desarrollo Agropecuario",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "da3c2e52-0532-47f5-8657-faa3c9b48532",
+      "Code": 3102,
+      "Name": "Corporación Para El Desarrollo Rural De Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "83cf2428-8a5c-4779-b6c5-120075635594",
+      "Code": 3104,
+      "Name": "Corporación de Seguros Agrícolas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e46e8c3b-6e97-401c-afe8-3131713f2739",
+      "Code": 3109,
+      "Name": "Administración de Fomento Agrícola",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0295c4e2-4f7a-4c4e-be60-81e057a7fa4c",
+      "Code": 3120,
+      "Name": "Administración del Derecho al Trabajo",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e4c8a0fe-8e48-4d08-8791-73d835ae869c",
+      "Code": 3125,
+      "Name": "Autoridad de Carreteras y Transportación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7504acb8-e040-486a-8573-e1690c1ebeec",
+      "Code": 3127,
+      "Name": "Corporación del Proyecto Enlace del Caño Martín Peña",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "72172c64-730f-41b8-96d3-bb4596339c73",
+      "Code": 3130,
+      "Name": "Autoridad Metropolitana de Autobuses",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7a507616-0032-4dd7-8b2b-7a6d6df020da",
+      "Code": 3135,
+      "Name": "Autoridad de los Puertos de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c9dd741e-53ee-425d-a3e5-84f4f2c10259",
+      "Code": 3136,
+      "Name": "Autoridad de Transporte Marítimo de Puerto Rico y las Islas Municipios",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "972d04c3-5baf-4710-8d03-4626ab91e7e3",
+      "Code": 3137,
+      "Name": "Autoridad de Ponce",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7cf1b4fa-b4e9-49d9-ba79-4d44e725b0d0",
+      "Code": 3137,
+      "Name": "Autoridad del Puerto de las Américas",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0e8755f7-c24d-4771-b0c5-302bcbcdf838",
+      "Code": 3138,
+      "Name": "Comisión de los Puertos de Mayagüez",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "dda1e597-5ebd-42ef-a2ce-25f0230c6019",
+      "Code": 3138,
+      "Name": "Comisión del Puerto de Mayagüez",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f0380990-89c4-41cf-905b-f340270be2a7",
+      "Code": 3140,
+      "Name": "Asociación de Empleados del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e05def27-5ced-433e-9c81-51d89ec4bb04",
+      "Code": 3145,
+      "Name": "Autoridad de Edificios Públicos",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7e7ce55a-99c7-46bc-b351-7c685ae120f6",
+      "Code": 3155,
+      "Name": "Compañía de Turismo de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f8cb18ea-dc31-47e7-bc96-9e9aca7d746f",
+      "Code": 3157,
+      "Name": "Comité Interagencial de Coordinación y Apoyo a la Regata \"Op Sail 2000\" (Regata 2000)",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "96989561-70ee-459f-ace5-02eded298498",
+      "Code": 3158,
+      "Name": "Prisma el Exploratorio Inc.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "15ca3c26-d3dc-4298-8f7d-12504bf2cc8c",
+      "Code": 3159,
+      "Name": "Autoridad del Distrito del Centro de Convenciones de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "5d30b2db-7bfd-4e01-867c-d8f382aa2b05",
+      "Code": 3160,
+      "Name": "Corporación de Desarrollo Hotelero de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a791cc98-1cdf-4be4-ae7c-59e6abcb9fc4",
+      "Code": 3161,
+      "Name": "CDH-ATPR, LLC",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7e216868-8376-4f38-81c2-8b7acecf9684",
+      "Code": 3165,
+      "Name": "Corporación del Fondo del Seguro del Estado",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f582b0c3-4c2c-4e15-b514-4890813b0e13",
+      "Code": 3167,
+      "Name": "Fondo para el Bienestar, la Seguridad y la Salud Ocupacional de los Trabajadores",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "caf8020e-8392-43db-9817-dcbd06784165",
+      "Code": 3170,
+      "Name": "Corporación de Renovación Urbana y Vivienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f79f8db5-16d1-4248-8413-4dab5cdc0272",
+      "Code": 3171,
+      "Name": "Oficina para la Liquidación de las Cuentas de la Cuentas de la Corporación Renovación Urbana y Vivienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f3f03568-7834-4a8c-8e44-917969058c00",
+      "Code": 3175,
+      "Name": "Autoridad para el Financiamiento de la Vivienda de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a642a3a6-3f17-414f-9ad4-66b98fa95561",
+      "Code": 3175,
+      "Name": "Banco y Agencia de Financiamiento de la Vivienda",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e4d8dbe9-e857-40f7-96d8-75f17d0c2d60",
+      "Code": 3180,
+      "Name": "Compañía de Fomento Industrial de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "40164e0d-4358-4f1e-8dbd-918823085ccc",
+      "Code": 3185,
+      "Name": "Departamento de Desarrollo Económico y Comercio",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "871a59d7-909a-40f7-b6d9-8ae1348658b2",
+      "Code": 3188,
+      "Name": "Fideicomiso para Ciencia, Tecnología e Investigación de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a8de0aa2-185d-4851-af4c-578a8a733922",
+      "Code": 3190,
+      "Name": "Instituto de Cultura Puertorriqueña",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "c1eba443-6aa9-46b8-a467-22387b53e67c",
+      "Code": 3191,
+      "Name": "Corporación de las Artes Musicales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "99a871e4-cbb0-4616-88e0-4178a6a92761",
+      "Code": 3192,
+      "Name": "Corporación de las Artes Escénico-Musicales de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "bd63c402-7acf-44aa-8875-d9dbc78ac5db",
+      "Code": 3193,
+      "Name": "Corporación del Centro de Bellas Artes de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "866bd884-2ea7-430a-8d50-95e97303c773",
+      "Code": 3194,
+      "Name": "Corporación del Conservatorio de Música de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0a86a090-270a-41da-8e49-c13f9c26af16",
+      "Code": 3195,
+      "Name": "Corporación de la Orquesta Sinfónica de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "a7eb81df-ac04-4abe-9882-e1cde2f53eec",
+      "Code": 3196,
+      "Name": "Corporación de la Escuela de Artes Plásticas y Diseño de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "931d071a-e415-4a15-9ff1-b4d7dc44a690",
+      "Code": 3196,
+      "Name": "Escuela de Artes Plásticas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "972444e7-f047-4809-a775-09b4d0d0c975",
+      "Code": 3197,
+      "Name": "Corporación para el Desarrollo de las Artes, Ciencias e Industria Cinematográfica de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "67af71b2-2dde-48b1-8e14-77269e51927d",
+      "Code": 3198,
+      "Name": "Programa de Música 100x35:Sistema de Orquestas y Coros Juveniles e Infantiles de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "f5bf0fab-d287-4153-8d32-71c3a7fab192",
+      "Code": 3210,
+      "Name": "Compañía para el Desarrollo Integral de la Península de Cantera",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "46bf4bf1-eaec-477b-b67b-8dbde85c6fd3",
+      "Code": 3220,
+      "Name": "Negociado de Sistemas de Emergencia 9-1-1",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "89b77829-687c-46f4-8441-5d35983d1124",
+      "Code": 3220,
+      "Name": "Junta de Gobierno del Servicio",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1b9bd3ea-deec-440a-85c0-6acf7461f2a7",
+      "Code": 3225,
+      "Name": "Corporación Pública para la Supervisión y Seguro de Cooperativas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "deae9430-56e9-4a27-a5b5-56305c6c672e",
+      "Code": 3225,
+      "Name": "Corporación de Seguros de Acciones y Depósitos de Cooperativas de Ahorro y Crédito",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4364a127-2ddf-4a82-a997-ef33fc4cb998",
+      "Code": 3226,
+      "Name": "Centro de Investigaciones, Educación y Servicios Médicos para la Diabetes",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "d7360d10-612d-471f-8c48-009929711d01",
+      "Code": 3227,
+      "Name": "Autoridad para el Redesarrollo de los Terrenos y Facilidades de la Estación Naval Roosevelt Roads",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "348968d6-615c-462b-b334-9a7a936104f4",
+      "Code": 3504,
+      "Name": "Fideicomiso Perpetuo para las Comunidades Especiales",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "74dcf593-9d8f-43c1-8aff-133c2d5adfd1",
+      "Code": 3506,
+      "Name": "Comisión de Practicaje de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "289df904-c70a-4c5e-9c2c-b0015247f9ca",
+      "Code": 3507,
+      "Name": "Corporación del Fondo de Interés Apremiante de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "e5eed4b1-9ace-4183-ba9c-a764f5a9bb98",
+      "Code": 3508,
+      "Name": "Economic Development Bank Capital Investment",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "068a5739-6957-40c7-9e70-0eb17c79247c",
+      "Code": 3510,
+      "Name": "Oficina de Exención Contributiva Industrial",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "4693bd13-f9e6-4621-a727-fe3148f1da3b",
+      "Code": 3511,
+      "Name": "Bioprocess Development and Training Complex Corporation",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0b643303-26c8-446b-8343-196002df0617",
+      "Code": 3512,
+      "Name": "Autoridad para Alianzas Público Privadas de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "1684b40c-8bfa-4d86-82d5-56e133740cfd",
+      "Code": 3515,
+      "Name": "Autoridad de Transporte Integrado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "30b228b5-b91a-4d77-a0cf-88199b448b12",
+      "Code": 3516,
+      "Name": "Oficina del Bosque Modelo de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "537bf3dc-a91a-4196-821a-d8f2451dd7ac",
+      "Code": 3517,
+      "Name": "Corporación del Centro Regional del Estado Libre Asociado de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "15e2459a-1724-4df9-88a9-85b8e1f0d895",
+      "Code": 3518,
+      "Name": "Autoridad de Asesoría Financiera y Agencia Fiscal de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "ebd4a77a-a0fa-4e6c-8abf-ba64f9aedcfb",
+      "Code": 3521,
+      "Name": "Viride Innovation Technologies, Inc.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "2e4a1e18-1a21-4a13-b6b1-59f0aa729456",
+      "Code": 3523,
+      "Name": "Corporación de Financiamiento Municipal",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "0775e218-88f4-4059-ada1-03738165ccb6",
+      "Code": 3524,
+      "Name": "Comité de Evaluación y Disposición de Bienes Inmuebles",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "7492913a-0a82-41fe-a138-41fc61b5ce03",
+      "Code": 3525,
+      "Name": "Autoridad de Recuperación de la Deuda del BGF",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "33bd0d9f-a387-4497-b579-d8a6947629ab",
+      "Code": 3526,
+      "Name": "Junta Reglamentadora de Servicio Público de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "6e4cb8d9-d58f-44b0-ac02-02e41cbafd4e",
+      "Code": 3527,
+      "Name": "Molecular Sciences Research Center, Inc.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "32a68deb-3865-4bec-af73-3337cda22cae",
+      "Code": 3528,
+      "Name": "LUMA Energy - Autoridad de Energía Eléctrica de Puerto Rico",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "39d21fbe-53a5-40bc-8c8c-469a87e3f16d",
+      "Code": 3529,
+      "Name": "GENERA PR, LLC - Autoridad de Energía Eléctrica",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "91268ee3-c630-49e1-a1ed-4252ebccc064",
+      "Code": 4001,
+      "Name": "Municipio de Adjuntas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1f39605c-5dcd-4b74-b2af-33dd41142999",
+      "Code": 4002,
+      "Name": "Municipio de Aguada",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "84e6e056-f8af-4480-afe7-e3476bdcfb28",
+      "Code": 4003,
+      "Name": "Municipio de Aguadilla",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "ca01e876-ba7b-4d07-b60a-ce8d86b7c37e",
+      "Code": 4004,
+      "Name": "Municipio de Aguas Buenas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "47b77a45-b409-4e97-86af-125b9f4a3ee1",
+      "Code": 4005,
+      "Name": "Municipio de Aibonito",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "30d84c3d-5749-41a7-b44e-d793ea2a5ea7",
+      "Code": 4006,
+      "Name": "Municipio de Añasco",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c1f4014e-4311-4094-96ed-219696a29a00",
+      "Code": 4007,
+      "Name": "Municipio de Arecibo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "afb5545c-bb99-499c-8670-38cf5daf7c9d",
+      "Code": 4008,
+      "Name": "Municipio de Arroyo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "ad9080a2-71bd-4318-bad5-c525a0e1cd9c",
+      "Code": 4009,
+      "Name": "Municipio de Barceloneta",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "f5ec5a54-9c1d-4f7e-b650-642abfd35718",
+      "Code": 4010,
+      "Name": "Municipio de Barranquitas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4366b47a-bfff-4d80-b7ac-37d335530a64",
+      "Code": 4011,
+      "Name": "Municipio de Bayamón",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0e6dfe9e-8d81-46b8-9e4e-fdc78523d64d",
+      "Code": 4012,
+      "Name": "Municipio de Cabo Rojo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "dfe6735f-7059-446b-9f50-6f3bc38249e9",
+      "Code": 4013,
+      "Name": "Municipio de Caguas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "be216a26-e3c0-4a8c-988b-df9fe0266632",
+      "Code": 4014,
+      "Name": "Municipio de Camuy",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2602bd36-8f2b-46f6-b1cd-53772242b774",
+      "Code": 4015,
+      "Name": "Municipio de Canóvanas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "abc1a536-20ca-484d-9e99-1877b5a6fa7a",
+      "Code": 4016,
+      "Name": "Municipio de Carolina",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "60fd61a5-3007-407c-b32e-0f860d100943",
+      "Code": 4017,
+      "Name": "Municipio de Cataño",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1d6fd71a-8fe3-44e5-afbe-2e944a7e4022",
+      "Code": 4018,
+      "Name": "Municipio de Cayey",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "5585035d-d244-41c1-bff0-d227b2a85873",
+      "Code": 4019,
+      "Name": "Municipio de Ceiba",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "a2fe33ee-0cd2-4987-98db-b2517280b640",
+      "Code": 4020,
+      "Name": "Municipio de Ciales",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "5986c849-b5f3-4c16-ade6-3270d980f861",
+      "Code": 4021,
+      "Name": "Municipio de Cidra",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "fd21a8a6-70f1-46f0-bf39-c30c25a623d0",
+      "Code": 4022,
+      "Name": "Municipio de Coamo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "b5515d0e-d94c-42b3-885c-e1569af3c768",
+      "Code": 4023,
+      "Name": "Municipio de Comerío",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "f80aaef3-420e-4a44-a5ef-545d4e414412",
+      "Code": 4024,
+      "Name": "Municipio de Corozal",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "20800eda-e8cf-4d2b-b235-3ed829a1a207",
+      "Code": 4025,
+      "Name": "Municipio de Culebra",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "52b31128-5b35-4c9d-8bb7-b50d79d41d17",
+      "Code": 4026,
+      "Name": "Municipio de Dorado",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "7c8feea5-5677-495b-ac24-252a55420230",
+      "Code": 4027,
+      "Name": "Municipio de Fajardo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "37bbb280-7b11-4b2f-bab8-90a72f3c3c59",
+      "Code": 4028,
+      "Name": "Municipio de Florida",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "21a132ec-2dd1-4836-9930-64c899cf6bfb",
+      "Code": 4029,
+      "Name": "Municipio de Guánica",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2b9dace7-cc16-4fbe-947c-a7cd582b2152",
+      "Code": 4030,
+      "Name": "Municipio de Guayama",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "3e86d4d0-582b-4ae6-ae09-2aa4f34cdd5a",
+      "Code": 4031,
+      "Name": "Municipio de Guayanilla",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "8e7e5e61-9da3-491b-a3d3-b760f42ffda3",
+      "Code": 4032,
+      "Name": "Municipio de Guaynabo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4fd3e06a-bde6-44e9-b83e-15eb54a89275",
+      "Code": 4033,
+      "Name": "Municipio de Gurabo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "984e218c-6760-4a46-b4df-71ba865e01c6",
+      "Code": 4034,
+      "Name": "Municipio de Hatillo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "82f5ce32-a936-43ee-ab49-0fb58866f5f1",
+      "Code": 4035,
+      "Name": "Municipio de Hormigueros",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "77443457-d484-4b25-860d-7021360ce597",
+      "Code": 4036,
+      "Name": "Municipio de Humacao",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "ffda6da8-c6b0-4bf8-9013-1313788ac673",
+      "Code": 4037,
+      "Name": "Municipio de Isabela",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "f331f971-f000-41d5-ad25-42b53121f1e6",
+      "Code": 4038,
+      "Name": "Municipio de Jayuya",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4545308b-7c4d-424b-9773-5a899ba43e43",
+      "Code": 4039,
+      "Name": "Municipio de Juana Díaz",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "df4e54a5-c783-48ba-b2ea-1e02936bdf17",
+      "Code": 4040,
+      "Name": "Municipio de Juncos",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "8489e4d5-26c4-4c8a-a7fe-16c9e0acdc17",
+      "Code": 4041,
+      "Name": "Municipio de Lajas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "9b7f22e0-51fb-4af6-9402-cd36eca1435d",
+      "Code": 4042,
+      "Name": "Municipio de Lares",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "7fbc6ae0-bd1f-480f-8070-ab6daeb73f58",
+      "Code": 4043,
+      "Name": "Municipio de las Marías",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "099bcbb7-92e1-42db-9364-146010a86af8",
+      "Code": 4044,
+      "Name": "Municipio de Las Piedras",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "9928c662-8fa6-4d66-a380-49002021c7b0",
+      "Code": 4045,
+      "Name": "Municipio de Loíza",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "e8f9ac0a-cf41-408a-8deb-3316cf8e0e48",
+      "Code": 4046,
+      "Name": "Municipio de Luquillo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "d369256c-24a9-4be3-9be8-c4bcecf999e0",
+      "Code": 4047,
+      "Name": "Municipio de Manatí",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "5f67599c-fedb-4696-999e-214e071f16c0",
+      "Code": 4048,
+      "Name": "Municipio de Maricao",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2d82166d-0a97-4597-bebd-54fa526ef69f",
+      "Code": 4049,
+      "Name": "Municipio de Maunabo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "e00b2276-cea1-41d8-8d52-c6197f0a7ab8",
+      "Code": 4050,
+      "Name": "Municipio de Mayagüez",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "8f8b6d07-19f6-4768-8f76-fcf0ed2acf87",
+      "Code": 4051,
+      "Name": "Municipio de Moca",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "fceef1b7-8bab-4c85-b883-a1121a5a615f",
+      "Code": 4052,
+      "Name": "Municipio de Morovis",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "44a238f6-db58-4220-8517-9fae6a13bad1",
+      "Code": 4053,
+      "Name": "Municipio de Naguabo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "ec04a7e2-ab66-4a23-85b0-fbd7e0b3ded9",
+      "Code": 4054,
+      "Name": "Municipio de Naranjito",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0a41d49b-0ce4-403f-9fe2-d5f45748b260",
+      "Code": 4055,
+      "Name": "Municipio de Orocovis",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "93ca9756-8fa2-4788-a11b-79a1fd4e10e4",
+      "Code": 4056,
+      "Name": "Municipio de Patillas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "145510bc-4ce8-41d2-8321-3925f8c3c2ad",
+      "Code": 4057,
+      "Name": "Municipio de Peñuelas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "992588b4-c2b7-499e-84a6-dac25b394828",
+      "Code": 4058,
+      "Name": "Municipio de Ponce",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "d30131bc-f958-42e8-b993-c9c11be9e1ce",
+      "Code": 4059,
+      "Name": "Municipio de Quebradillas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c9dc670d-ac76-4a0c-89e5-693400c6db74",
+      "Code": 4060,
+      "Name": "Municipio de Rincón",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1fb9e1c7-6f55-44e8-885f-96d6b2e891fe",
+      "Code": 4061,
+      "Name": "Municipio de Río Grande",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "bfc5b1d1-7603-45fd-aba4-d427e65d38ac",
+      "Code": 4062,
+      "Name": "Municipio de Sabana Grande",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "5c8e66c8-679d-406d-aa74-cfd727a5070d",
+      "Code": 4063,
+      "Name": "Municipio de Salinas",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "749283f7-f076-4a8b-b527-dd07554a658f",
+      "Code": 4064,
+      "Name": "Municipio de San Germán",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "7457f5c5-4b4f-439d-bc0f-1d6357ad40f9",
+      "Code": 4065,
+      "Name": "Municipio de San Juan",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "739976e4-945f-481f-a0fc-6930590e4c5b",
+      "Code": 4066,
+      "Name": "Municipio de San Lorenzo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0a3f1e18-9484-4953-9333-895d879aa4ab",
+      "Code": 4067,
+      "Name": "Municipio de San Sebastián",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "98bcd0ba-81fa-4c79-a56e-8906b2710c72",
+      "Code": 4068,
+      "Name": "Municipio de Santa Isabel",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "75a25caa-c0f9-4a02-ab88-4ce8bb5373da",
+      "Code": 4069,
+      "Name": "Municipio de Toa Alta",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "b7d4ce81-b63c-468f-bf7d-1b84a90a7ad6",
+      "Code": 4070,
+      "Name": "Municipio de Toa Baja",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "81363c19-7d89-46f0-b276-9022aac378aa",
+      "Code": 4071,
+      "Name": "Municipio de Trujillo Alto",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "cd4929af-2d3d-42ae-8917-e9ae2957516f",
+      "Code": 4072,
+      "Name": "Municipio de Utuado",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "b0a37939-0ab9-4c4c-be52-db33e2a1d918",
+      "Code": 4073,
+      "Name": "Municipio de Vega Alta",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "9192844e-2b09-4f5d-bafc-70b442f9f64c",
+      "Code": 4074,
+      "Name": "Municipio de Vega Baja",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1615ff24-80d3-4899-b5bb-a9b631083481",
+      "Code": 4075,
+      "Name": "Municipio de Vieques",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "31144cc3-e1c8-49d4-8096-4d2ad8f4fea4",
+      "Code": 4076,
+      "Name": "Municipio de Villalba",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "e378fc68-daed-48db-8810-4b77a0fcd60c",
+      "Code": 4077,
+      "Name": "Municipio de Yabucoa",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0d09f7f1-cd99-43e1-83e1-cca4ada6a555",
+      "Code": 4078,
+      "Name": "Municipio de Yauco",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "7d5ccb5e-598d-47d5-8edb-490d52a3e488",
+      "Code": 4101,
+      "Name": "Consorcio del Sur (CONSUR)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "5a1148e8-7ed2-470e-b7e4-aeb127ab9dac",
+      "Code": 4103,
+      "Name": "Corporación Aguadilla City Enterprises",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "15670a80-7947-4883-8931-61f55f6710ad",
+      "Code": 4113,
+      "Name": "Iniciativa Tecnólogica Centro-Oriental, Inc. (INTECO)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "b15c30ee-c1e0-4a6a-ae8b-c250cd235cb5",
+      "Code": 4144,
+      "Name": "Corp. Des. y Fomento Econ. de las Piedras, C.D",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2eb87aea-ce3c-4632-8d8f-85067776abc6",
+      "Code": 4165,
+      "Name": "Corporación para el Desarrollo Empresarial y Cultural de la Isleta de San Juan, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "da1903d3-1020-488c-9a3d-3ee6b9acc976",
+      "Code": 4170,
+      "Name": "Corporación para el Desarrollo de Vivienda de Toa Baja C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c9ab2b4a-4b5e-4d25-b589-c7513acbe231",
+      "Code": 4171,
+      "Name": "Corporación para el Desarrollo Económico de Trujillo Alto",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c65fd565-1207-4da0-865f-31d172110888",
+      "Code": 4176,
+      "Name": "Consorcio Energético de la Montaña (CEM)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "46c6caea-5a03-4bed-a7e4-7e61392ebc20",
+      "Code": 4207,
+      "Name": "Corporación Desarrollo Económico del Atlántico",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "ffbc98bd-a098-46b0-a9d8-9e7a85ea4257",
+      "Code": 4211,
+      "Name": "Corporación para el Desarrollo de la Vivienda de Bayamón C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c78f9577-22dc-4e2d-8bd2-6c1992d1b570",
+      "Code": 4258,
+      "Name": "Corporación Patronato para el Desarrollo Cultural y Turístico de Ponce, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "a2a91609-8206-4a4b-b3e5-f224b2405c71",
+      "Code": 4311,
+      "Name": "Corporación para el Desarrollo de la Salud en el Municipio de Bayamón, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "965cc1bb-ad7c-4ba2-b7f1-b49e10885f86",
+      "Code": 4332,
+      "Name": "Corporación para el Desarrollo de las Bellas Artes de Guaynabo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "9760c3c4-4c3e-4154-8ece-3bfaa89969e0",
+      "Code": 4358,
+      "Name": "Corporación para el Desarrollo de la Zona Libre de Ponce CODEZOL, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "cb3d3d64-546b-4902-a3b5-b23b1c54a3a0",
+      "Code": 4413,
+      "Name": "Centro Criollo de Ciencia y Tecnología, Inc.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "d7bc8ad5-34f3-4677-afc5-adaa89ff6ed7",
+      "Code": 4532,
+      "Name": "Corporación para el Desarrollo del Deporte de Guaynabo CD",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "e68b2cfc-9827-47ce-bf9c-d35b81d0e838",
+      "Code": 4532,
+      "Name": "Corporación para el Desarrollo del Deporte de Guaynabo, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "230cef99-aec8-4660-81e3-8983c1f4d0e4",
+      "Code": 4632,
+      "Name": "Corporación para el Desarrollo del Museo de la Transportación del Municipio Autónomo de Guaynabo, C.D.",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "18eb6ae7-2498-437b-89b1-03b2f3fb1785",
+      "Code": 4658,
+      "Name": "Corporación para el Desarrollo del Centro Ponceño de Autismo, C.D. (CEPA)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2fd4370d-fa03-45e0-bf70-ddd02b6f9099",
+      "Code": 4658,
+      "Name": "Corporación Desarrollo Centro Autismo (CEPA)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2311e468-12b8-44bf-a72a-06d75b213296",
+      "Code": 4758,
+      "Name": "Autoridad del Puerto de Ponce",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "f5c12ca2-4907-43d8-97fd-35370fcf34ef",
+      "Code": 4858,
+      "Name": "Corporación para el Desarrollo de Investigaciones en Ciencias y Tecnologías Ponce C.D.",
+      "GroupName": "Rama Ejecutiva"
+    },
+    {
+      "Id": "eb9c2742-2bd0-47a4-bdb4-cf5fac5b7c81",
+      "Code": 4903,
+      "Name": "Área Local de Desarrollo Laboral de Noroeste (ALDL Noroeste)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4d931533-0844-4d7b-8954-1ed3c8c6b4dc",
+      "Code": 4903,
+      "Name": "Consorcio del Noroeste",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4c65fb24-ab2c-483f-89fb-4f314990d160",
+      "Code": 4907,
+      "Name": "Área Local de Desarrollo Laboral de Norte-Central (ALDL Norte Central Arecibo)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "7ab519c7-e24a-4aa0-8168-fe123287e7fd",
+      "Code": 4907,
+      "Name": "Consorcio Norte Central-Arecibo",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c81f280a-a453-4092-a307-5e3a9a085b63",
+      "Code": 4911,
+      "Name": "Área Local de Desarrollo Laboral de Bayamón-Comerío (ALDL Bayamón)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1933e675-d6b2-4821-8211-0419efe28496",
+      "Code": 4911,
+      "Name": "Consorcio Bayamón-Comerío",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "71d27e2e-11cd-4820-a7f1-6435ea51fb61",
+      "Code": 4913,
+      "Name": "Alianza Municipal de Servicios Integrados (AMSI)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0f568148-cbf0-41ac-911a-b2c1ac18d1b5",
+      "Code": 4913,
+      "Name": "Área Local de Desarrollo Laboral de Caguas/Guayama (ALDL Caguas/Guayama)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "e5c827e4-42df-4cd1-8c0f-e8c7d1373ae3",
+      "Code": 4916,
+      "Name": "Agencia Municipal de Oportunidades de Empleo (AMOE)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "3f442f24-ef27-4d5f-a1d0-119c8a6cab93",
+      "Code": 4916,
+      "Name": "Área Local de Desarrollo Laboral de Carolina (ALDL Carolina)\t\t\t\t\t\t\t\t\t\t\t\t",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "170fe116-58fc-4984-8191-8f0185667c1f",
+      "Code": 4921,
+      "Name": "Área Local de Desarrollo Laboral de La Montaña (ALDL La Montaña)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "6c537fce-096d-4199-8128-55d8322a99a9",
+      "Code": 4921,
+      "Name": "Consorcio de la Montaña",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "b5b19ba1-4d60-4207-8ed8-60c9d1b9ca78",
+      "Code": 4932,
+      "Name": "Área Local de Desarrollo Laboral de Guaynabo/Toa Baja (ALDL Guaynabo/Toa Baja)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "936423f9-05c7-4e61-8245-473f3e3bd282",
+      "Code": 4932,
+      "Name": "Consorcio Guaynabo - Toa Baja",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4e0831ad-12b0-4f1d-84f9-0945972a4af7",
+      "Code": 4947,
+      "Name": "Área Local de Desarrollo Laboral de Manatí/Dorado (ALDL Manatí-Dorado)\t\t\t\t\t\t\t\t\t\t",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "1b726b9c-9cdb-4ead-9fe3-3b96efc26198",
+      "Code": 4947,
+      "Name": "Consorcio Dorado Manatí (Norte Central)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0a0e8092-335e-40f2-b947-3c81f2c33eb4",
+      "Code": 4950,
+      "Name": "Área Local de Desarrollo Laboral de Mayagüez/Las Marías (ALDL Mayagüez)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "56fa8e28-8f7e-4bde-ac36-5e6890867f0e",
+      "Code": 4950,
+      "Name": "Consorcio Mayagüez-Las Marías",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "0225e005-86b1-4c9e-b7a9-8e9cff858511",
+      "Code": 4958,
+      "Name": "Área Local de Desarrollo Laboral de Ponce (ALDL Ponce)\t\t\t\t\t\t\t\t\t",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "795afa2a-a294-4081-b167-3117be898bb2",
+      "Code": 4958,
+      "Name": "Ponce WIA",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "c4c8b005-498c-448a-9980-7594efb53133",
+      "Code": 4961,
+      "Name": "Área Local de Desarrollo Laboral del Noreste (ALDL Noreste)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "daaac037-b8e1-4a45-9375-1a83339e807d",
+      "Code": 4961,
+      "Name": "Consorcio del Noreste",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "8e86fd04-34dc-4efc-a72c-9607cea5f44d",
+      "Code": 4963,
+      "Name": "Alianza Municipal para el Desarrollo Económico (AMDE)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "a99c9dfa-e919-482c-960a-6e2bfb8039c1",
+      "Code": 4963,
+      "Name": "Consorcio Sur Central (ASIFAL)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "2fef9b29-e428-499c-9099-724acef4a528",
+      "Code": 4964,
+      "Name": "Área Local de Desarrollo Laboral de Suroeste (ALDL Suroeste)",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "cb27dd0c-5daf-4de6-a59c-7662208b9999",
+      "Code": 4964,
+      "Name": "Consorcio del Suroeste",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "36e6da8e-8a1b-4ee7-9f57-ed13766e00ba",
+      "Code": 4965,
+      "Name": "Oficina de Servicios de Empleo y Adiestramiento del Municipio de San Juan",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "4b8adb78-a677-43fe-9f42-5b2983ebc389",
+      "Code": 4966,
+      "Name": "Consorcio del Sureste",
+      "GroupName": "Municipio"
+    },
+    {
+      "Id": "002432ff-9274-4872-a8f1-a52d17e791c5",
+      "Code": 4966,
+      "Name": "Área Local de Desarrollo Laboral del Sureste (ALDL Sureste)",
+      "GroupName": "Municipio"
+    }
+  ],
+  "contracting_forms": {
+    "1": "Subasta Pública",
+    "2": "Solicitud de Propuesta (RFP)",
+    "3": "Solicitud de Cotización",
+    "5": "Otros",
+    "7": "Solicitud de Calificaciones (RFQ)",
+    "9": "Subasta Informal",
+    "10": "Contrataciones por Emergencia"
+  },
+  "funds": {
+    "1": "Fondos Federales",
+    "2": "Fondos Estatales",
+    "3": "Ingresos Propios",
+    "4": "Fondos Combinados",
+    "6": "Fondos Legislativos"
+  },
+  "service_groups": {
+    "1": "COMPRA, VENTA Y ALQUILER DE EQUIPO, VEHÍCULOS Y OTROS",
+    "2": "COMPRA, VENTA, ALQUILER Y/O DESARROLLO DE INMUEBLES",
+    "3": "COMPRA DE MATERIALES, SUMINISTROS Y EFECTOS",
+    "4": "ADQUISICIÓN DE SEGUROS",
+    "5": "CONSTRUCCIÓN Y REPARACIÓN DE VÍAS PÚBLICAS",
+    "6": "CONSTRUCCIÓN Y REPARACIÓN DE ESTRUCTURAS",
+    "7": "PRÉSTAMOS Y BECAS",
+    "8": "RESCISIÓN DE CONTRATOS",
+    "9": "SERVICIOS EDUCATIVOS, DE ADIESTRAMIENTO Y DE ORIENTACIONES",
+    "10": "SERVICIOS DE CONSULTORÍA",
+    "11": "SERVICIOS DE PUBLICIDAD, DE REPRESENTACIÓN O ARTÍSTICOS",
+    "12": "SERVICIOS MISCELÁNEOS NO PERSONALES",
+    "13": "SERVICIOS PERSONALES NO PROFESIONALES",
+    "14": "SERVICIOS RELACIONADOS CON LA SALUD",
+    "15": "SERVICIOS TÉCNICOS",
+    "16": "TRANSFERENCIA DE FONDOS",
+    "17": "ACUERDOS FINANCIEROS Y NO FINANCIEROS",
+    "18": "COMPRA Y VENTA DE OBRAS DE ARTES Y TESOROS HISTÓRICOS",
+    "19": "PROYECTOS RELACIONADOS A ENERGÍA RENOVABLE Y NO RENOVABLE",
+    "20": "SERVICIOS PROFESIONALES",
+    "21": "SERVICIOS RELACIONADOS A LOS SISTEMAS DE INFORMACIÓN",
+    "22": "RECOGIDO DE DESPERDICIOS Y RECICLAJE",
+    "23": "INTERAGENCIALES"
+  }
+}

@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>DineroPúblicoPR — ¿A dónde va el dinero del gobierno de Puerto Rico?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explora los contratos del gobierno de Puerto Rico: quién recibe el dinero, qué agencia lo otorgó, por cuál método y de qué fondos. Datos del Registro de Contratos de la Oficina de la Contralora.">
+<meta name="theme-color" content="#1c5cab">
+<style>
+:root {
+  color-scheme: light;
+
+  --surface-1: #fcfcfb;
+  --plane: #f9f9f7;
+  --card: #ffffff;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11,11,11,0.10);
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+
+  --seq-100: #cde2fb;
+  --seq-250: #86b6ef;
+  --seq-400: #3987e5;
+  --seq-550: #1c5cab;
+  --seq-700: #0d366b;
+
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --plane: #0d0d0d;
+    --card: #1a1a19;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255,255,255,0.10);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --seq-100: #104281;
+    --seq-250: #184f95;
+    --seq-400: #256abf;
+    --seq-550: #3987e5;
+    --seq-700: #86b6ef;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --plane: #0d0d0d;
+  --card: #1a1a19;
+  --text-primary: #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255,255,255,0.10);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --seq-100: #104281;
+  --seq-250: #184f95;
+  --seq-400: #256abf;
+  --seq-550: #3987e5;
+  --seq-700: #86b6ef;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  background: var(--plane);
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { line-height: 1.2; text-wrap: balance; font-weight: 650; }
+
+a { color: var(--seq-550); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--series-1); outline-offset: 2px; border-radius: 3px;
+}
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+/* ── Header ───────────────────────────────────────────── */
+.topbar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: center; gap: 9px; }
+.brand-mark {
+  width: 10px; height: 20px; border-radius: 2px;
+  background: linear-gradient(to top, var(--seq-550), var(--seq-400));
+}
+.brand span { font-weight: 400; color: var(--text-muted); }
+.theme-btn {
+  background: none; border: 1px solid var(--border); color: var(--text-secondary);
+  border-radius: var(--radius-sm); padding: 5px 11px; font-size: 13px;
+  cursor: pointer; font-family: inherit;
+}
+.theme-btn:hover { background: var(--plane); color: var(--text-primary); }
+
+.mainnav { display: flex; gap: 2px; margin-left: auto; margin-right: 10px; }
+.navlink {
+  background: none; border: none; font-family: inherit; font-size: 14px; font-weight: 550;
+  color: var(--text-secondary); cursor: pointer; padding: 7px 13px;
+  border-radius: var(--radius-sm);
+}
+.navlink:hover { background: var(--plane); color: var(--text-primary); }
+.navlink[aria-current="page"] { background: var(--plane); color: var(--series-1); }
+.view[hidden] { display: none; }
+
+/* ── Prose (Cómo funciona) ────────────────────────────── */
+.prose { max-width: 760px; }
+.prose h2 { font-size: 21px; margin: 32px 0 10px; letter-spacing: -0.015em; }
+.prose h2:first-child { margin-top: 0; }
+.prose h3 { font-size: 16px; margin: 22px 0 7px; }
+.prose p { margin-bottom: 13px; color: var(--text-secondary); }
+.prose ul, .prose ol { margin: 0 0 13px 22px; color: var(--text-secondary); }
+.prose li { margin-bottom: 7px; }
+.prose strong { color: var(--text-primary); }
+.prose code {
+  font-size: 13px; background: var(--plane); padding: 1px 5px;
+  border-radius: 4px; border: 1px solid var(--border);
+}
+.legal {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--critical); border-radius: var(--radius-sm);
+  padding: 18px 20px; margin: 18px 0;
+}
+.legal h3 { margin-top: 0; color: var(--text-primary); }
+.legal p:last-child { margin-bottom: 0; }
+.steps { counter-reset: step; list-style: none; margin-left: 0; }
+.steps li {
+  counter-increment: step; position: relative; padding-left: 36px; margin-bottom: 14px;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 1px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--seq-550); color: #fff;
+  font-size: 12.5px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Search ───────────────────────────────────────────── */
+.searchbar { position: relative; margin-bottom: 14px; }
+.searchbar input {
+  width: 100%; font-family: inherit; font-size: 16px; padding: 13px 15px;
+  background: var(--card); color: var(--text-primary);
+  border: 2px solid var(--border); border-radius: var(--radius);
+}
+.searchbar input:focus { border-color: var(--series-1); outline: none; }
+.searchmeta { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.doclink {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; padding: 3px 8px;
+  border: 1px solid var(--border); border-radius: 4px;
+  color: var(--seq-550); white-space: nowrap;
+}
+.doclink:hover { background: var(--plane); text-decoration: none; }
+.variant-note { font-size: 11.5px; color: var(--warning); font-weight: 600; }
+
+/* ── Hero ─────────────────────────────────────────────── */
+.hero { padding: 44px 0 28px; }
+.hero h1 { font-size: clamp(25px, 4vw, 38px); margin-bottom: 12px; letter-spacing: -0.02em; }
+.hero p.lede { font-size: 17px; color: var(--text-secondary); max-width: 660px; }
+
+.notice {
+  margin-top: 22px; padding: 13px 16px;
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--warning);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px; color: var(--text-secondary); max-width: 760px;
+}
+.notice strong { color: var(--text-primary); }
+
+/* ── Stat tiles ───────────────────────────────────────── */
+.tiles {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: 12px; padding: 8px 0 32px;
+}
+.tile {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 17px 18px;
+}
+.tile .label {
+  font-size: 11.5px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.055em; color: var(--text-muted); margin-bottom: 7px;
+}
+.tile .value { font-size: 27px; font-weight: 680; letter-spacing: -0.025em; line-height: 1.1; }
+.tile .sub { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; }
+.tile.flag { border-left: 3px solid var(--critical); }
+.tile.flag .value { color: var(--critical); }
+
+/* ── Filter row ───────────────────────────────────────── */
+.filters {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
+  padding: 16px 18px; margin-bottom: 22px;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  position: sticky; top: 57px; z-index: 40;
+}
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label {
+  font-size: 11.5px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--text-muted);
+}
+.field select, .field input {
+  font-family: inherit; font-size: 14px; padding: 7px 10px;
+  background: var(--plane); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  min-width: 150px;
+}
+.filters .spacer { flex: 1; }
+.filters .hint { font-size: 12.5px; color: var(--text-muted); padding-bottom: 7px; }
+
+/* ── Sections & cards ─────────────────────────────────── */
+section { margin-bottom: 40px; scroll-margin-top: 120px; }
+.sec-head { margin-bottom: 14px; }
+.sec-head h2 { font-size: 21px; margin-bottom: 5px; letter-spacing: -0.015em; }
+.sec-head p { font-size: 14px; color: var(--text-secondary); max-width: 720px; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+}
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.card-head h3 { font-size: 15.5px; }
+.card-head .meta { font-size: 12.5px; color: var(--text-muted); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+
+/* ── Charts ───────────────────────────────────────────── */
+.chart { width: 100%; display: block; overflow: visible; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.axisline { stroke: var(--axis); stroke-width: 1; }
+.tick { font-size: 11px; fill: var(--text-muted); font-variant-numeric: tabular-nums; }
+.series-line { fill: none; stroke: var(--series-1); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.bar { fill: var(--series-1); }
+.bar-label { font-size: 12px; fill: var(--text-secondary); }
+.bar-value { font-size: 12px; fill: var(--text-primary); font-variant-numeric: tabular-nums; font-weight: 600; }
+.hover-target { fill: transparent; cursor: pointer; }
+.crosshair { stroke: var(--axis); stroke-width: 1; }
+.dot { fill: var(--series-1); stroke: var(--card); stroke-width: 2; }
+
+.tooltip {
+  position: fixed; pointer-events: none; z-index: 100;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 9px 11px;
+  font-size: 12.5px; box-shadow: 0 6px 22px rgba(0,0,0,0.13);
+  opacity: 0; transition: opacity 0.1s; max-width: 280px;
+}
+.tooltip .tt-title { font-weight: 650; margin-bottom: 3px; color: var(--text-primary); }
+.tooltip .tt-row { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+/* ── Tables ───────────────────────────────────────────── */
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th {
+  text-align: left; font-size: 11.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+  padding: 8px 10px; border-bottom: 1px solid var(--axis); white-space: nowrap;
+}
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { color: var(--text-primary); }
+th.sorted::after { content: ' ↓'; color: var(--series-1); }
+th.sorted.asc::after { content: ' ↑'; }
+td { padding: 8px 10px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+tbody tr:hover { background: var(--plane); }
+.t-name { font-weight: 550; }
+.t-sub { font-size: 12px; color: var(--text-muted); }
+
+.meter { display: flex; align-items: center; gap: 8px; min-width: 128px; }
+.meter-track { flex: 1; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 3px; }
+.meter-num { font-size: 12.5px; font-variant-numeric: tabular-nums; min-width: 42px; text-align: right; font-weight: 600; }
+
+.pill {
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: 4px; background: var(--plane); color: var(--text-secondary);
+  border: 1px solid var(--border); white-space: nowrap;
+}
+
+/* ── Tabs ─────────────────────────────────────────────── */
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+.tab {
+  background: none; border: none; border-bottom: 2px solid transparent;
+  padding: 9px 14px; font-family: inherit; font-size: 14px; font-weight: 550;
+  color: var(--text-secondary); cursor: pointer;
+}
+.tab:hover { color: var(--text-primary); }
+.tab[aria-selected="true"] { color: var(--series-1); border-bottom-color: var(--series-1); }
+.panel[hidden] { display: none; }
+
+.toggle-table {
+  background: none; border: 1px solid var(--border); color: var(--text-secondary);
+  border-radius: var(--radius-sm); padding: 4px 10px; font-size: 12px;
+  cursor: pointer; font-family: inherit;
+}
+.toggle-table:hover { color: var(--text-primary); background: var(--plane); }
+
+.empty { padding: 28px; text-align: center; color: var(--text-muted); font-size: 14px; }
+.loading { padding: 40px; text-align: center; color: var(--text-muted); }
+
+/* ── Footer ───────────────────────────────────────────── */
+footer {
+  background: var(--card); border-top: 1px solid var(--border);
+  padding: 34px 0; margin-top: 50px; font-size: 13.5px; color: var(--text-secondary);
+}
+footer h3 { font-size: 14.5px; color: var(--text-primary); margin-bottom: 8px; }
+footer .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+footer p { margin-bottom: 9px; }
+footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-muted); }
+
+@media (max-width: 760px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .filters { position: static; }
+  .hero { padding: 30px 0 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="brand-mark"></span>DineroPúblicoPR<span>.com</span></div>
+    <nav class="mainnav" aria-label="Secciones">
+      <button class="navlink" data-view="datos" aria-current="page">Los datos</button>
+      <button class="navlink" data-view="buscar">Buscar</button>
+      <button class="navlink" data-view="acerca">Cómo funciona</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">Tema</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="view" id="viewDatos">
+
+  <div class="hero">
+    <h1>¿A dónde va el dinero del gobierno de Puerto Rico?</h1>
+    <p class="lede">
+      Todos los contratos que otorga el gobierno tienen que registrarse en la Oficina de la
+      Contralora. Esta herramienta los recoge, los organiza y los pone a tu disposición:
+      quién recibió el dinero, qué agencia lo otorgó, por cuál método y de qué fondos.
+    </p>
+    <div class="notice">
+      <strong>Una anomalía no es un delito.</strong> Las señales que aparecen abajo indican
+      dónde vale la pena mirar con más detalle, no quién actuó mal. Un contrato sin método
+      registrado puede ser descuido administrativo. Un contratista con muchos contratos puede
+      simplemente ser bueno en lo que hace. Verifica siempre contra el documento original
+      antes de concluir nada.
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles">
+    <div class="loading">Cargando datos…</div>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filtros">
+    <div class="field">
+      <label for="fy">Año fiscal</label>
+      <select id="fy"><option value="">Todos</option></select>
+    </div>
+    <div class="field">
+      <label for="rama">Rama</label>
+      <select id="rama"><option value="">Todas</option></select>
+    </div>
+    <div class="spacer"></div>
+    <div class="hint" id="filterHint"></div>
+  </div>
+
+  <!-- ── Serie mensual ── -->
+  <section id="tendencia">
+    <div class="sec-head">
+      <h2>Cuánto se contrata cada mes</h2>
+      <p>
+        Monto total otorgado por mes. Los picos de junio son el cierre del año fiscal de
+        Puerto Rico, que corre del 1 de julio al 30 de junio.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Monto otorgado por mes</h3>
+        <button class="toggle-table" data-table="tblMensual">Ver tabla</button>
+      </div>
+      <div id="chartMensual"></div>
+      <div class="table-scroll" id="tblMensual" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── Método y fondos ── -->
+  <section id="como">
+    <div class="sec-head">
+      <h2>Cómo se adjudican y de dónde sale el dinero</h2>
+      <p>
+        El método de contratación debería decir si hubo competencia. En la práctica, la
+        categoría más usada con diferencia es <strong>«Otros»</strong>, que no dice nada.
+        Ese es el hallazgo central de este proyecto.
+      </p>
+      <div class="notice" style="margin:0 0 16px">
+        <strong>Sobre la cobertura del dato:</strong> en el año fiscal 2023-24 la mitad de
+        los contratos no traía método registrado. A partir de 2024-25 lo trae el 99.5%, así
+        que el hueco se cerró. Lo que no ha cambiado es que la mayoría se clasifique como
+        «Otros».
+        <span id="coberturaNota"></span>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head">
+          <h3>Método de contratación</h3>
+          <button class="toggle-table" data-table="tblMetodos">Ver tabla</button>
+        </div>
+        <div id="chartMetodos"></div>
+        <div class="table-scroll" id="tblMetodos" hidden></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Origen de fondos</h3>
+          <button class="toggle-table" data-table="tblFondos">Ver tabla</button>
+        </div>
+        <div id="chartFondos"></div>
+        <div class="table-scroll" id="tblFondos" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Transparencia por agencia ── -->
+  <section id="transparencia">
+    <div class="sec-head">
+      <h2>Índice de transparencia por agencia</h2>
+      <p>
+        De todos los contratos que otorgó cada agencia, qué porcentaje dice cómo fue
+        adjudicado. Una agencia con índice bajo no registra cómo gasta el dinero público.
+        Es la medida más simple y más difícil de rebatir que ofrece esta herramienta.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Agencias con al menos 10 contratos</h3>
+        <span class="meta"><span id="agMeta"></span>
+          <button class="toggle-table" data-export="tblAgencias" data-name="agencias">Descargar CSV</button></span>
+      </div>
+      <div class="table-scroll" id="tblAgencias"></div>
+    </div>
+  </section>
+
+  <!-- ── Categorías ── -->
+  <section id="categorias">
+    <div class="sec-head">
+      <h2>En qué se gasta</h2>
+      <p>Categorías de servicio según la clasificación oficial del Registro de Contratos.</p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Monto por categoría</h3>
+        <button class="toggle-table" data-table="tblCategorias">Ver tabla</button>
+      </div>
+      <div id="chartCategorias"></div>
+      <div class="table-scroll" id="tblCategorias" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── Contratistas ── -->
+  <section id="contratistas">
+    <div class="sec-head">
+      <h2>Quién recibe el dinero</h2>
+      <p>
+        Los nombres se agrupan normalizando mayúsculas, acentos y sufijos como LLC o Inc.
+        Es una heurística: dos nombres agrupados son <em>probablemente</em> la misma entidad,
+        no con certeza.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Principales contratistas por monto</h3>
+        <span class="meta">Columnas ordenables
+          <button class="toggle-table" data-export="tblContratistas" data-name="contratistas">Descargar CSV</button></span>
+      </div>
+      <div class="table-scroll" id="tblContratistas"></div>
+    </div>
+  </section>
+
+  <!-- ── Señales ── -->
+  <section id="senales">
+    <div class="sec-head">
+      <h2>Señales que merecen revisión</h2>
+      <p>
+        Patrones que en otras jurisdicciones han resultado ser indicio de problemas. Aquí son
+        preguntas, no respuestas.
+      </p>
+    </div>
+    <div class="card">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-panel="pCierre">Gasto de cierre fiscal</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="pUmbrales">Montos bajo umbral</button>
+        <button class="tab" role="tab" aria-selected="false" data-panel="pEnmiendas">Enmiendas que inflan</button>
+      </div>
+
+      <div class="panel" id="pCierre" role="tabpanel">
+        <p class="t-sub" style="margin-bottom:14px;max-width:700px">
+          Agencias que otorgaron una porción desproporcionada de su dinero anual en junio, el
+          último mes del año fiscal. Puede indicar gasto apresurado para no devolver
+          presupuesto. Solo agencias con más de $1 millón al año y 25% o más en junio.
+        </p>
+        <div style="margin-bottom:10px"><button class="toggle-table" data-export="tblCierre" data-name="gasto-cierre-fiscal">Descargar CSV</button></div>
+        <div class="table-scroll" id="tblCierre"></div>
+      </div>
+
+      <div class="panel" id="pUmbrales" role="tabpanel" hidden>
+        <p class="t-sub" style="margin-bottom:14px;max-width:700px">
+          Cuando hay un umbral que obliga a subasta, partir una compra en pedazos más pequeños
+          la evita. Si hay muchos más contratos justo por debajo de una cifra redonda que justo
+          por encima, vale preguntar por qué.
+        </p>
+        <div class="table-scroll" id="tblUmbrales"></div>
+      </div>
+
+      <div class="panel" id="pEnmiendas" role="tabpanel" hidden>
+        <p class="t-sub" style="margin-bottom:14px;max-width:700px">
+          Cuánto creció un contrato después de adjudicado, que es precisamente cuando ya no
+          hubo competencia. Solo se rastrean las enmiendas de contratos de <strong>$1 millón o
+          más</strong>: hay más de 42,000 contratos con enmiendas y pedirlas todas al portal
+          tomaría unas 17 horas por semana.
+        </p>
+        <div style="margin-bottom:10px"><button class="toggle-table" data-export="tblEnmiendas" data-name="enmiendas">Descargar CSV</button></div>
+        <div class="table-scroll" id="tblEnmiendas"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Datos ── -->
+  <section id="datos">
+    <div class="sec-head">
+      <h2>Usa los datos</h2>
+      <p>Todo lo que ves aquí está disponible para descargar y para consultar por programa.</p>
+    </div>
+    <div class="card">
+      <div id="apiList"></div>
+    </div>
+  </section>
+
+</div><!-- /viewDatos -->
+
+<!-- ═══════════════════ BUSCAR ═══════════════════ -->
+<div class="view" id="viewBuscar" hidden>
+  <div class="hero">
+    <h1>Buscar contratos</h1>
+    <p class="lede">
+      Escribe el nombre de un contratista, una agencia, un número de contrato o un tipo de
+      servicio. Cada resultado enlaza al <strong>documento original</strong> en el portal de la
+      Contralora para que lo verifiques tú mismo.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="searchbar">
+      <input type="search" id="q" placeholder="Ej: construcción, Departamento de Salud, 2025-000123…"
+             aria-label="Buscar contratos" autocomplete="off">
+    </div>
+
+    <div class="filters" style="position:static;margin-bottom:14px" role="group"
+         aria-label="Filtros de búsqueda">
+      <div class="field">
+        <label for="fMuni">Municipio</label>
+        <select id="fMuni"><option value="">Todos los 78</option></select>
+      </div>
+      <div class="field">
+        <label for="fEnt">Agencia o entidad</label>
+        <select id="fEnt"><option value="">Todas</option></select>
+      </div>
+      <div class="field">
+        <label for="fCat">Tema o servicio</label>
+        <select id="fCat"><option value="">Todos</option></select>
+      </div>
+      <div class="field">
+        <label for="fMet">Método</label>
+        <select id="fMet"><option value="">Todos</option></select>
+      </div>
+      <div class="field">
+        <label for="fAno">Año fiscal</label>
+        <select id="fAno"><option value="">Todos</option></select>
+      </div>
+      <div class="field">
+        <label for="fMin">Monto mínimo</label>
+        <select id="fMin">
+          <option value="250000">$250 mil</option>
+          <option value="500000">$500 mil</option>
+          <option value="1000000">$1 millón</option>
+          <option value="5000000">$5 millones</option>
+          <option value="25000000">$25 millones</option>
+        </select>
+      </div>
+      <div class="spacer"></div>
+      <div class="field">
+        <label>&nbsp;</label>
+        <div style="display:flex;gap:8px">
+          <button class="toggle-table" id="btnCsv" style="padding:7px 13px">Descargar CSV</button>
+          <button class="toggle-table" id="btnReset" style="padding:7px 13px">Limpiar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="searchmeta" id="searchMeta"></div>
+    <div class="table-scroll" id="tblBuscar"></div>
+  </div>
+
+  <div class="notice" style="margin-top:18px">
+    <strong>Este buscador cubre los contratos de $250,000 o más</strong>
+    (<span id="idxMeta">cargando…</span>), que concentran la mayor parte del dinero. El sitio
+    es estático y no puede consultar cientos de miles de registros en vivo desde el
+    navegador. Para buscar contratos menores, usa el
+    <a href="https://consultacontratos.ocpr.gov.pr/" target="_blank" rel="noopener">portal
+    oficial de la Contralora</a> o descarga los CSV completos en la pestaña «Los datos».
+  </div>
+</div><!-- /viewBuscar -->
+
+<!-- ═══════════════════ CÓMO FUNCIONA ═══════════════════ -->
+<div class="view" id="viewAcerca" hidden>
+  <div class="hero">
+    <h1>Cómo funciona esta herramienta</h1>
+    <p class="lede">
+      De dónde vienen los datos, para qué sirve esto, cómo usarlo, y qué <em>no</em> debes
+      concluir de lo que ves.
+    </p>
+  </div>
+
+  <div class="prose">
+
+    <h2>Para qué es</h2>
+    <p>
+      El gobierno de Puerto Rico otorga unos <strong>80,000 contratos al año</strong>, por
+      decenas de miles de millones de dólares. Toda esa información es pública por ley, pero
+      solo se puede consultar un contrato a la vez. Así, nadie puede contestar preguntas
+      básicas como:
+    </p>
+    <ul>
+      <li>¿Qué agencias no registran cómo adjudican sus contratos?</li>
+      <li>¿Qué contratista aparece en más agencias distintas?</li>
+      <li>¿Cuánto del dinero se otorga en el último mes del año fiscal?</li>
+      <li>¿Qué proporción viene de fondos federales y qué proporción de fondos locales?</li>
+    </ul>
+    <p>
+      Esta herramienta baja todos los contratos, los organiza y los pone en forma de esas
+      preguntas. El propósito es <strong>darle claridad a la ciudadanía sobre a dónde va su
+      dinero</strong>, no acusar a nadie.
+    </p>
+
+    <h2>De dónde vienen los contratos</h2>
+    <p>
+      Del <a href="https://consultacontratos.ocpr.gov.pr/" target="_blank" rel="noopener">Registro
+      de Contratos</a> de la Oficina de la Contralora de Puerto Rico. La
+      <strong>Ley 18 de 1975</strong> obliga a toda entidad del gobierno a registrar allí
+      cada contrato que otorga, junto con sus enmiendas.
+    </p>
+    <p>
+      Los datos se bajan automáticamente <strong>una vez por semana</strong>, los domingos.
+      No se edita ni se corrige ningún valor: lo que ves es lo que la agencia registró. Si un
+      monto está mal en el registro oficial, aparecerá mal aquí también, y el enlace al
+      documento original te permite comprobarlo.
+    </p>
+    <p>
+      Cada contrato en el buscador tiene un botón <strong>PDF</strong> que abre el documento
+      tal como está archivado en la Contralora. Esa es la fuente; esto es solo una forma más
+      cómoda de llegar a ella.
+    </p>
+
+    <h3>Qué cubre y qué no</h3>
+    <ul>
+      <li>Cubre los años fiscales <strong id="aboutYears">recientes</strong>.</li>
+      <li>
+        La <strong>Ley 122-2019</strong> de Datos Abiertos <strong>no aplica</strong> a la
+        Rama Legislativa, la Rama Judicial ni a los municipios. Hay huecos reales de
+        cobertura que no dependen de esta herramienta.
+      </li>
+      <li>
+        <strong>No incluye licitaciones abiertas</strong> que aún no se han adjudicado. Esas
+        están en <a href="https://asg.pr.gov/subastas" target="_blank" rel="noopener">asg.pr.gov/subastas</a>.
+      </li>
+      <li>
+        La Contralora conserva los documentos por <strong>10 años</strong> después de que
+        vence el contrato.
+      </li>
+    </ul>
+
+    <h2>Cómo usarla</h2>
+    <ol class="steps">
+      <li>
+        <strong>Empieza por «Los datos».</strong> Las cinco cifras de arriba te dan el
+        panorama. La que está en rojo es la más importante: el porcentaje de contratos que no
+        dicen cómo fueron adjudicados.
+      </li>
+      <li>
+        <strong>Filtra por año fiscal o por rama.</strong> Los filtros arriba aplican a todas
+        las gráficas a la vez. El año fiscal de Puerto Rico va del 1 de julio al 30 de junio.
+      </li>
+      <li>
+        <strong>Revisa el índice de transparencia.</strong> Ordena la tabla de agencias por
+        esa columna, de menor a mayor. Las agencias de abajo son las que menos registran
+        sobre cómo gastan.
+      </li>
+      <li>
+        <strong>Mira las señales.</strong> Son patrones que en otras jurisdicciones han
+        resultado indicio de problemas. Aquí son preguntas, no respuestas.
+      </li>
+      <li>
+        <strong>Busca lo específico.</strong> En «Buscar» puedes combinar filtros:
+        <strong>municipio</strong> (los 78 están ahí), agencia, <strong>tema o servicio</strong>,
+        método de contratación, año fiscal y monto mínimo. Todo se combina con la caja de
+        texto, así que puedes pedir «construcción en Caguas sobre $1 millón» en un par de
+        clics. Cada resultado enlaza al PDF original.
+      </li>
+      <li>
+        <strong>Descarga lo que estás viendo.</strong> El botón <strong>Descargar CSV</strong>
+        baja exactamente los contratos que dejaron tus filtros, no una lista genérica — y baja
+        todos, no solo los 300 que muestra la tabla. Incluye el enlace al PDF de cada uno.
+        Las tablas de agencias, contratistas y señales también tienen su botón.
+      </li>
+      <li>
+        <strong>Verifica por tu cuenta.</strong> Los CSV completos por año fiscal y el API
+        están abiertos. Si no te fías de un número de este sitio, bájate los datos y cuéntalo
+        tú.
+      </li>
+    </ol>
+
+    <h2>Cómo leer las señales sin equivocarte</h2>
+    <p>
+      Esta es la parte que más importa. <strong>Ninguna señal de este sitio prueba un
+      delito.</strong> Cada una tiene explicaciones inocentes perfectamente posibles:
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Señal</th><th>Qué mide</th><th>Por qué puede no significar nada</th></tr></thead>
+        <tbody>
+          <tr><td class="t-name">Índice de transparencia</td>
+            <td>% de contratos con método de adjudicación registrado</td>
+            <td>Puede ser descuido administrativo o un sistema viejo, no ocultamiento</td></tr>
+          <tr><td class="t-name">Gasto de cierre fiscal</td>
+            <td>% del dinero anual otorgado en junio</td>
+            <td>Muchos ciclos de servicio arrancan legítimamente el 1 de julio</td></tr>
+          <tr><td class="t-name">Montos bajo umbral</td>
+            <td>Contratos agrupados justo debajo de una cifra redonda</td>
+            <td>Los precios de mercado se agrupan naturalmente en cifras redondas</td></tr>
+          <tr><td class="t-name">Enmiendas que inflan</td>
+            <td>Cuánto creció un contrato después de adjudicado</td>
+            <td>Un proyecto puede crecer por razones válidas y documentadas</td></tr>
+          <tr><td class="t-name">Contratista en muchas agencias</td>
+            <td>En cuántas agencias distintas aparece</td>
+            <td>Una empresa grande y competente gana contratos en muchos sitios</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 id="agrupacion">Sobre la agrupación de nombres: léelo antes de concluir</h3>
+    <p>
+      Los nombres de contratistas vienen escritos de muchas formas distintas en el registro
+      oficial: con acentos y sin ellos, con <code>LLC</code> o <code>L.L.C.</code>, en
+      mayúsculas o mezcladas. Para poder sumar, el sistema los agrupa normalizando esas
+      diferencias.
+    </p>
+    <div class="legal">
+      <h3>Esto es una aproximación, no un hecho</h3>
+      <p>
+        La agrupación es una <strong>heurística automática</strong>. Dos nombres agrupados son
+        <em>probablemente</em> la misma entidad, <strong>no con certeza</strong>. Muchos
+        contratos del gobierno son con <strong>personas individuales</strong>, no con
+        empresas, y dos personas distintas pueden compartir el mismo nombre.
+      </p>
+      <p>
+        Por eso cada fila muestra <strong>cuántas grafías distintas agrupa</strong> y cuáles
+        son. Cuando ese número es alto, desconfía de la suma y verifica contra los documentos
+        originales antes de atribuirle nada a nadie.
+      </p>
+      <p>
+        <strong>Si una fila te agrupa mal,</strong>
+        <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR%20-%20Correcci%C3%B3n%20de%20agrupaci%C3%B3n">escríbenos</a>
+        y lo corregimos.
+      </p>
+    </div>
+
+    <h2>Avisos legales</h2>
+
+    <div class="legal">
+      <h3>Proyecto independiente</h3>
+      <p>
+        DineroPúblicoPR.com es un <strong>proyecto ciudadano independiente y sin fines de
+        lucro</strong>. <strong>No está afiliado, asociado, autorizado ni respaldado por la
+        Oficina de la Contralora de Puerto Rico, ni por ninguna agencia del Gobierno de
+        Puerto Rico, partido político, campaña, empresa u organización.</strong>
+        Tampoco está afiliado a ninguna de las entidades o personas que aparecen en los datos.
+      </p>
+      <p>
+        Los nombres de agencias, empresas y personas aparecen únicamente porque constan en un
+        registro público, y su mención no implica relación alguna con este proyecto.
+      </p>
+    </div>
+
+    <div class="legal">
+      <h3>Información pública, reproducida tal como está</h3>
+      <p>
+        Toda la información proviene de <strong>registros públicos</strong> del Gobierno de
+        Puerto Rico, accesibles a cualquier ciudadano. Este sitio <strong>no genera
+        información nueva</strong>: la reorganiza y la presenta de forma más accesible.
+      </p>
+      <p>
+        <strong>La exactitud de cada registro es responsabilidad de la agencia que lo
+        otorgó, lo entró y subió el documento</strong>, según establece la propia Oficina de
+        la Contralora. Ni este proyecto ni sus autores garantizan que los datos sean exactos,
+        completos o estén actualizados, y no responden por errores u omisiones en la fuente
+        oficial. Los datos se ofrecen <strong>«tal como están»</strong>, sin garantía de
+        ningún tipo.
+      </p>
+    </div>
+
+    <div class="legal">
+      <h3>No es una acusación, ni asesoría, ni determinación legal</h3>
+      <p>
+        Las métricas y señales de este sitio son <strong>herramientas estadísticas
+        descriptivas</strong>. <strong>No constituyen una imputación de delito, fraude,
+        corrupción, ilegalidad ni conducta impropia</strong> contra ninguna persona, empresa,
+        funcionario o entidad, ni deben interpretarse así.
+      </p>
+      <p>
+        Nada de lo publicado aquí es <strong>asesoría legal, contable, financiera ni de
+        inversión</strong>, ni sustituye el consejo de un profesional licenciado.
+        Determinar responsabilidad legal le corresponde exclusivamente a las autoridades
+        competentes y a los tribunales.
+      </p>
+      <p>
+        Cualquier conclusión que el lector saque de estos datos es
+        <strong>responsabilidad del lector</strong>. Verifica siempre contra el documento
+        original antes de afirmar algo públicamente.
+      </p>
+    </div>
+
+    <div class="legal">
+      <h3>Derecho a corrección y respuesta</h3>
+      <p>
+        Si eres una persona, empresa o agencia que aparece en estos datos y entiendes que algo
+        está incorrecto, mal agrupado o presentado de forma engañosa,
+        <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR%20-%20Solicitud%20de%20correcci%C3%B3n">escríbenos</a>.
+        <strong>Revisamos y corregimos de buena fe toda solicitud razonable</strong>, y damos
+        prioridad a los errores que puedan afectar la reputación de alguien.
+      </p>
+      <p>
+        Si el error está en el registro oficial de la Contralora y no en nuestro
+        procesamiento, te indicaremos a qué agencia dirigirte, ya que es la agencia otorgante
+        la que puede enmendar su propio registro.
+      </p>
+    </div>
+
+    <h2>No somos los primeros</h2>
+    <p>
+      Entre 2018 y 2025, el colectivo <strong>Code for Puerto Rico</strong> mantuvo
+      <a href="https://github.com/Code4PuertoRico/contratospr-api" target="_blank" rel="noopener">ContratosPR</a>,
+      una herramienta con el mismo propósito. Siete años de trabajo voluntario. La
+      archivaron, y su propio aviso explica por qué: <em>«todas las dependencias no se han
+      mantenido al día»</em>.
+    </p>
+    <p>
+      No la cerró el gobierno ni un pleito. La cerró el <strong>costo de mantenerla</strong>:
+      era una aplicación con servidor y base de datos, y cuando el equipo se quedó sin
+      tiempo, se apagó sola.
+    </p>
+    <p>
+      Este proyecto está hecho como respuesta a eso. <strong>No hay servidor que mantener ni
+      base de datos corriendo</strong>: son archivos que se regeneran solos una vez por
+      semana. Si la automatización falla, el sitio sigue mostrando los últimos datos buenos
+      en vez de caerse. Si nadie lo toca en tres años, sigue funcionando.
+    </p>
+    <p>
+      Gracias a quienes lo intentaron antes. Esto se construyó parándose en su trabajo.
+    </p>
+
+    <h2>Cómo está hecho</h2>
+    <p>
+      El código es abierto y cualquiera puede auditarlo. El pipeline baja los datos del
+      portal de la Contralora limitándose a <strong>una petición cada segundo y medio</strong>,
+      por respeto a un servidor público que pagamos todos.
+    </p>
+    <p>
+      El sitio es estático: no tiene cuentas, no pide registro, no usa <em>cookies</em> de
+      rastreo y <strong>no recopila datos de quien lo visita</strong>. Lo único que se guarda
+      en tu navegador es tu preferencia de tema claro u oscuro.
+    </p>
+
+    <h2>Preguntas, errores, ideas</h2>
+    <p>
+      <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR">contacto@dineropublicopr.com</a>
+    </p>
+
+  </div>
+</div><!-- /viewAcerca -->
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h3>De dónde vienen los datos</h3>
+        <p>
+          Del <a href="https://consultacontratos.ocpr.gov.pr/" target="_blank" rel="noopener">Registro
+          de Contratos</a> de la Oficina de la Contralora de Puerto Rico. La Ley 18 de 1975
+          obliga a toda entidad gubernamental a registrar los contratos que otorga.
+        </p>
+        <p>
+          La exactitud de cada registro es responsabilidad de la agencia que lo entró, no de la
+          Contralora ni de este sitio.
+        </p>
+      </div>
+      <div>
+        <h3>Qué no cubre</h3>
+        <p>
+          La Ley 122-2019 de Datos Abiertos <strong>no aplica</strong> a la Rama Legislativa, la
+          Rama Judicial ni a los municipios. Hay huecos reales de cobertura.
+        </p>
+        <p>
+          Tampoco aparecen aquí las licitaciones abiertas que todavía no se han adjudicado.
+        </p>
+      </div>
+      <div>
+        <h3>Independiente</h3>
+        <p>
+          Este es un proyecto ciudadano independiente. <strong>No está afiliado a ninguna
+          agencia de gobierno, partido político, ni empresa.</strong>
+        </p>
+        <p>
+          ¿Viste un error o quieres sugerir algo?
+          <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR">Escríbenos</a>.
+        </p>
+      </div>
+    </div>
+    <div class="fine">
+      Los datos se actualizan semanalmente. Última generación:
+      <strong id="builtAt">—</strong>.
+      Esta herramienta no emite acusaciones ni determina responsabilidad legal: organiza
+      información pública para que puedas examinarla tú.
+      <a href="#acerca" id="footerLegal">Lee los avisos legales completos y cómo interpretar
+      las señales</a>.
+    </div>
+  </div>
+</footer>
+
+<div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+
+<script>
+const API = './datos/';
+const state = { fy: '', rama: '', data: {} };
+
+const fmtMoney = (n) => {
+  const v = Math.abs(n || 0);
+  if (v >= 1e9) return '$' + (n / 1e9).toFixed(2) + ' mil M';
+  if (v >= 1e6) return '$' + (n / 1e6).toFixed(1) + ' M';
+  if (v >= 1e3) return '$' + Math.round(n / 1e3) + ' mil';
+  return '$' + Math.round(n || 0);
+};
+const fmtFull = (n) =>
+  '$' + (n || 0).toLocaleString('es-PR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtNum = (n) => (n || 0).toLocaleString('es-PR');
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g,
+  (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ── Tooltip ──────────────────────────────────────────── */
+const tip = document.getElementById('tooltip');
+function showTip(evt, title, rows) {
+  tip.innerHTML = '<div class="tt-title">' + esc(title) + '</div>' +
+    rows.map((r) => '<div class="tt-row">' + esc(r) + '</div>').join('');
+  tip.style.opacity = '1';
+  const pad = 14;
+  let x = evt.clientX + pad;
+  let y = evt.clientY + pad;
+  const box = tip.getBoundingClientRect();
+  if (x + box.width > window.innerWidth - 8) x = evt.clientX - box.width - pad;
+  if (y + box.height > window.innerHeight - 8) y = evt.clientY - box.height - pad;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+}
+const hideTip = () => { tip.style.opacity = '0'; };
+
+/* ── Horizontal bar chart ─────────────────────────────── */
+function barChart(host, rows, opts = {}) {
+  const el = typeof host === 'string' ? document.getElementById(host) : host;
+  if (!rows.length) { el.innerHTML = '<div class="empty">Sin datos para este filtro.</div>'; return; }
+
+  const labelW = opts.labelWidth || 200;
+  const rowH = 30, gap = 6, padR = 86, padT = 4;
+  const max = Math.max(...rows.map((r) => r.value)) || 1;
+  const plotW = Math.max(120, 760 - labelW - padR);
+  const h = rows.length * (rowH + gap) + padT;
+
+  const parts = rows.map((row, i) => {
+    const y = padT + i * (rowH + gap);
+    // 2px surface gap between adjacent fills comes from `gap`; bars stay thin.
+    const w = Math.max(2, (row.value / max) * plotW);
+    const color = row.color || 'var(--series-1)';
+    const label = row.label.length > 30 ? row.label.slice(0, 29) + '…' : row.label;
+    return `<g class="bar-row">
+      <text class="bar-label" x="${labelW - 10}" y="${y + rowH / 2}" text-anchor="end"
+            dominant-baseline="central">${esc(label)}</text>
+      <rect class="bar" x="${labelW}" y="${y + 7}" width="${w}" height="${rowH - 14}"
+            rx="4" style="fill:${color}"></rect>
+      <text class="bar-value" x="${labelW + w + 8}" y="${y + rowH / 2}"
+            dominant-baseline="central">${esc(row.display || fmtMoney(row.value))}</text>
+      <rect class="hover-target" x="0" y="${y}" width="${labelW + plotW + padR}" height="${rowH + gap}"
+            data-i="${i}"></rect>
+    </g>`;
+  });
+
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${labelW + plotW + padR} ${h}"
+      role="img" aria-label="${esc(opts.aria || 'Gráfica de barras')}">${parts.join('')}</svg>`;
+
+  el.querySelectorAll('.hover-target').forEach((target) => {
+    target.addEventListener('mousemove', (evt) => {
+      const row = rows[+target.dataset.i];
+      showTip(evt, row.label, row.tip || [fmtFull(row.value)]);
+    });
+    target.addEventListener('mouseleave', hideTip);
+  });
+}
+
+/* ── Line chart with crosshair ────────────────────────── */
+function lineChart(hostId, points, opts = {}) {
+  const el = document.getElementById(hostId);
+  if (points.length < 2) { el.innerHTML = '<div class="empty">Sin datos suficientes.</div>'; return; }
+
+  const W = 760, H = 240;
+  const padL = 58, padR = 14, padT = 12, padB = 30;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const max = Math.max(...points.map((p) => p.value)) || 1;
+  const xOf = (i) => padL + (points.length === 1 ? plotW / 2 : (i / (points.length - 1)) * plotW);
+  const yOf = (v) => padT + plotH - (v / max) * plotH;
+
+  const ticks = 4;
+  let grid = '';
+  for (let t = 0; t <= ticks; t++) {
+    const v = (max / ticks) * t;
+    const y = yOf(v);
+    grid += `<line class="gridline" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"></line>
+      <text class="tick" x="${padL - 8}" y="${y}" text-anchor="end"
+            dominant-baseline="central">${esc(fmtMoney(v))}</text>`;
+  }
+
+  const path = points.map((p, i) => (i ? 'L' : 'M') + xOf(i) + ' ' + yOf(p.value)).join(' ');
+
+  // Label only the fiscal-year boundaries (July) — never a label on every point.
+  let xLabels = '';
+  points.forEach((p, i) => {
+    if (p.label.endsWith('-07') || i === points.length - 1) {
+      xLabels += `<text class="tick" x="${xOf(i)}" y="${H - 8}" text-anchor="middle">${esc(p.label)}</text>`;
+    }
+  });
+
+  const hovers = points.map((p, i) => {
+    const half = plotW / Math.max(1, points.length - 1) / 2;
+    return `<rect class="hover-target" x="${xOf(i) - half}" y="${padT}"
+      width="${half * 2}" height="${plotH}" data-i="${i}"></rect>`;
+  }).join('');
+
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="${esc(opts.aria || 'Serie mensual')}">
+    ${grid}
+    <line class="axisline" x1="${padL}" y1="${padT + plotH}" x2="${W - padR}" y2="${padT + plotH}"></line>
+    <path class="series-line" d="${path}"></path>
+    ${xLabels}
+    <g id="lcCursor" style="opacity:0">
+      <line class="crosshair" y1="${padT}" y2="${padT + plotH}"></line>
+      <circle class="dot" r="4.5"></circle>
+    </g>
+    ${hovers}
+  </svg>`;
+
+  const cursor = el.querySelector('#lcCursor');
+  const cLine = cursor.querySelector('line');
+  const cDot = cursor.querySelector('circle');
+  el.querySelectorAll('.hover-target').forEach((target) => {
+    target.addEventListener('mousemove', (evt) => {
+      const i = +target.dataset.i, p = points[i];
+      cursor.style.opacity = '1';
+      cLine.setAttribute('x1', xOf(i)); cLine.setAttribute('x2', xOf(i));
+      cDot.setAttribute('cx', xOf(i)); cDot.setAttribute('cy', yOf(p.value));
+      showTip(evt, p.label, [fmtFull(p.value), fmtNum(p.count) + ' contratos']);
+    });
+    target.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; hideTip(); });
+  });
+}
+
+/* ── Sortable table ───────────────────────────────────── */
+function table(hostId, cols, rows, opts = {}) {
+  const el = document.getElementById(hostId);
+  // Se guardan las filas y columnas en el elemento para que el botón de CSV exporte
+  // exactamente lo que la tabla está mostrando, sin recalcular el filtro.
+  el._rows = rows;
+  el._cols = cols;
+  if (!rows.length) { el.innerHTML = '<div class="empty">Sin datos para este filtro.</div>'; return; }
+  let sortIdx = opts.sortIdx ?? null, asc = false;
+
+  function render() {
+    let view = rows.slice();
+    if (sortIdx !== null) {
+      const key = cols[sortIdx].key;
+      view.sort((a, b) => {
+        const x = a[key], y = b[key];
+        const cmp = typeof x === 'number' && typeof y === 'number'
+          ? x - y : String(x ?? '').localeCompare(String(y ?? ''), 'es');
+        return asc ? cmp : -cmp;
+      });
+    }
+    if (opts.limit) view = view.slice(0, opts.limit);
+
+    el.innerHTML = `<table><thead><tr>${cols.map((c, i) =>
+      `<th class="${c.num ? 'num ' : ''}sortable${sortIdx === i ? ' sorted' + (asc ? ' asc' : '') : ''}"
+        data-i="${i}">${esc(c.title)}</th>`).join('')}</tr></thead>
+      <tbody>${view.map((r) => '<tr>' + cols.map((c) =>
+        `<td class="${c.num ? 'num' : ''}">${c.render ? c.render(r) : esc(r[c.key])}</td>`
+      ).join('') + '</tr>').join('')}</tbody></table>`;
+
+    el.querySelectorAll('th.sortable').forEach((th) => {
+      th.addEventListener('click', () => {
+        const i = +th.dataset.i;
+        if (sortIdx === i) asc = !asc; else { sortIdx = i; asc = false; }
+        render();
+      });
+    });
+  }
+  render();
+}
+
+/* ── Filtering helpers ────────────────────────────────── */
+const byFy = (rows) => (state.fy ? rows.filter((r) => r.ano === state.fy) : rows);
+
+function agencyRows() {
+  let rows = state.data.agencias || [];
+  if (state.rama) rows = rows.filter((r) => (r.rama || '(sin clasificar)') === state.rama);
+  return rows;
+}
+
+/* ── Render ───────────────────────────────────────────── */
+function renderTiles() {
+  const s = state.data.resumen;
+  const pctSin = s.contratos ? (100 * s.sin_metodo / s.contratos) : 0;
+  document.getElementById('tiles').innerHTML = `
+    <div class="tile"><div class="label">Contratos</div>
+      <div class="value">${fmtNum(s.contratos)}</div>
+      <div class="sub">${esc((s.anos_fiscales[0]||{}).ano || '')} a ${esc((s.anos_fiscales.at(-1)||{}).ano || '')}</div></div>
+    <div class="tile"><div class="label">Monto total</div>
+      <div class="value">${fmtMoney(s.monto_total)}</div>
+      <div class="sub">${esc(fmtFull(s.monto_total))}</div></div>
+    <div class="tile"><div class="label">Agencias</div>
+      <div class="value">${fmtNum(s.agencias)}</div>
+      <div class="sub">entidades que otorgaron</div></div>
+    <div class="tile"><div class="label">Contratistas</div>
+      <div class="value">${fmtNum(s.contratistas)}</div>
+      <div class="sub">nombres agrupados</div></div>
+    <div class="tile flag"><div class="label">Clasificados como «Otros»</div>
+      <div class="value">${(s.pct_otros || 0).toFixed(0)}%</div>
+      <div class="sub">${fmtNum(s.otros || 0)} contratos con una etiqueta que no dice
+        si hubo competencia</div></div>`;
+  document.getElementById('builtAt').textContent = s.generado || '—';
+
+  const cob = (s.cobertura || [])
+    .map((c) => `${c.ano}: ${c.pct_metodo}%`).join(' · ');
+  if (cob) {
+    document.getElementById('coberturaNota').innerHTML =
+      '<br>Cobertura del método por año — ' + esc(cob) + '.';
+  }
+}
+
+function renderMensual() {
+  const rows = (state.data.mensual || []).filter((r) =>
+    !state.fy || fyOfMonth(r.mes) === state.fy);
+  lineChart('chartMensual',
+    rows.map((r) => ({ label: r.mes, value: r.monto, count: r.contratos })),
+    { aria: 'Monto otorgado por mes' });
+  table('tblMensual',
+    [{ title: 'Mes', key: 'mes' },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) }],
+    rows);
+}
+
+function fyOfMonth(mes) {
+  const y = +mes.slice(0, 4), m = +mes.slice(5, 7);
+  const start = m >= 7 ? y : y - 1;
+  return start + '-' + String(start + 1).slice(2);
+}
+
+function aggregate(rows, key) {
+  const out = new Map();
+  byFy(rows).forEach((r) => {
+    const cur = out.get(r[key]) || { contratos: 0, monto: 0 };
+    cur.contratos += r.contratos; cur.monto += r.monto;
+    out.set(r[key], cur);
+  });
+  return [...out.entries()].map(([k, v]) => ({ name: k, ...v }))
+    .sort((a, b) => b.monto - a.monto);
+}
+
+function renderMetodos() {
+  const rows = aggregate(state.data.metodos || [], 'metodo');
+  barChart('chartMetodos', rows.map((r) => ({
+    label: r.name, value: r.monto,
+    color: r.name === '(no registrado)' ? 'var(--critical)' : 'var(--series-1)',
+    tip: [fmtFull(r.monto), fmtNum(r.contratos) + ' contratos'],
+  })), { labelWidth: 215, aria: 'Monto por método de contratación' });
+  table('tblMetodos',
+    [{ title: 'Método', key: 'name' },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) }],
+    rows);
+}
+
+function renderFondos() {
+  const rows = aggregate(state.data.fondos || [], 'fondo');
+  barChart('chartFondos', rows.map((r) => ({
+    label: r.name, value: r.monto,
+    color: r.name === '(no registrado)' ? 'var(--critical)' : 'var(--series-1)',
+    tip: [fmtFull(r.monto), fmtNum(r.contratos) + ' contratos'],
+  })), { labelWidth: 180, aria: 'Monto por origen de fondos' });
+  table('tblFondos',
+    [{ title: 'Fondo', key: 'name' },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) }],
+    rows);
+}
+
+function renderCategorias() {
+  const rows = (state.data.categorias || []).slice(0, 14);
+  barChart('chartCategorias', rows.map((r) => ({
+    label: r.categoria, value: r.monto,
+    tip: [fmtFull(r.monto), fmtNum(r.contratos) + ' contratos', r.agencias + ' agencias'],
+  })), { labelWidth: 240, aria: 'Monto por categoría de servicio' });
+  table('tblCategorias',
+    [{ title: 'Categoría', key: 'categoria' },
+     { title: 'Agencias', key: 'agencias', num: true },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) }],
+    state.data.categorias || []);
+}
+
+function meterColor(pct) {
+  if (pct >= 75) return 'var(--good)';
+  if (pct >= 50) return 'var(--warning)';
+  if (pct >= 25) return 'var(--serious)';
+  return 'var(--critical)';
+}
+
+function renderAgencias() {
+  const rows = agencyRows();
+  document.getElementById('agMeta').textContent = fmtNum(rows.length) + ' agencias';
+  table('tblAgencias',
+    [{ title: 'Agencia', key: 'agencia',
+       render: (r) => `<div class="t-name">${esc(r.agencia)}</div>` +
+         (r.rama ? `<div class="t-sub">${esc(r.rama)}</div>` : '') },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) },
+     { title: 'Transparencia', key: 'pct_transparencia', num: true,
+       render: (r) => {
+         const pct = r.pct_transparencia || 0;
+         return `<div class="meter">
+           <div class="meter-track"><div class="meter-fill"
+             style="width:${pct}%;background:${meterColor(pct)}"></div></div>
+           <span class="meter-num">${pct.toFixed(0)}%</span></div>`;
+       } }],
+    rows, { sortIdx: 2, limit: 200 });
+}
+
+function renderContratistas() {
+  table('tblContratistas',
+    [{ title: 'Contratista', key: 'nombre',
+       // Las variantes se muestran siempre que haya más de una: la agrupación es una
+       // heurística y el lector tiene que poder dudar de ella.
+       render: (r) => `<div class="t-name">${esc(r.nombre)}</div>` +
+         (r.variantes > 1
+           ? `<div class="variant-note" title="${esc(r.nombres || '')}">agrupa ${r.variantes} grafías distintas — verifica</div>`
+           : '') },
+     { title: 'Contratos', key: 'contratos', num: true, render: (r) => fmtNum(r.contratos) },
+     { title: 'Agencias', key: 'agencias', num: true,
+       render: (r) => r.agencias >= 10
+         ? `<span class="pill">${r.agencias}</span>` : String(r.agencias) },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) }],
+    state.data.contratistas || [], { sortIdx: 3, limit: 200 });
+}
+
+/* ── Buscador ─────────────────────────────────────────── */
+const DOC_BASE = 'https://consultacontratos.ocpr.gov.pr/contract/downloaddocument?code=';
+const norm = (s) => String(s ?? '').toLowerCase()
+  .normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+let searchIndex = [];
+let lastHits = [];
+
+/** Los municipios son entidades propias, nombradas "Municipio de X". */
+const MUNI_PREFIX = 'Municipio de ';
+
+function currentFilters() {
+  const get = (id) => document.getElementById(id).value;
+  return {
+    q: norm(get('q')).trim(),
+    muni: get('fMuni'),
+    ent: get('fEnt'),
+    cat: get('fCat'),
+    met: get('fMet'),
+    ano: get('fAno'),
+    min: Number(get('fMin')) || 0,
+  };
+}
+
+function applyFilters() {
+  const f = currentFilters();
+  const terms = f.q ? f.q.split(/\s+/).filter(Boolean) : [];
+
+  return searchIndex.filter((row) => {
+    if (f.min && (row.monto || 0) < f.min) return false;
+    if (f.muni && row.agencia !== MUNI_PREFIX + f.muni) return false;
+    if (f.ent && row.agencia !== f.ent) return false;
+    if (f.cat && row.categoria !== f.cat) return false;
+    if (f.met === '__sin__') {
+      if (row.metodo) return false;
+    } else if (f.met && row.metodo !== f.met) return false;
+    if (f.ano && row.ano !== f.ano) return false;
+    return terms.every((t) => row._hay.includes(t));
+  });
+}
+
+function renderBuscar() {
+  const meta = document.getElementById('searchMeta');
+  if (!searchIndex.length) { meta.textContent = 'Cargando índice…'; return; }
+
+  const hits = applyFilters();
+  lastHits = hits;
+
+  const total = hits.reduce((sum, r) => sum + (r.monto || 0), 0);
+  meta.innerHTML =
+    `<strong>${fmtNum(hits.length)}</strong> ` +
+    (hits.length === 1 ? 'contrato' : 'contratos') +
+    ` · <strong>${esc(fmtFull(total))}</strong> en total` +
+    (hits.length > 300 ? ' — la tabla muestra los 300 de mayor monto; el CSV los baja todos' : '');
+
+  table('tblBuscar',
+    [{ title: 'Contrato', key: 'numero',
+       render: (r) => `<div class="t-name">${esc(r.numero)}</div>` +
+         `<div class="t-sub">${esc(r.fecha || '')}</div>` },
+     { title: 'Contratista', key: 'contratistas',
+       render: (r) => esc(r.contratistas || '—') },
+     { title: 'Agencia', key: 'agencia',
+       render: (r) => `${esc(r.agencia || '—')}` +
+         `<div class="t-sub">${esc(r.categoria || '')}</div>` },
+     { title: 'Método', key: 'metodo',
+       render: (r) => r.metodo
+         ? `<span class="pill">${esc(r.metodo)}</span>`
+         : '<span class="pill" style="color:var(--critical)">no registrado</span>' },
+     { title: 'Monto', key: 'monto', num: true, render: (r) => fmtFull(r.monto) },
+     { title: 'Documento', key: 'doc',
+       render: (r) => r.doc
+         ? `<a class="doclink" href="${DOC_BASE}${encodeURIComponent(r.doc)}"
+              target="_blank" rel="noopener">PDF ↗</a>`
+         : '<span class="t-sub">no disponible</span>' }],
+    hits, { sortIdx: 4, limit: 300 });
+}
+
+function fillSelect(id, values, label) {
+  const sel = document.getElementById(id);
+  values.forEach((v) => {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = label ? label(v) : v;
+    sel.appendChild(opt);
+  });
+}
+
+async function loadSearchIndex() {
+  if (searchIndex.length) return;
+  try {
+    const data = await fetch(API + 'busqueda.json').then((r) => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+    // Un solo campo concatenado por fila: con ~16,000 filas el filtrado es instantáneo
+    // y evita normalizar en cada tecleo.
+    searchIndex = data.map((row) => ({
+      ...row,
+      _hay: norm([row.numero, row.contratistas, row.agencia,
+        row.categoria, row.metodo, row.fondo, row.ano].join(' ')),
+    }));
+
+    const uniq = (fn) => [...new Set(searchIndex.map(fn).filter(Boolean))]
+      .sort((a, b) => String(a).localeCompare(String(b), 'es'));
+
+    fillSelect('fMuni', uniq((r) => r.agencia && r.agencia.startsWith(MUNI_PREFIX)
+      ? r.agencia.slice(MUNI_PREFIX.length) : null));
+    fillSelect('fEnt', uniq((r) => r.agencia));
+    fillSelect('fCat', uniq((r) => r.categoria),
+      (v) => (v.length > 46 ? v.slice(0, 45) + '…' : v));
+    fillSelect('fAno', uniq((r) => r.ano));
+
+    const metodos = uniq((r) => r.metodo);
+    fillSelect('fMet', metodos);
+    const sinOpt = document.createElement('option');
+    sinOpt.value = '__sin__';
+    sinOpt.textContent = '(sin método registrado)';
+    document.getElementById('fMet').appendChild(sinOpt);
+
+    const total = (state.data.resumen || {}).contratos || 0;
+    document.getElementById('idxMeta').textContent =
+      `${fmtNum(searchIndex.length)} de ${fmtNum(total)} contratos`;
+  } catch (err) {
+    document.getElementById('searchMeta').textContent =
+      'No se pudo cargar el índice de búsqueda (' + err.message + ').';
+  }
+}
+
+/* ── Exportar a CSV ───────────────────────────────────── */
+function toCsv(rows, columns) {
+  const cell = (v) => {
+    const s = v === null || v === undefined ? '' : String(v);
+    // Comillas dobles escapadas y campo entrecomillado si trae coma, comilla o salto.
+    return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  const head = columns.map((c) => cell(c.title)).join(',');
+  const body = rows.map((r) => columns.map((c) => cell(c.get(r))).join(',')).join('\r\n');
+  return head + '\r\n' + body;
+}
+
+function downloadCsv(filename, csv) {
+  // El BOM hace que Excel abra los acentos correctamente.
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+const CSV_COLUMNS = [
+  { title: 'numero_contrato', get: (r) => r.numero },
+  { title: 'fecha_otorgacion', get: (r) => r.fecha },
+  { title: 'ano_fiscal', get: (r) => r.ano },
+  { title: 'agencia', get: (r) => r.agencia },
+  { title: 'contratistas', get: (r) => r.contratistas },
+  { title: 'categoria', get: (r) => r.categoria },
+  { title: 'monto', get: (r) => r.monto },
+  { title: 'metodo_contratacion', get: (r) => r.metodo || 'no registrado' },
+  { title: 'origen_fondos', get: (r) => r.fondo || 'no registrado' },
+  { title: 'documento_pdf', get: (r) => (r.doc ? DOC_BASE + r.doc : '') },
+];
+
+function exportSearchCsv() {
+  if (!lastHits.length) return;
+  const f = currentFilters();
+  const parts = ['contratos'];
+  if (f.muni) parts.push(f.muni);
+  if (f.ano) parts.push(f.ano);
+  if (f.q) parts.push(f.q.replace(/\s+/g, '-').slice(0, 24));
+  const name = parts.join('-').replace(/[^\w\-áéíóúñ]/gi, '') + '.csv';
+  downloadCsv(name, toCsv(lastHits, CSV_COLUMNS));
+}
+
+function renderSenales() {
+  const cierre = byFy(state.data.cierre_fiscal || []);
+  table('tblCierre',
+    [{ title: 'Agencia', key: 'agencia' },
+     { title: 'Año fiscal', key: 'ano' },
+     { title: 'Monto del año', key: 'monto_ano', num: true, render: (r) => fmtFull(r.monto_ano) },
+     { title: 'Otorgado en junio', key: 'monto_junio', num: true, render: (r) => fmtFull(r.monto_junio) },
+     { title: '% en junio', key: 'pct_junio', num: true,
+       render: (r) => `<div class="meter">
+         <div class="meter-track"><div class="meter-fill"
+           style="width:${Math.min(100, r.pct_junio)}%;background:${
+             r.pct_junio >= 60 ? 'var(--critical)' : r.pct_junio >= 40
+               ? 'var(--serious)' : 'var(--warning)'}"></div></div>
+         <span class="meter-num">${(r.pct_junio || 0).toFixed(0)}%</span></div>` }],
+    cierre, { sortIdx: 4, limit: 150 });
+
+  table('tblUmbrales',
+    [{ title: 'Umbral', key: 'umbral', render: (r) => fmtFull(r.umbral) },
+     { title: 'Justo debajo (−10%)', key: 'justo_debajo', num: true, render: (r) => fmtNum(r.justo_debajo) },
+     { title: 'Justo encima (+10%)', key: 'justo_encima', num: true, render: (r) => fmtNum(r.justo_encima) },
+     { title: 'Razón debajo/encima', key: 'razon', num: true,
+       render: (r) => r.razon === null ? '—'
+         : `<strong style="color:${r.razon >= 2 ? 'var(--critical)' : 'inherit'}">${r.razon.toFixed(2)}×</strong>` }],
+    state.data.umbrales || []);
+
+  table('tblEnmiendas',
+    [{ title: 'Contrato', key: 'numero' },
+     { title: 'Agencia', key: 'agencia' },
+     { title: 'Año', key: 'ano' },
+     { title: 'Enmiendas', key: 'enmiendas', num: true },
+     { title: 'Monto original', key: 'monto_original', num: true, render: (r) => fmtFull(r.monto_original) },
+     { title: 'Suma de enmiendas', key: 'monto_enmiendas', num: true, render: (r) => fmtFull(r.monto_enmiendas) },
+     { title: 'Aumento', key: 'pct_aumento', num: true,
+       render: (r) => `<strong style="color:${
+         r.pct_aumento >= 100 ? 'var(--critical)' : r.pct_aumento >= 50
+           ? 'var(--serious)' : 'inherit'}">+${(r.pct_aumento || 0).toFixed(0)}%</strong>` }],
+    byFy(state.data.enmiendas || []), { sortIdx: 6, limit: 150 });
+}
+
+function renderApiList() {
+  const files = [
+    ['resumen.json', 'Totales generales y por año fiscal'],
+    ['metodos.json', 'Monto y conteo por método de contratación'],
+    ['fondos.json', 'Monto y conteo por origen de fondos'],
+    ['agencias.json', 'Agencias con su índice de transparencia'],
+    ['categorias.json', 'Categorías de servicio'],
+    ['contratistas.json', 'Los 1,000 principales contratistas, con sus variantes de nombre'],
+    ['cierre_fiscal.json', 'Señal: gasto concentrado en junio'],
+    ['umbrales.json', 'Señal: montos agrupados bajo umbrales'],
+    ['enmiendas.json', 'Señal: cuánto crecieron los contratos tras adjudicarse'],
+    ['mensual.json', 'Serie mensual de monto y conteo'],
+    ['busqueda.json', 'Índice de contratos de $250,000 o más, con enlace a cada PDF'],
+  ];
+  document.getElementById('apiList').innerHTML = `
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;max-width:700px">
+      Cada archivo es JSON abierto, sin llave ni registro. Enlázalos directamente desde tu
+      código. Abajo están también los contratos completos en CSV, uno por año fiscal, para
+      abrirlos en Excel, R, Python o lo que uses.
+    </p>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;max-width:700px">
+      Si necesitas consultas con parámetros libres (por agencia, rango de fechas, montos),
+      hay un API consultable en <a href="./api/v1/"><code>/api/v1/</code></a> que documenta
+      sus propias rutas.
+    </p>
+    <div class="table-scroll"><table><thead><tr>
+      <th>Archivo</th><th>Contenido</th></tr></thead><tbody>
+      ${files.map(([f, d]) => `<tr>
+        <td><a href="${API}${f}" target="_blank" rel="noopener"><code>${esc(f)}</code></a></td>
+        <td class="t-sub">${esc(d)}</td></tr>`).join('')}
+      ${(state.data.resumen.anos_fiscales || []).map((y) => `<tr>
+        <td><a href="./descargas/contratos-${esc(y.ano)}.csv.gz"><code>contratos-${esc(y.ano)}.csv.gz</code></a></td>
+        <td class="t-sub">Todos los contratos del año fiscal ${esc(y.ano)}, en CSV comprimido
+          (${fmtNum(y.contratos)} filas)</td></tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function renderAll() {
+  renderMensual(); renderMetodos(); renderFondos();
+  renderCategorias(); renderAgencias(); renderContratistas(); renderSenales();
+  const parts = [];
+  if (state.fy) parts.push('año fiscal ' + state.fy);
+  if (state.rama) parts.push(state.rama.toLowerCase());
+  document.getElementById('filterHint').textContent =
+    parts.length ? 'Mostrando: ' + parts.join(' · ') : 'Mostrando todos los años y ramas';
+}
+
+/* ── Boot ─────────────────────────────────────────────── */
+async function boot() {
+  const names = ['resumen', 'metodos', 'fondos', 'agencias', 'categorias',
+    'contratistas', 'cierre_fiscal', 'umbrales', 'enmiendas', 'mensual'];
+  try {
+    const loaded = await Promise.all(names.map((n) =>
+      fetch(API + n + '.json').then((r) => {
+        if (!r.ok) throw new Error(n + ': HTTP ' + r.status);
+        return r.json();
+      })));
+    names.forEach((n, i) => { state.data[n] = loaded[i]; });
+  } catch (err) {
+    document.getElementById('tiles').innerHTML =
+      '<div class="empty">No se pudieron cargar los datos (' + esc(err.message) +
+      '). Si estás corriendo esto localmente, sirve la carpeta con un servidor web.</div>';
+    return;
+  }
+
+  renderTiles();
+
+  const fySel = document.getElementById('fy');
+  (state.data.resumen.anos_fiscales || []).forEach((y) => {
+    const opt = document.createElement('option');
+    opt.value = y.ano; opt.textContent = y.ano;
+    fySel.appendChild(opt);
+  });
+
+  const ramaSel = document.getElementById('rama');
+  [...new Set((state.data.agencias || []).map((a) => a.rama).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'es')).forEach((r) => {
+      const opt = document.createElement('option');
+      opt.value = r; opt.textContent = r;
+      ramaSel.appendChild(opt);
+    });
+
+  fySel.addEventListener('change', (e) => { state.fy = e.target.value; renderAll(); });
+  ramaSel.addEventListener('change', (e) => { state.rama = e.target.value; renderAgencias(); });
+
+  renderApiList();
+  renderAll();
+
+  const years = state.data.resumen.anos_fiscales || [];
+  if (years.length) {
+    document.getElementById('aboutYears').textContent =
+      years[0].ano + ' a ' + years.at(-1).ano;
+  }
+
+  showView(location.hash.slice(1) || 'datos');
+}
+
+/* Navegación entre vistas */
+const VIEWS = { datos: 'viewDatos', buscar: 'viewBuscar', acerca: 'viewAcerca' };
+function showView(name) {
+  if (!VIEWS[name]) name = 'datos';
+  Object.entries(VIEWS).forEach(([key, id]) => {
+    document.getElementById(id).hidden = key !== name;
+  });
+  document.querySelectorAll('.navlink').forEach((link) => {
+    if (link.dataset.view === name) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  if (location.hash.slice(1) !== name) history.replaceState(null, '', '#' + name);
+  if (name === 'buscar') {
+    loadSearchIndex().then(renderBuscar);
+    document.getElementById('q').focus();
+  }
+  window.scrollTo({ top: 0 });
+}
+document.querySelectorAll('.navlink').forEach((link) => {
+  link.addEventListener('click', () => showView(link.dataset.view));
+});
+/* Enlaces internos tipo #acerca (pie de página, avisos) y el botón atrás del navegador */
+window.addEventListener('hashchange', () => {
+  const name = location.hash.slice(1);
+  if (VIEWS[name]) showView(name);
+});
+
+/* Búsqueda con pequeño retraso, para no filtrar en cada tecla */
+let searchTimer = null;
+document.getElementById('q').addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderBuscar, 140);
+});
+
+/* Los desplegables sí filtran de inmediato: son un solo clic */
+['fMuni', 'fEnt', 'fCat', 'fMet', 'fAno', 'fMin'].forEach((id) => {
+  document.getElementById(id).addEventListener('change', () => {
+    // Municipio y entidad son el mismo eje: elegir uno limpia el otro para no
+    // dejar al usuario con una combinación que nunca devuelve nada.
+    if (id === 'fMuni' && document.getElementById('fMuni').value) {
+      document.getElementById('fEnt').value = '';
+    }
+    if (id === 'fEnt' && document.getElementById('fEnt').value) {
+      document.getElementById('fMuni').value = '';
+    }
+    renderBuscar();
+  });
+});
+
+document.getElementById('btnCsv').addEventListener('click', exportSearchCsv);
+
+/* Exportar cualquier tabla del panel: usa las filas crudas que la tabla guardó. */
+document.querySelectorAll('[data-export]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const el = document.getElementById(btn.dataset.export);
+    const rows = el && el._rows;
+    if (!rows || !rows.length) return;
+    const columns = el._cols.map((c) => ({ title: c.key, get: (r) => r[c.key] }));
+    downloadCsv((btn.dataset.name || btn.dataset.export) + '.csv', toCsv(rows, columns));
+  });
+});
+document.getElementById('btnReset').addEventListener('click', () => {
+  document.getElementById('q').value = '';
+  ['fMuni', 'fEnt', 'fCat', 'fMet', 'fAno'].forEach((id) => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fMin').value = '250000';
+  renderBuscar();
+});
+
+/* Tabs */
+document.querySelectorAll('.tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach((t) => {
+      t.setAttribute('aria-selected', String(t === tab));
+      document.getElementById(t.dataset.panel).hidden = t !== tab;
+    });
+  });
+});
+
+/* Table toggles */
+document.querySelectorAll('.toggle-table').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.table);
+    target.hidden = !target.hidden;
+    btn.textContent = target.hidden ? 'Ver tabla' : 'Ocultar tabla';
+  });
+});
+
+/* Theme */
+const themeBtn = document.getElementById('themeBtn');
+try {
+  const saved = localStorage.getItem('dineropublicopr-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+} catch (_) { /* almacenamiento bloqueado: se queda con el tema del sistema */ }
+themeBtn.addEventListener('click', () => {
+  const dark = document.documentElement.dataset.theme === 'dark'
+    || (!document.documentElement.dataset.theme
+        && matchMedia('(prefers-color-scheme: dark)').matches);
+  const next = dark ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('dineropublicopr-theme', next); } catch (_) { /* no persiste */ }
+});
+
+boot();
+</script>
+</body>
+</html>

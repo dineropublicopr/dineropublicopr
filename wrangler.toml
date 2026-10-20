@@ -1,0 +1,32 @@
+name = "dineropublicopr"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "web"
+
+# El API consultable vive en web/functions/api/v1/[[route]].js y se publica junto al sitio,
+# asi que queda en dineropublicopr.com/api/v1/... sin subdominios.
+#
+# Puesta en linea:
+#
+#   npm install -g wrangler
+#   wrangler login
+#
+#   # 1. Crear la base y anotar el database_id que imprime
+#   wrangler d1 create dineropublicopr
+#
+#   # 2. Cargarla desde el SQLite local
+#   sqlite3 data/out/contratos.sqlite .dump > /tmp/contratos.sql
+#   wrangler d1 execute dineropublicopr --remote --file=/tmp/contratos.sql
+#
+#   # 3. Publicar el sitio
+#   wrangler pages deploy web --project-name=dineropublicopr
+#
+# Limites del plan gratuito de D1 a tener presentes: 500 MB por base y 5 millones de filas
+# leidas por dia. Con ~270,000 contratos la base ronda los 100 MB, asi que cabe con holgura;
+# si el proyecto crece a los 14 anos completos hay que revisarlo antes de importar.
+#
+# El binding tiene que llamarse DB, que es lo que busca la funcion.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dineropublicopr"
+database_id = "PEGA_AQUI_EL_ID_QUE_IMPRIME_WRANGLER"

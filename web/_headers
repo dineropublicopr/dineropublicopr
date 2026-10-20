@@ -1,0 +1,25 @@
+# Cabeceras para Cloudflare Pages.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  # El sitio no carga nada de terceros: ni fuentes, ni analitica, ni librerias. La politica
+  # lo hace explicito, asi que si algun dia se cuela un script externo, falla visiblemente
+  # en vez de ejecutarse en silencio. form-action 'none' porque no hay formularios.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; form-action 'none'; base-uri 'self'
+
+# Los JSON pre-agregados se regeneran cada semana: una hora de cache y revalidacion.
+/datos/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Access-Control-Allow-Origin: *
+
+# El API consultable (Pages Function sobre D1) fija su propio cache en la respuesta.
+/api/v1/*
+  Access-Control-Allow-Origin: *
+
+# Los CSV son inmutables dentro de una misma publicacion y pesan megabytes.
+/descargas/*
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *

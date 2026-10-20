@@ -1,0 +1,27 @@
+# Los JSONL crudos son cientos de MB y se pueden regenerar del portal de la Contralora.
+# En CI se cachean entre corridas en vez de versionarse.
+data/raw/contracts/
+data/raw/tags/
+data/raw/*.html
+data/raw/*.js
+data/out/
+data/*.log
+
+# web/datos/ y web/descargas/ SI se versionan: son lo que sirve el sitio.
+# La base SQLite no, porque pesa ~100 MB y un binario nuevo por semana inflaria el
+# historial del repositorio sin control. Se regenera con pipeline/run.py.
+web/contratos.sqlite
+web/datos/*.tmp
+
+__pycache__/
+*.py[cod]
+.DS_Store
+node_modules/
+.wrangler/
+
+# Scripts de exploracion del API, no son parte del pipeline
+pipeline/probe*.py
+
+# Documentos operativos internos: contienen informacion de identidad y de
+# infraestructura. Se quedan en la maquina local, nunca en el repo publico.
+docs/
