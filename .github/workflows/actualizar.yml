@@ -25,7 +25,7 @@ jobs:
     # A nivel de job para que los pasos puedan preguntar por ellos en su `if`. El contexto
     # env de un paso no esta disponible en el condicional de ese mismo paso.
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLAREDINERO }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
