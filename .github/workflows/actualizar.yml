@@ -27,6 +27,10 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLAREDINERO }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Fijada a proposito. Antes decia `wrangler@4` y Cloudflare quito el subcomando
+      # `d1 import` en una version menor, asi que la corrida del 2026-10-21 borro las
+      # tablas y no pudo recargarlas. Subir esto a mano despues de probar el comando.
+      WRANGLER_VERSION: "4.151.3"
 
     steps:
       - uses: actions/checkout@v4
@@ -79,7 +83,7 @@ jobs:
       # configurado este paso se salta y el repositorio queda actualizado igual.
       - name: Desplegar el sitio en Pages
         if: env.CLOUDFLARE_API_TOKEN != ''
-        run: npx --yes wrangler@4 pages deploy web --project-name=dineropublicopr --branch=main --commit-dirty=true
+        run: npx --yes wrangler@${WRANGLER_VERSION} pages deploy web --project-name=dineropublicopr --branch=main --commit-dirty=true
 
       # El API consultable corre sobre D1, que no se actualiza con el despliegue del sitio.
       # Tambien se salta si no hay token.
@@ -88,13 +92,43 @@ jobs:
         run: |
           # Se recrea desde cero: es mas simple y seguro que calcular diferencias, y la
           # base entera son ~100 MB.
-          npx --yes wrangler@4 d1 execute dineropublicopr --remote --yes \
-            --command "DROP TABLE IF EXISTS contracts; DROP TABLE IF EXISTS contractors; DROP TABLE IF EXISTS entities; DROP TABLE IF EXISTS meta;"
+          #
+          # Los DROP van DENTRO del mismo archivo que el dump, no en un paso aparte. Si se
+          # borran las tablas en una invocacion y la carga falla en la siguiente, la base
+          # queda vacia y el API devuelve 500 "no such table" hasta que alguien lo arregle
+          # a mano. Paso el 2026-10-21. Una sola invocacion, un solo punto de fallo.
+          {
+            echo 'DROP TABLE IF EXISTS contracts;'
+            echo 'DROP TABLE IF EXISTS contractors;'
+            echo 'DROP TABLE IF EXISTS entities;'
+            echo 'DROP TABLE IF EXISTS meta;'
 
-          # D1 rechaza BEGIN TRANSACTION, COMMIT y PRAGMA, que es justo lo que mete
-          # `sqlite3 .dump`. Hay que quitar esas tres lineas o la importacion falla.
-          sqlite3 data/out/contratos.sqlite .dump \
-            | grep -v -e '^PRAGMA foreign_keys=OFF;$' -e '^BEGIN TRANSACTION;$' -e '^COMMIT;$' \
-            > /tmp/contratos_d1.sql
+            # D1 rechaza BEGIN TRANSACTION, COMMIT y PRAGMA, que es justo lo que mete
+            # `sqlite3 .dump`. Hay que quitar esas tres lineas o la carga falla entera.
+            sqlite3 data/out/contratos.sqlite .dump \
+              | grep -v -e '^PRAGMA foreign_keys=OFF;$' \
+                        -e '^BEGIN TRANSACTION;$' \
+                        -e '^COMMIT;$'
+          } > /tmp/contratos_d1.sql
 
-          npx --yes wrangler@4 d1 import dineropublicopr --remote --file=/tmp/contratos_d1.sql
+          # `wrangler d1 import` ya no existe: lo quitaron en una version de wrangler 4 y
+          # la corrida del 2026-10-21 fallo con "Unknown arguments: import". El comando
+          # vigente es `d1 execute --file`, que sube hasta 5 GiB por la misma via.
+          npx --yes wrangler@${WRANGLER_VERSION} d1 execute dineropublicopr \
+            --remote --yes --file=/tmp/contratos_d1.sql
+
+      # Sin esto, una carga que falle a medias pasa desapercibida: el sitio estatico se ve
+      # bien y solo el API queda roto. Se compara contra el JSON que acaba de generar el
+      # pipeline, que es la fuente de verdad de esta corrida.
+      - name: Verificar que el API responde con los datos nuevos
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          esperado=$(python3 -c "import json;print(json.load(open('web/datos/resumen.json'))['contratos'])")
+          obtenido=$(curl -sS --retry 3 --retry-delay 10 \
+            https://dineropublicopr.com/api/v1/resumen \
+            | python3 -c "import sys,json;print(json.load(sys.stdin).get('contratos','ninguno'))")
+          echo "sitio: $esperado | API: $obtenido"
+          if [ "$esperado" != "$obtenido" ]; then
+            echo "::error::D1 no quedo igual que el sitio. El API puede estar roto."
+            exit 1
+          fi
