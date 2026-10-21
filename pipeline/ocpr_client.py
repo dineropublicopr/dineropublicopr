@@ -112,7 +112,7 @@ class OcprClient:
             },
         )
         with self._opener.open(req, timeout=self.timeout) as resp:
-            html = self._read(resp).decode("utf-8", "replace")
+            html = self._read(resp).decode("utf-8-sig", "replace")
 
         match = re.search(
             r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', html
@@ -145,7 +145,10 @@ class OcprClient:
             method="POST",
         )
         with self._opener.open(req, timeout=self.timeout) as resp:
-            return json.loads(self._read(resp).decode("utf-8", "replace"))
+            # utf-8-sig, no utf-8: el servidor devuelve BOM de forma intermitente y
+            # json.loads lo rechaza con "Unexpected UTF-8 BOM". Rompio la corrida del
+            # 2026-10-21 despues de 50 minutos. Sin BOM se comporta igual que utf-8.
+            return json.loads(self._read(resp).decode("utf-8-sig", "replace"))
 
     def search(
         self,
@@ -233,4 +236,4 @@ class OcprClient:
             },
         )
         with self._opener.open(req, timeout=self.timeout) as resp:
-            return json.loads(self._read(resp).decode("utf-8", "replace"))
+            return json.loads(self._read(resp).decode("utf-8-sig", "replace"))
