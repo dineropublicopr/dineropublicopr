@@ -186,6 +186,13 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .doclink:hover { background: var(--plane); text-decoration: none; }
 .variant-note { font-size: 11.5px; color: var(--warning); font-weight: 600; }
 
+/* ── Legal ────────────────────────────────────────────── */
+.metodo p { margin-bottom: 9px; }
+.metodo p:last-child { margin-bottom: 0; }
+.legal-entity { padding: 18px 0 4px; border-top: 1px solid var(--border); }
+.legal-entity:first-child { padding-top: 2px; border-top: none; }
+.legal-entity .card-head { margin-bottom: 4px; }
+
 /* ── Hero ─────────────────────────────────────────────── */
 .hero { padding: 44px 0 28px; }
 .hero h1 { font-size: clamp(25px, 4vw, 38px); margin-bottom: 12px; letter-spacing: -0.02em; }
@@ -356,6 +363,7 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     <nav class="mainnav" aria-label="Secciones">
       <button class="navlink" data-view="datos" aria-current="page">Los datos</button>
       <button class="navlink" data-view="buscar">Buscar</button>
+      <button class="navlink" data-view="legal">Legal</button>
       <button class="navlink" data-view="acerca">Cómo funciona</button>
     </nav>
     <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">Tema</button>
@@ -644,6 +652,76 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     oficial de la Contralora</a> o descarga los CSV completos en la pestaña «Los datos».
   </div>
 </div><!-- /viewBuscar -->
+
+<!-- ═══════════════════ LEGAL ═══════════════════ -->
+<div class="view" id="viewLegal" hidden>
+  <div class="hero">
+    <h1>Legal</h1>
+    <p class="lede">
+      Demandas y datos públicos sobre las compañías que contratan con el gobierno:
+      los casos que constan bajo su nombre en el sistema judicial, junto a sus totales
+      en el Registro de Contratos.
+    </p>
+  </div>
+
+  <div class="notice metodo" style="max-width:none;margin-top:0">
+    <p>
+      <strong>Cómo leer esta página.</strong> Los casos vienen de la
+      <a href="https://poderjudicial.pr/consulta-de-casos/" target="_blank" rel="noopener">Consulta
+      de Casos</a> del Poder Judicial de Puerto Rico, un registro público que cualquiera
+      puede consultar. Los totales de contratos vienen del Registro de Contratos de la
+      Oficina de la Contralora, los mismos datos de la pestaña «Los datos». Cuando quien
+      demanda es una persona natural, su nombre se omite aquí; consta en el expediente
+      oficial, que se consulta por el número de caso.
+    </p>
+    <p>
+      <strong>Una demanda es una alegación, no un hallazgo.</strong> Que conste una demanda
+      bajo el nombre de una compañía significa que una parte presentó una reclamación en su
+      contra; no significa que un tribunal haya determinado que lo alegado ocurrió. El
+      estatus de cada caso es el que reportaba el sistema oficial en la fecha de
+      verificación indicada.
+    </p>
+    <p>
+      <strong>Esta página presenta datos públicos; no juzga ni evalúa a ninguna
+      compañía.</strong> Lo que significa cada caso lo decide el lector, verificando el
+      expediente original por su número de caso en la
+      <a href="https://poderjudicial.pr/consulta-de-casos/" target="_blank" rel="noopener">fuente
+      oficial</a>.
+    </p>
+    <p>
+      <strong>Lo que no aparece también importa.</strong> Los casos confidenciales no se
+      publican en la Consulta de Casos, y esta lista solo incluye los casos públicos que
+      pudimos verificar contra el nombre del contratista. Que una entidad no aparezca aquí
+      no significa que no tenga casos ni que tenga un récord limpio.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="searchbar">
+      <input type="search" id="qLegal" placeholder="Ej: nombre de una compañía…"
+             aria-label="Buscar entidades en Legal" autocomplete="off">
+    </div>
+
+    <div class="filters" style="position:static;margin-bottom:14px" role="group"
+         aria-label="Filtros de Legal">
+      <div class="field">
+        <label for="fCatLegal">Categoría del caso</label>
+        <select id="fCatLegal"><option value="">Todas</option></select>
+      </div>
+    </div>
+
+    <div class="searchmeta" id="legalMeta"></div>
+    <div id="legalList"><div class="loading">Cargando datos…</div></div>
+  </div>
+
+  <div class="notice" style="margin-top:18px">
+    <strong>Esta lista está empezando.</strong> Se añaden entidades a medida que sus casos
+    se verifican uno a uno contra la fuente oficial. Si eres una entidad que aparece aquí y
+    entiendes que algo está incorrecto,
+    <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR%20-%20Correcci%C3%B3n%20en%20Legal">escríbenos</a>
+    y lo revisamos.
+  </div>
+</div><!-- /viewLegal -->
 
 <!-- ═══════════════════ CÓMO FUNCIONA ═══════════════════ -->
 <div class="view" id="viewAcerca" hidden>
@@ -1575,6 +1653,130 @@ function renderAll() {
     parts.length ? 'Mostrando: ' + parts.join(' · ') : 'Mostrando todos los años y ramas';
 }
 
+/* ── Legal: casos públicos de contratistas ────────────── */
+let legalData = null;
+
+/* Etiquetas legibles para las categorías del archivo de datos. La categoría
+   clasifica el tipo de caso según la causa de acción que reporta el sistema
+   judicial; no es una valoración de esta página sobre ninguna entidad. */
+const LEGAL_CAT_LABELS = {
+  incumplimiento: 'Incumplimiento',
+  fraude: 'Fraude',
+  servicios_no_provistos: 'Servicios no provistos',
+  cobro: 'Cobro',
+  otra: 'Otros casos',
+  otra_contractual: 'Otros casos contractuales',
+};
+const legalCatLabel = (k) => LEGAL_CAT_LABELS[k] || k;
+
+const LEGAL_COLS = [
+  { title: 'Número de caso', key: 'caso_numero',
+    render: (r) => `<div class="t-name">${esc(r.caso_numero)}</div>` +
+      `<div class="t-sub">Verificado el ${esc(r.verificado_el || '—')}</div>` +
+      (r.caso_url
+        ? ` <a class="doclink" href="${esc(r.caso_url)}" target="_blank" rel="noopener">Fuente ↗</a>`
+        : '') },
+  { title: 'Tribunal', key: 'tribunal' },
+  { title: 'Causa de acción', key: 'causa_accion' },
+  { title: 'Partes', key: 'partes',
+    render: (r) => esc(r.partes || '—') +
+      (r.rol_entidad
+        ? `<div class="t-sub">Rol de la entidad en el caso: ${esc(r.rol_entidad)}</div>`
+        : '') },
+  { title: 'Radicación', key: 'fecha_radicacion' },
+  { title: 'Estatus', key: 'estatus' },
+  { title: 'Nota', key: 'nota' },
+];
+
+async function loadLegal() {
+  if (legalData) { renderLegal(); return; }
+  try {
+    legalData = await fetch(API + 'senales-legales.json').then((r) => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  } catch (err) {
+    document.getElementById('legalList').innerHTML =
+      '<div class="empty">No se pudo cargar el archivo de casos (' + esc(err.message) + ').</div>';
+    return;
+  }
+  // El filtro de categoría se puebla con los valores que trae el propio archivo.
+  const cats = [...new Set((legalData.senales || [])
+    .map((s) => s.categoria_senal).filter(Boolean))]
+    .sort((a, b) => legalCatLabel(a).localeCompare(legalCatLabel(b), 'es'));
+  fillSelect('fCatLegal', cats, legalCatLabel);
+  renderLegal();
+}
+
+function legalGrouped() {
+  const byEnt = new Map();
+  (legalData.senales || []).forEach((s) => {
+    if (!byEnt.has(s.entidad_clave)) {
+      byEnt.set(s.entidad_clave,
+        { clave: s.entidad_clave, nombre: s.entidad_nombre, casos: [] });
+    }
+    byEnt.get(s.entidad_clave).casos.push(s);
+  });
+  /* Totales de contratos por entidad: cruce por `clave` contra contratistas.json,
+     que boot ya cargó en state.data. Si una entidad no aparece en ese archivo, se
+     muestran solo sus casos, sin totales.
+     PENDIENTE (placeholder): si algún día contratistas.json deja de cubrir a una
+     entidad con casos, sus totales tendrán que venir dentro de senales-legales.json. */
+  const totals = new Map((state.data.contratistas || []).map((c) => [c.clave, c]));
+  return [...byEnt.values()]
+    .map((e) => ({ ...e, totales: totals.get(e.clave) || null }))
+    .sort((a, b) => ((b.totales || {}).monto || 0) - ((a.totales || {}).monto || 0));
+}
+
+function renderLegal() {
+  const host = document.getElementById('legalList');
+  if (!legalData) { host.innerHTML = '<div class="loading">Cargando datos…</div>'; return; }
+  const q = norm(document.getElementById('qLegal').value).trim();
+  const cat = document.getElementById('fCatLegal').value;
+
+  const blocks = [];
+  legalGrouped().forEach((e) => {
+    if (q && !norm(e.nombre).includes(q)) return;
+    const casos = cat ? e.casos.filter((s) => s.categoria_senal === cat) : e.casos;
+    if (!casos.length) return;
+    blocks.push({ e, casos });
+  });
+
+  const nCasos = blocks.reduce((sum, b) => sum + b.casos.length, 0);
+  document.getElementById('legalMeta').textContent =
+    `${fmtNum(blocks.length)} ${blocks.length === 1 ? 'entidad' : 'entidades'} · ` +
+    `${fmtNum(nCasos)} ${nCasos === 1 ? 'caso' : 'casos'} · ` +
+    `archivo de casos generado el ${legalData.generado || '—'}`;
+
+  if (!blocks.length) {
+    host.innerHTML = '<div class="empty">Sin resultados para ese filtro.</div>';
+    return;
+  }
+  host.innerHTML = blocks.map((b, i) => `
+    <div class="legal-entity">
+      <div class="card-head">
+        <h3>${esc((b.e.totales && b.e.totales.nombre) || b.e.nombre)}</h3>
+        <span class="meta">${fmtNum(b.casos.length)} ${b.casos.length === 1 ? 'caso' : 'casos'}</span>
+      </div>
+      ${b.e.totales ? `<p class="t-sub" style="margin-bottom:12px">En el Registro de Contratos: ` +
+        `${fmtNum(b.e.totales.contratos)} contratos · ${fmtNum(b.e.totales.agencias)} agencias · ` +
+        `${esc(fmtFull(b.e.totales.monto))} en total` +
+        (b.e.totales.variantes > 1
+          ? ` · el nombre agrupa ${b.e.totales.variantes} grafías distintas` : '') +
+        `</p>` : ''}
+      <div class="table-scroll" id="tblLegal${i}"></div>
+    </div>`).join('');
+  blocks.forEach((b, i) => table('tblLegal' + i, LEGAL_COLS, b.casos));
+}
+
+/* La caja de Legal filtra con el mismo retraso corto que la de Buscar */
+let legalTimer = null;
+document.getElementById('qLegal').addEventListener('input', () => {
+  clearTimeout(legalTimer);
+  legalTimer = setTimeout(renderLegal, 140);
+});
+document.getElementById('fCatLegal').addEventListener('change', renderLegal);
+
 /* ── Boot ─────────────────────────────────────────────── */
 async function boot() {
   const names = ['resumen', 'metodos', 'fondos', 'agencias', 'categorias',
@@ -1626,7 +1828,7 @@ async function boot() {
 }
 
 /* Navegación entre vistas */
-const VIEWS = { datos: 'viewDatos', buscar: 'viewBuscar', acerca: 'viewAcerca' };
+const VIEWS = { datos: 'viewDatos', buscar: 'viewBuscar', legal: 'viewLegal', acerca: 'viewAcerca' };
 function showView(name) {
   if (!VIEWS[name]) name = 'datos';
   Object.entries(VIEWS).forEach(([key, id]) => {
@@ -1641,6 +1843,7 @@ function showView(name) {
     loadSearchIndex().then(renderBuscar);
     document.getElementById('q').focus();
   }
+  if (name === 'legal') loadLegal();
   window.scrollTo({ top: 0 });
 }
 document.querySelectorAll('.navlink').forEach((link) => {
