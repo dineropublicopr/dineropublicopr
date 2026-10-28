@@ -4,6 +4,7 @@ data/raw/contracts/
 data/raw/tags/
 data/raw/*.html
 data/raw/*.js
+data/raw/*.csv
 data/out/
 data/*.log
 

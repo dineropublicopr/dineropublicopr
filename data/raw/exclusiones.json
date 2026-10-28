@@ -1,0 +1,205 @@
+{
+ "leie": {
+  "descargado": "2026-10-28T10:36:43-04:00",
+  "entidades_pr": [
+   {
+    "fuente": "LEIE",
+    "nombre": "BEMI AMBULANCE SERVICE",
+    "ciudad": "HATO REY",
+    "tipo_entidad": "AMBULANCE COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "CENTRO EQUIPOS MEDICOS",
+    "ciudad": "YAUCO",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "2003-06-19",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "COMERIO AMBULANCE SERVICE",
+    "ciudad": "BAYAMON",
+    "tipo_entidad": "AMBULANCE COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "2006-05-18",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "EQUIPOS MEDICOS DEL ESTE",
+    "ciudad": "RIO PIEDRAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "EQUIPOS MEDICOS DEL TORITO",
+    "ciudad": "CAYEY",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-30",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "EQUIPOS MEDICOS SULTANA",
+    "ciudad": "MAYAQUEZ",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-30",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "FARMACIA NUEVO MODELO",
+    "ciudad": "BAYAMON",
+    "tipo_entidad": "PHARMACY",
+    "codigo": "1128a1",
+    "motivo": "Condena por delito relacionado con un programa federal de salud",
+    "desde": "2000-03-20",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "FIRST HOSP & HOME CARE MED CO",
+    "ciudad": "BO CUPEY ALTO",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-30",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "HATO REY HOME CARE MED EQUIP",
+    "ciudad": "HATO REY",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "HEALTH & HOME CARE MED EQUIP",
+    "ciudad": "RIO PIEDRAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "LABORATORIO CLINICO SAN JUAN I",
+    "ciudad": "DORADO",
+    "tipo_entidad": "OTHER BUSINESS",
+    "codigo": "1128a1",
+    "motivo": "Condena por delito relacionado con un programa federal de salud",
+    "desde": "2025-06-19",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "LUGUILLO MEDICAL EQUIP CO",
+    "ciudad": "LUGUILLO",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-30",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "NEXEON MEDSYSTEMS PUERTO RICO",
+    "ciudad": "SAN JUAN",
+    "tipo_entidad": "GOVERNMENT GRANTEE",
+    "codigo": "1128b7",
+    "motivo": "Fraude, sobornos u otras actividades prohibidas",
+    "desde": "2020-10-13",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "OXIGENO Y EQUIPOS MED",
+    "ciudad": "RIO PIEDRAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-30",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "PRONTO MEDICAL EQUIPMENT",
+    "ciudad": "RIO PIEDRAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "SOUTHERN INTEGRATED MEDICAL SV",
+    "ciudad": "YAUCO",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "2003-06-19",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "UNIQUE MEDICAL LEASING CO",
+    "ciudad": "RIO PIEDRAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   },
+   {
+    "fuente": "LEIE",
+    "nombre": "VILAR MEDICAL EQUIPMENT",
+    "ciudad": "CAGUAS",
+    "tipo_entidad": "DME COMPANY",
+    "codigo": "1128b8",
+    "motivo": "Entidad controlada por una persona sancionada",
+    "desde": "1987-03-16",
+    "hasta": null,
+    "agencia": "HHS-OIG"
+   }
+  ]
+ }
+}

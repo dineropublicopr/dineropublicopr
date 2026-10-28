@@ -1,0 +1,141 @@
+{
+ "_leeme": "Registro curado a mano. Las reglas para anadir una entrada estan en data/legal/README.md. Nunca se escribe aqui el nombre de una persona natural.",
+ "senales": [
+  {
+   "entidad": "Líneas de Puerto Rico Inc.",
+   "tipo": "acusacion",
+   "jurisdiccion": "Tribunal federal, Distrito de Puerto Rico",
+   "fecha": "2025-10-29",
+   "fecha_nota": "anuncio público de la acusación del gran jurado",
+   "alegacion": "Fraude electrónico y soborno en un esquema para eliminar o reducir deudas contributivas ante el Departamento de Hacienda mediante registros falsos. La corporación figura por nombre entre los 26 acusados.",
+   "estatus": "Según NotiCel (20 de julio de 2026), la corporación notificó al tribunal su intención de declararse culpable. No consta sentencia a la fecha de verificación.",
+   "vinculo": null,
+   "fuentes": [
+    {
+     "titulo": "Twenty-six individuals and companies indicted in Puerto Rico tax debt scheme",
+     "emisor": "Fiscalía Federal, Distrito de Puerto Rico",
+     "fecha": "2025-10-29",
+     "url": "https://www.justice.gov/usao-pr/pr/twenty-six-individuals-and-companies-indicted-puerto-rico-tax-debt-scheme-involving-over",
+     "oficial": true
+    },
+    {
+     "titulo": "Federales acusan a varias personas y corporaciones por fraude contra Hacienda",
+     "emisor": "NotiCel",
+     "fecha": "2025-10-29",
+     "url": "https://noticel.com/en/noticias/la-calle/20251029/federales-acusan-a-varias-personas-y-corporaciones-por-fraude-contra-hacienda/",
+     "oficial": false
+    },
+    {
+     "titulo": "«Mafia institucional» en Hacienda no dejó casos locales, pero sí federales",
+     "emisor": "NotiCel",
+     "fecha": "2026-07-20",
+     "url": "https://noticel.com/noticias/20260720/mafia-institucional-en-hacienda-no-dejo-casos-locales-pero-si-federales/",
+     "oficial": false
+    }
+   ],
+   "verificado_el": "2026-10-28"
+  },
+  {
+   "entidad": "A La Silla LLC",
+   "tipo": "acusacion",
+   "jurisdiccion": "Tribunal federal, Distrito de Puerto Rico",
+   "fecha": "2025-10-29",
+   "fecha_nota": "anuncio público de la acusación del gran jurado",
+   "alegacion": "Mismo caso de fraude y soborno en Hacienda. La corporación figura por nombre entre los 26 acusados.",
+   "estatus": "Según NotiCel (20 de julio de 2026), la corporación aceptó culpa junto a otras dos corporaciones del mismo dueño. No consta sentencia a la fecha de verificación.",
+   "vinculo": "Su dueño, también acusado en el mismo caso, se declaró culpable según la misma fuente.",
+   "fuentes": [
+    {
+     "titulo": "Twenty-six individuals and companies indicted in Puerto Rico tax debt scheme",
+     "emisor": "Fiscalía Federal, Distrito de Puerto Rico",
+     "fecha": "2025-10-29",
+     "url": "https://www.justice.gov/usao-pr/pr/twenty-six-individuals-and-companies-indicted-puerto-rico-tax-debt-scheme-involving-over",
+     "oficial": true
+    },
+    {
+     "titulo": "Federales acusan a varias personas y corporaciones por fraude contra Hacienda",
+     "emisor": "NotiCel",
+     "fecha": "2025-10-29",
+     "url": "https://noticel.com/en/noticias/la-calle/20251029/federales-acusan-a-varias-personas-y-corporaciones-por-fraude-contra-hacienda/",
+     "oficial": false
+    },
+    {
+     "titulo": "«Mafia institucional» en Hacienda no dejó casos locales, pero sí federales",
+     "emisor": "NotiCel",
+     "fecha": "2026-07-20",
+     "url": "https://noticel.com/noticias/20260720/mafia-institucional-en-hacienda-no-dejo-casos-locales-pero-si-federales/",
+     "oficial": false
+    }
+   ],
+   "verificado_el": "2026-10-28"
+  },
+  {
+   "entidad": "G Fitness & Body Performance LLC",
+   "tipo": "acusacion",
+   "jurisdiccion": "Tribunal federal, Distrito de Puerto Rico",
+   "fecha": "2025-10-29",
+   "fecha_nota": "anuncio público de la acusación del gran jurado",
+   "alegacion": "Mismo caso de fraude y soborno en Hacienda. La corporación figura por nombre entre los 26 acusados.",
+   "estatus": "Según NotiCel (20 de julio de 2026), la corporación notificó al tribunal su intención de declararse culpable. No consta sentencia a la fecha de verificación.",
+   "vinculo": "En julio de 2026 se informó que su dueño se declaró culpable de un esquema de soborno para beneficiar a sus empresas, entre ellas esta.",
+   "fuentes": [
+    {
+     "titulo": "Twenty-six individuals and companies indicted in Puerto Rico tax debt scheme",
+     "emisor": "Fiscalía Federal, Distrito de Puerto Rico",
+     "fecha": "2025-10-29",
+     "url": "https://www.justice.gov/usao-pr/pr/twenty-six-individuals-and-companies-indicted-puerto-rico-tax-debt-scheme-involving-over",
+     "oficial": true
+    },
+    {
+     "titulo": "Hacienda employee and business owner plead guilty to wire fraud conspiracy",
+     "emisor": "FBI, oficina de San Juan",
+     "fecha": "2026-07-21",
+     "url": "https://www.fbi.gov/contact-us/field-offices/sanjuan/news/hacienda-employee-and-business-owner-plead-guilty-to-wire-fraud-conspiracy-involving-loss-over-650000",
+     "oficial": true
+    },
+    {
+     "titulo": "Empleado de Hacienda y empresario se declaran culpables de fraude por más de $665,000",
+     "emisor": "Metro Puerto Rico",
+     "fecha": "2026-07-21",
+     "url": "https://www.metro.pr/noticias/2026/07/21/empleado-de-hacienda-y-empresario-se-declaran-culpables-por-fraude-por-mas-de-665000",
+     "oficial": false
+    },
+    {
+     "titulo": "«Mafia institucional» en Hacienda no dejó casos locales, pero sí federales",
+     "emisor": "NotiCel",
+     "fecha": "2026-07-20",
+     "url": "https://noticel.com/noticias/20260720/mafia-institucional-en-hacienda-no-dejo-casos-locales-pero-si-federales/",
+     "oficial": false
+    }
+   ],
+   "verificado_el": "2026-10-28"
+  },
+  {
+   "entidad": "JCA Development, Inc.",
+   "tipo": "acusacion",
+   "jurisdiccion": "Tribunal federal, Distrito de Puerto Rico",
+   "fecha": "2025-04-03",
+   "fecha_nota": "anuncio público de la acusación del gran jurado",
+   "alegacion": "Fraude electrónico, soborno a un empleado bancario y lavado de dinero para obtener fondos federales de recuperación de la Ley CARES (préstamos EIDL y PPP). La corporación figura por nombre entre los acusados, junto a otras tres empresas relacionadas.",
+   "estatus": "Acusada. No se encontró información pública sobre la resolución del caso a la fecha de verificación.",
+   "vinculo": null,
+   "fuentes": [
+    {
+     "titulo": "Two businessmen, a certified public accountant, and four Puerto Rico-based businesses indicted on charges of fraud, bribery, and money laundering",
+     "emisor": "IRS, División de Investigación Criminal",
+     "fecha": "2025-04-03",
+     "url": "https://www.irs.gov/compliance/criminal-investigation/two-businessmen-a-certified-public-accountant-and-four-puerto-rico-based-businesses-indicted-on-charges-of-fraud-bribery-and-money-laundering",
+     "oficial": true
+    },
+    {
+     "titulo": "Two businessmen, certified public accountant, and four Puerto Rico-based businesses indicted",
+     "emisor": "Fiscalía Federal, Distrito de Puerto Rico",
+     "fecha": "2025-04-03",
+     "url": "https://www.justice.gov/usao-pr/pr/two-businessmen-certified-public-accountant-and-four-puerto-rico-based-businesses",
+     "oficial": true
+    }
+   ],
+   "verificado_el": "2026-10-28"
+  }
+ ]
+}

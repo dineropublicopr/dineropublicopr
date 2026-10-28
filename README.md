@@ -105,7 +105,12 @@ pipeline/     Python sin dependencias externas (solo biblioteca estándar)
   build_db.py      Construye SQLite y normaliza nombres de contratistas
   amendments.py    Baja las enmiendas de contratos de $1M o más
   export_api.py    Genera el API estático, las señales y los CSV
+  cabilderos.py    Baja los registros de cabilderos de Justicia y del Senado
+  exclusiones.py   Baja las exclusiones federales (LEIE; SAM.gov con SAM_API_KEY)
+  conexiones.py    Cruza cabilderos y señales legales con los contratos
   run.py           Orquesta todo lo anterior
+
+data/legal/   Señales legales revisadas a mano, con sus reglas (README.md)
 
 web/          Sitio estático: un index.html, SVG en línea, sin librerías
   datos/*.json              JSON pre-agregado que alimenta el dashboard
@@ -114,9 +119,26 @@ web/          Sitio estático: un index.html, SVG en línea, sin librerías
   _headers                  Cabeceras y política de seguridad
 ```
 
-El sitio tiene tres vistas: **Los datos** (dashboard), **Buscar** (índice de contratos de
-$250,000 o más, con enlace al PDF original de cada uno) y **Cómo funciona** (procedencia de
-los datos, guía de uso y avisos legales).
+El sitio tiene seis vistas: **Los datos** (dashboard), **Buscar** (índice de contratos de
+$250,000 o más, con enlace al PDF original de cada uno), **Cabilderos** (firmas, personal
+autorizado, clientes y los contratos de esos clientes), **Legal** (empresas contratistas que
+una fuente oficial nombra en un caso por delitos relacionados con dinero), **Conexiones**
+(mapa navegable entre agencias, contratistas, cabilderos y señales legales) y **Cómo
+funciona** (procedencia de los datos, guía de uso y avisos legales).
+
+### Las reglas de Legal y Conexiones
+
+1. **Solo empresas, nunca personas.** Ningún nodo, señal ni texto lleva el nombre de una
+   persona natural vinculada a un caso. Tampoco los clientes de cabildeo que podrían ser
+   personas: se cuentan, pero su nombre no se publica.
+2. **El vínculo lo hace la fuente.** Una empresa entra en Legal solo si un documento oficial
+   la nombra como parte del caso. Nunca se cruzan nombres de personas con dueños de empresas.
+3. **Las listas federales se cruzan solo con entidades de PR** y nombres de dos palabras o
+   más. Sin ese filtro, el cruce marcaba a contratistas de PR por coincidir con sanciones de
+   OFAC llamadas «H» o «THE BASE».
+
+Las reglas completas para añadir una señal a mano están en
+[`data/legal/README.md`](data/legal/README.md).
 
 ### Por qué hay dos APIs
 
@@ -271,6 +293,10 @@ Si vas a afirmar algo públicamente sobre una persona o empresa a partir de esto
 - [Reglamento 33 del Registro de Contratos](https://www.ocpr.gov.pr/wp-content/uploads/2024/08/Reglamento-33.pdf)
 - [Ley 122-2019, Datos Abiertos](https://bvirtualogp.pr.gov/ogp/bvirtual/leyesreferencia/pdf/122-2019.pdf)
 - [Ley 73-2019, Administración de Servicios Generales](https://bvirtualogp.pr.gov/ogp/Bvirtual/LeyesOrganicas/pdf/73-2019.pdf)
+- [Registro de Cabilderos, Departamento de Justicia (OE-2019-031)](https://registrodecabilderos.pr.gov/Lobbyist)
+- [Registro de Cabilderos, Senado de Puerto Rico](https://senado.pr.gov/registro-cabilderos)
+- [LEIE, exclusiones de la Oficina del Inspector General de HHS](https://oig.hhs.gov/exclusions/)
+- [Ley 2-2018, Código Anticorrupción (Art. 3.4, inhabilidad para contratar)](https://www.upr.edu/cayey/wp-content/uploads/sites/10/2023/08/codigo-anticorrupcion-para-el-nuevo-puerto-rico-ley-2-2018.pdf)
 
 ## Licencia
 

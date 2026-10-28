@@ -58,6 +58,11 @@ def main() -> None:
     # cuales contratos las tienen. Solo los de $1M o mas, por tiempo.
     step("Enmiendas de contratos grandes", ["amendments.py"])
     step("Generacion del API estatico", ["export_api.py"])
+    # Fuentes externas al Registro de Contratos. Si una falla, su script conserva la copia
+    # anterior y termina bien: un registro caido no debe tumbar la actualizacion semanal.
+    step("Registros de cabilderos", ["cabilderos.py"])
+    step("Listas federales de exclusion", ["exclusiones.py"])
+    step("Cruce de cabilderos y senales legales", ["conexiones.py"])
 
     print("\nPipeline completo.")
 

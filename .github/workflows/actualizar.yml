@@ -27,6 +27,9 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLAREDINERO }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Opcional. Llave gratuita de api.sam.gov para cruzar contra las exclusiones federales
+      # de SAM.gov. Sin ella, exclusiones.py se salta SAM y usa solo LEIE.
+      SAM_API_KEY: ${{ secrets.SAM_API_KEY }}
       # Fijada a proposito. Antes decia `wrangler@4` y Cloudflare quito el subcomando
       # `d1 import` en una version menor, asi que la corrida del 2026-10-21 borro las
       # tablas y no pudo recargarlas. Subir esto a mano despues de probar el comando.

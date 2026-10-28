@@ -328,6 +328,70 @@ tbody tr:hover { background: var(--plane); }
 .empty { padding: 28px; text-align: center; color: var(--text-muted); font-size: 14px; }
 .loading { padding: 40px; text-align: center; color: var(--text-muted); }
 
+/* ── Cabilderos, Legal y Conexiones ───────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 12.5px; padding: 3px 10px; border-radius: 999px;
+  background: var(--plane); border: 1px solid var(--border); color: var(--text-secondary);
+  font-family: inherit;
+}
+button.chip { cursor: pointer; }
+button.chip:hover { color: var(--text-primary); border-color: var(--axis); }
+.rowbtn {
+  background: none; border: none; padding: 0; font: inherit; font-weight: 550;
+  color: var(--seq-550); cursor: pointer; text-align: left;
+}
+.rowbtn:hover { text-decoration: underline; }
+.detail { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--axis); scroll-margin-top: 80px; }
+.detail h3 { font-size: 18px; margin-bottom: 4px; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0 6px; }
+.kv div { font-size: 12.5px; color: var(--text-muted); }
+.kv strong { display: block; font-size: 17px; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.subhead {
+  font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--text-muted); margin: 18px 0 8px;
+}
+details.more summary { cursor: pointer; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.tag { font-size: 11px; color: var(--text-muted); }
+
+.signal {
+  background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--serious);
+  border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; scroll-margin-top: 80px;
+}
+.signal.lvl-1 { border-left-color: var(--critical); }
+.signal.lvl-3 { border-left-color: var(--warning); }
+.signal h3 { font-size: 18px; margin: 6px 0 10px; }
+.signal p { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; max-width: 820px; }
+.signal p strong { color: var(--text-primary); }
+.level {
+  display: inline-block; font-size: 11.5px; font-weight: 650; padding: 2px 8px; border-radius: 4px;
+  border: 1px solid currentColor; color: var(--serious);
+}
+.lvl-1 .level { color: var(--critical); }
+.lvl-3 .level { color: var(--text-secondary); }
+.src { list-style: none; font-size: 13.5px; }
+.src li { margin-bottom: 5px; }
+.oficial { font-size: 10.5px; font-weight: 700; color: var(--good); border: 1px solid currentColor; border-radius: 3px; padding: 0 5px; margin-left: 4px; }
+tr.post td { background: color-mix(in srgb, var(--critical) 9%, transparent); }
+.sig-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; font-size: 12.5px; color: var(--text-muted); }
+
+.graph svg { width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto; }
+.g-edge { stroke: var(--axis); stroke-linecap: round; }
+.g-edge.l { stroke: var(--series-2); stroke-dasharray: 5 4; }
+.g-edge.p { stroke: var(--series-2); }
+.g-edge.s { stroke: var(--critical); }
+.g-node { cursor: pointer; }
+.g-node circle.body { stroke: var(--card); stroke-width: 2; }
+.g-node:hover circle.body, .g-node:focus-visible circle.body { stroke: var(--text-primary); }
+.g-node:focus { outline: none; }
+.g-label { font-size: 11px; fill: var(--text-secondary); pointer-events: none; }
+.g-center { font-size: 14px; font-weight: 650; fill: var(--text-primary); pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--text-secondary); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.legend i.ring { background: none !important; border: 2px solid; width: 11px; height: 11px; }
+.trail { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.trail .rowbtn { font-weight: 500; font-size: 13px; }
+
 /* ── Footer ───────────────────────────────────────────── */
 footer {
   background: var(--card); border-top: 1px solid var(--border);
@@ -339,6 +403,9 @@ footer p { margin-bottom: 9px; }
 footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-muted); }
 
 @media (max-width: 760px) {
+  .topbar .wrap { flex-wrap: wrap; row-gap: 6px; }
+  .mainnav { order: 3; width: 100%; margin: 0; overflow-x: auto; }
+  .navlink { white-space: nowrap; padding: 6px 10px; }
   .grid-2 { grid-template-columns: 1fr; }
   .filters { position: static; }
   .hero { padding: 30px 0 20px; }
@@ -356,6 +423,9 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     <nav class="mainnav" aria-label="Secciones">
       <button class="navlink" data-view="datos" aria-current="page">Los datos</button>
       <button class="navlink" data-view="buscar">Buscar</button>
+      <button class="navlink" data-view="cabilderos">Cabilderos</button>
+      <button class="navlink" data-view="legal">Legal</button>
+      <button class="navlink" data-view="conexiones">Conexiones</button>
       <button class="navlink" data-view="acerca">Cómo funciona</button>
     </nav>
     <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">Tema</button>
@@ -645,6 +715,213 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
   </div>
 </div><!-- /viewBuscar -->
 
+<!-- ═══════════════════ CABILDEROS ═══════════════════ -->
+<div class="view" id="viewCabilderos" hidden>
+  <div class="hero">
+    <h1>Cabilderos</h1>
+    <p class="lede">
+      Quién cobra por representar intereses ante el gobierno, quién trabaja en cada firma,
+      para qué clientes, y cuáles de esos clientes reciben contratos públicos.
+    </p>
+    <div class="notice">
+      <strong>Cabildear es legal, y registrarse es lo que la ley pide.</strong> Que un cliente
+      de una firma reciba contratos no significa que el cabildeo los haya conseguido: aquí se
+      muestran relaciones que constan en registros públicos, no causas ni intenciones. Los
+      nombres de las personas aparecen porque están inscritas en un registro oficial de
+      cabilderos, que existe precisamente para que el público lo sepa.
+    </div>
+  </div>
+
+  <div class="tiles" id="cabTiles"><div class="loading">Cargando registro de cabilderos…</div></div>
+
+  <section>
+    <div class="sec-head">
+      <h2>Firmas inscritas ante las agencias del Ejecutivo</h2>
+      <p>
+        Registro del Departamento de Justicia: es el que cubre el cabildeo ante las agencias,
+        que es donde se otorgan los contratos, y el único que publica los clientes. Toca una
+        firma para ver su personal, sus clientes y el dinero público que esos clientes han
+        recibido.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h3>Firmas y personas inscritas</h3>
+        <span class="meta" id="cabMeta"></span>
+      </div>
+      <div class="table-scroll" id="tblFirmas"></div>
+      <div id="firmaDetalle"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Registro del Senado</h2>
+      <p>
+        Cabildeo legislativo desde 2017. El Senado publica una certificación por persona o
+        firma, sin clientes. Cuando la firma no está en el registro, se deduce del nombre del
+        archivo o del personal inscrito en Justicia, y se indica de dónde salió.
+      </p>
+    </div>
+    <div class="card">
+      <div class="searchbar">
+        <input type="search" id="qSenado" placeholder="Buscar persona o firma…"
+               aria-label="Buscar en el registro del Senado" autocomplete="off">
+      </div>
+      <div class="searchmeta" id="senadoMeta"></div>
+      <div class="table-scroll" id="tblSenado"></div>
+    </div>
+  </section>
+
+  <div class="notice" id="cabFuentes" style="max-width:none"></div>
+</div><!-- /viewCabilderos -->
+
+<!-- ═══════════════════ LEGAL ═══════════════════ -->
+<div class="view" id="viewLegal" hidden>
+  <div class="hero">
+    <h1>Legal</h1>
+    <p class="lede">
+      Empresas que reciben contratos del gobierno y que una fuente oficial nombra en un caso
+      por delitos relacionados con dinero: fraude, soborno, malversación, apropiación ilegal
+      o falsificación. Con sus contratos, para que veas qué recibieron y cuándo.
+    </p>
+  </div>
+
+  <div class="legal" style="margin-top:0">
+    <h3>Una acusación no es una condena</h3>
+    <p>
+      <strong>Toda persona y toda entidad se presume inocente</strong> mientras un tribunal no
+      determine lo contrario. Esta página no hace ninguna determinación propia: reproduce lo
+      que consta en documentos públicos, enlaza cada uno, e indica el estatus que se conocía
+      en la fecha de verificación. Un caso puede terminar en absolución o desestimación.
+    </p>
+    <p>Lo que se publica sigue cuatro reglas, sin excepciones:</p>
+    <ul style="margin:0 0 4px 20px;color:var(--text-secondary)">
+      <li><strong>Solo empresas, nunca personas.</strong> No aparece el nombre de ninguna
+        persona natural. Si la fuente dice que el dueño de la empresa fue acusado o se declaró
+        culpable, se dice así, sin nombrarlo.</li>
+      <li><strong>El vínculo lo hace la fuente, no este sitio.</strong> Una empresa solo entra
+        si un documento oficial la nombra directamente como parte del caso. Nunca se deduce
+        un vínculo cruzando nombres de personas con dueños de empresas.</li>
+      <li><strong>Solo delitos relacionados con dinero.</strong> No entran demandas por daños,
+        accidentes, despidos ni cobros entre privados.</li>
+      <li><strong>Todo se puede verificar.</strong> Cada señal enlaza a su fuente oficial, dice
+        cómo se cruzó con el Registro de Contratos y cuándo se verificó por última vez.</li>
+    </ul>
+  </div>
+
+  <div class="tiles" id="legalTiles"><div class="loading">Cargando…</div></div>
+
+  <section>
+    <div class="sec-head">
+      <h2>Empresas contratistas con un caso</h2>
+      <p>
+        Ordenadas por gravedad: condena o exclusión, acusación formal, demanda del gobierno.
+        En rojo, los contratos otorgados después de que el caso se hizo público.
+      </p>
+    </div>
+    <div id="legalLista"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Verificación automática contra listas federales</h2>
+      <p>
+        Cada semana se cruzan los contratistas con las listas federales de entidades
+        excluidas. Solo se comparan entidades de Puerto Rico con nombres de al menos dos
+        palabras: sin esos filtros, el cruce le ponía bandera roja a empresas inocentes por
+        coincidir con un nombre genérico de otro estado.
+      </p>
+    </div>
+    <div class="card"><div class="table-scroll" id="tblLegalAuto"></div></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Qué entra y qué no</h2></div>
+    <div class="card">
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Nivel</th><th>Qué es</th><th>Ejemplo de fuente</th></tr></thead>
+          <tbody>
+            <tr><td class="t-name">1 · Condena o exclusión</td>
+              <td>La empresa fue convicta o está excluida de programas federales. Una condena
+                por delitos contra fondos públicos la inhabilita para contratar con el
+                gobierno (Art. 3.4, Ley 2-2018).</td>
+              <td>Sentencia, SAM.gov, LEIE de HHS-OIG</td></tr>
+            <tr><td class="t-name">2 · Acusación formal</td>
+              <td>Un gran jurado o fiscal acusó a la empresa por nombre. No hay determinación de
+                culpabilidad.</td>
+              <td>Comunicado de la Fiscalía Federal o del Departamento de Justicia</td></tr>
+            <tr><td class="t-name">3 · Demanda del gobierno</td>
+              <td>El gobierno estatal o federal demanda civilmente a la empresa por fraude o
+                para recobrar fondos públicos.</td>
+              <td>Demanda radicada por el Estado o por EE. UU.</td></tr>
+            <tr><td class="t-name" style="color:var(--text-muted)">No entra</td>
+              <td>Daños y perjuicios, caídas, accidentes, despidos, cobros entre privados,
+                quejas sin radicar, rumores o noticias sin documento oficial.</td>
+              <td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="t-sub" style="margin-top:14px">
+        ¿Una empresa aparece aquí por error, su caso cambió de estatus o fue desestimado?
+        <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR%20-%20Correcci%C3%B3n%20en%20Legal">Escríbenos</a>:
+        las correcciones de esta página se atienden antes que cualquier otra cosa.
+      </p>
+    </div>
+  </section>
+</div><!-- /viewLegal -->
+
+<!-- ═══════════════════ CONEXIONES ═══════════════════ -->
+<div class="view" id="viewConexiones" hidden>
+  <div class="hero">
+    <h1>Conexiones</h1>
+    <p class="lede">
+      Un mapa para seguir el hilo del dinero: qué agencias le pagan a una empresa, qué firma
+      de cabilderos la representa y si tiene alguna señal legal. Toca cualquier punto para
+      ponerlo en el centro y seguir conectando.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="searchbar" style="margin-bottom:10px">
+      <input type="search" id="qRed" list="redNombres" autocomplete="off"
+             placeholder="Busca una empresa, una agencia o una firma de cabilderos…"
+             aria-label="Buscar en el mapa de conexiones">
+      <datalist id="redNombres"></datalist>
+    </div>
+    <div class="chips" id="redSugerencias"></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="trail" id="redTrail"></div>
+    <div class="card-head">
+      <h3 id="redTitulo">Cargando…</h3>
+      <span class="meta" id="redMeta"></span>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--series-1)"></i>Agencia</span>
+      <span><i style="background:var(--series-3)"></i>Contratista</span>
+      <span><i style="background:var(--series-2)"></i>Firma de cabilderos</span>
+      <span><i style="background:var(--critical)"></i>Señal legal</span>
+      <span><i class="ring" style="border-color:var(--series-2)"></i>Cliente de cabildeo</span>
+      <span><i class="ring" style="border-color:var(--critical)"></i>Tiene señal legal</span>
+    </div>
+    <div class="graph" id="redGrafo"></div>
+    <div class="subhead">Todas las conexiones de este punto</div>
+    <div class="table-scroll" id="tblRed"></div>
+  </div>
+
+  <div class="notice" style="max-width:none">
+    <strong>Cómo leer el mapa.</strong> Cada línea es una relación que consta en un registro
+    público: un contrato en la Contralora, una inscripción de cabildeo en Justicia, un caso en
+    una fuente oficial. Una línea no dice nada sobre intención ni sobre causa. Los registros
+    se cruzan por nombre normalizado, que es una aproximación: verifica antes de concluir.
+    <strong>En este mapa no aparece ninguna persona</strong>, salvo cabilderos que se
+    inscribieron a su propio nombre.
+  </div>
+</div><!-- /viewConexiones -->
+
 <!-- ═══════════════════ CÓMO FUNCIONA ═══════════════════ -->
 <div class="view" id="viewAcerca" hidden>
   <div class="hero">
@@ -808,7 +1085,92 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
       </p>
     </div>
 
+    <h2>Cabilderos, Legal y Conexiones</h2>
+    <p>
+      Estas tres pestañas cruzan el Registro de Contratos con otros registros públicos para
+      contestar una pregunta: <strong>quién se relaciona con quién alrededor del dinero
+      público</strong>.
+    </p>
+    <h3>Cabilderos</h3>
+    <p>
+      Viene del <a href="https://registrodecabilderos.pr.gov/Lobbyist" target="_blank" rel="noopener">Registro
+      de Cabilderos del Departamento de Justicia</a> (Orden Ejecutiva OE-2019-031), que publica
+      cada firma con su personal autorizado y sus clientes, y del
+      <a href="https://senado.pr.gov/registro-cabilderos" target="_blank" rel="noopener">registro
+      del Senado</a>. Se descargan cada semana. Los clientes se cruzan con los contratistas por
+      nombre normalizado, y solo cuando al menos uno de los dos nombres es claramente de una
+      organización, para no confundir a una persona con otra que se llama igual.
+    </p>
+    <h3>Legal</h3>
+    <p>
+      Una empresa aparece en «Legal» solo si <strong>un documento oficial la nombra
+      directamente</strong> como acusada, condenada, excluida o demandada por el gobierno, por
+      delitos o reclamos relacionados con dinero. Hay dos vías:
+    </p>
+    <ul>
+      <li><strong>Automática:</strong> cada semana se cruzan los contratistas con la lista de
+        exclusiones de la Oficina del Inspector General de HHS (LEIE) y, cuando hay llave, con
+        las exclusiones de SAM.gov. Solo entidades de Puerto Rico, nunca personas.</li>
+      <li><strong>Revisada a mano:</strong> casos documentados en comunicados oficiales de la
+        Fiscalía Federal, del Departamento de Justicia o de la Rama Judicial. Cada uno se
+        verifica contra la fuente y lleva la fecha de esa verificación.</li>
+    </ul>
+    <p>
+      No se usan búsquedas por nombre en los tribunales para llenar esta página: se probó, y
+      devuelven sobre todo pleitos comunes (caídas, accidentes, despidos) que no dicen nada
+      sobre el uso del dinero público y que harían parecer sospechosa a cualquier empresa
+      grande.
+    </p>
+    <h3>Conexiones</h3>
+    <p>
+      Un mapa navegable con cuatro tipos de puntos: agencias, contratistas, firmas de
+      cabilderos y señales legales. Incluye los 1,000 contratistas de más monto, más todo
+      contratista que sea cliente de cabildeo o tenga una señal legal. Cada línea es un
+      registro público. El mapa <strong>no incluye personas</strong>, salvo los cabilderos que
+      se inscribieron a nombre propio.
+    </p>
+
     <h2>Avisos legales</h2>
+
+    <div class="legal">
+      <h3>Señales legales: presunción de inocencia</h3>
+      <p>
+        La pestaña «Legal» <strong>reproduce lo que consta en documentos públicos oficiales
+        y enlaza cada uno</strong>. No hace ninguna determinación propia de culpabilidad.
+        <strong>Una acusación no es una condena</strong>: toda persona y toda entidad se presume
+        inocente mientras un tribunal no determine lo contrario, y un caso puede terminar en
+        absolución o desestimación.
+      </p>
+      <p>
+        Cada señal indica su fuente, su estatus conocido y la fecha en que se verificó. Que una
+        empresa haya recibido contratos después de hacerse público un caso <strong>no significa
+        que esos contratos sean ilegales</strong>: la inhabilidad para contratar del Artículo 3.4
+        de la Ley 2-2018 se activa con una condena.
+      </p>
+      <p>
+        El cruce entre una fuente y el Registro de Contratos es <strong>por nombre</strong>, y se
+        muestra cómo se hizo para que el lector pueda comprobarlo. Si una empresa aparece por
+        error o su caso cambió,
+        <a href="mailto:contacto@dineropublicopr.com?subject=DineroPúblicoPR%20-%20Correcci%C3%B3n%20en%20Legal">escríbenos</a>:
+        estas correcciones tienen prioridad sobre cualquier otra.
+      </p>
+    </div>
+
+    <div class="legal">
+      <h3>Nombres de personas</h3>
+      <p>
+        <strong>En «Legal» y en «Conexiones» no aparece el nombre de ninguna persona
+        natural</strong> vinculada a un caso. Si la fuente oficial relaciona al dueño de una
+        empresa con el caso, se dice así, sin nombrarlo. Los nombres están en el documento
+        oficial enlazado.
+      </p>
+      <p>
+        En «Cabilderos» sí aparecen nombres de personas: son las que se inscribieron
+        voluntariamente en un registro oficial de cabilderos, cuyo propósito declarado es que
+        esa información sea de fácil acceso al público. Inscribirse como cabildero es cumplir
+        la ley, no una falta. Este sitio no vende ni comercializa esa información.
+      </p>
+    </div>
 
     <div class="legal">
       <h3>Proyecto independiente</h3>
@@ -829,7 +1191,7 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
       <h3>Información pública, reproducida tal como está</h3>
       <p>
         Toda la información proviene de <strong>registros públicos</strong> del Gobierno de
-        Puerto Rico, accesibles a cualquier ciudadano. Este sitio <strong>no genera
+        Puerto Rico y del gobierno federal, accesibles a cualquier ciudadano. Este sitio <strong>no genera
         información nueva</strong>: la reorganiza y la presenta de forma más accesible.
       </p>
       <p>
@@ -937,6 +1299,10 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
         <p>
           La exactitud de cada registro es responsabilidad de la agencia que lo entró, no de la
           Contralora ni de este sitio.
+        </p>
+        <p>
+          Cabilderos: registros del Departamento de Justicia y del Senado. Señales legales:
+          comunicados oficiales y listas federales de exclusión, enlazados en cada caso.
         </p>
       </div>
       <div>
@@ -1528,6 +1894,473 @@ function renderSenales() {
     byFy(state.data.enmiendas || []), { sortIdx: 6, limit: 150 });
 }
 
+/* ── Carga diferida de las pestañas nuevas ────────────── */
+// Cabilderos, Legal y Conexiones no se piden al abrir el sitio: solo cuando alguien entra.
+const lazy = {};
+function loadLazy(name) {
+  if (!lazy[name]) {
+    lazy[name] = fetch(API + name + '.json').then((r) => {
+      if (!r.ok) throw new Error(name + ': HTTP ' + r.status);
+      return r.json();
+    });
+    lazy[name].catch(() => { delete lazy[name]; });
+  }
+  return lazy[name];
+}
+const lazyError = (hostId, err) => {
+  document.getElementById(hostId).innerHTML =
+    '<div class="empty">No se pudieron cargar los datos (' + esc(err.message) + ').</div>';
+};
+const dateEs = (iso) => {
+  if (!iso) return '—';
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('es-PR', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+const plural = (n, one, many) => fmtNum(n) + ' ' + (n === 1 ? one : many);
+
+/** El contratista cruzado, con sus grafías: la agrupación es heurística y se dice. */
+function contractorCell(c) {
+  if (!c) return '<span class="t-sub">—</span>';
+  return `<div class="t-name">${esc(c.nombre)}</div>` +
+    (c.variantes > 1
+      ? `<div class="variant-note" title="${esc((c.nombres || []).join(' · '))}">agrupa ${c.variantes} grafías — verifica</div>`
+      : '');
+}
+
+/* ── Cabilderos ───────────────────────────────────────── */
+// Cada pestaña guarda su promesa de preparación: si dos clics llegan a la vez, la carga y
+// el dibujo ocurren una sola vez.
+let cabReady = null;
+function ensureCabilderos() {
+  cabReady = cabReady || loadLazy('cabilderos').then((d) => {
+    state.data.cabilderos = d;
+    renderCabilderos();
+  }).catch((err) => { cabReady = null; lazyError('cabTiles', err); });
+  return cabReady;
+}
+
+function renderCabilderos() {
+  const d = state.data.cabilderos, r = d.resumen;
+  document.getElementById('cabTiles').innerHTML = `
+    <div class="tile"><div class="label">Firmas y personas inscritas</div>
+      <div class="value">${fmtNum(r.firmas)}</div>
+      <div class="sub">${fmtNum(r.inscripciones)} inscripciones vigentes en Justicia</div></div>
+    <div class="tile"><div class="label">Cabilderos autorizados</div>
+      <div class="value">${fmtNum(r.personas_autorizadas)}</div>
+      <div class="sub">personas que pueden cabildear por esas firmas</div></div>
+    <div class="tile"><div class="label">Clientes</div>
+      <div class="value">${fmtNum(r.clientes)}</div>
+      <div class="sub">empresas, entidades y personas representadas</div></div>
+    <div class="tile flag"><div class="label">Clientes que reciben contratos</div>
+      <div class="value">${fmtNum(r.clientes_con_contratos)}</div>
+      <div class="sub">${esc(fmtMoney(r.monto_clientes))} en contratos públicos</div></div>
+    <div class="tile"><div class="label">Firmas que también son contratistas</div>
+      <div class="value">${fmtNum(r.firmas_contratistas)}</div>
+      <div class="sub">reciben contratos ellas mismas</div></div>`;
+  document.getElementById('cabMeta').textContent = 'Columnas ordenables';
+
+  table('tblFirmas',
+    [{ title: 'Firma', key: 'nombre',
+       render: (f) => `<button class="rowbtn" data-firma="${esc(f.id)}">${esc(f.nombre)}</button>` +
+         `<div class="t-sub">${f.individuo ? 'inscrito a nombre propio' : plural(f.registros.length, 'inscripción', 'inscripciones')}</div>` },
+     { title: 'Cabilderos', key: 'n_personal', num: true, render: (f) => fmtNum(f.personal.length) },
+     { title: 'Clientes', key: 'n_clientes', num: true, render: (f) => fmtNum(f.clientes_declarados) },
+     { title: 'Con contratos', key: 'clientes_con_contratos', num: true,
+       render: (f) => f.clientes_con_contratos ? `<strong>${fmtNum(f.clientes_con_contratos)}</strong>` : '0' },
+     { title: 'Monto de esos clientes', key: 'monto_clientes', num: true, render: (f) => fmtFull(f.monto_clientes) },
+     { title: 'La firma contrata', key: 'monto_propio', num: true,
+       render: (f) => f.contratista ? fmtFull(f.contratista.monto) : '<span class="t-sub">—</span>' }],
+    d.firmas.map((f) => ({ ...f, n_personal: f.personal.length, n_clientes: f.clientes_declarados,
+      monto_propio: f.contratista ? f.contratista.monto : -1 })),
+    { sortIdx: 4 });
+
+  renderSenado();
+  const fu = d.fuentes;
+  document.getElementById('cabFuentes').innerHTML = `
+    <strong>Fuentes.</strong>
+    <a href="${esc(fu.justicia.url)}" target="_blank" rel="noopener">${esc(fu.justicia.nombre)}</a>,
+    descargado el ${esc(dateEs(fu.justicia.descargado))}.
+    <a href="${esc(fu.senado.url)}" target="_blank" rel="noopener">${esc(fu.senado.nombre)}</a>,
+    descargado el ${esc(dateEs(fu.senado.descargado))}.
+    <br><strong>Lo que falta.</strong> Justicia solo muestra en línea las inscripciones
+    vigentes, y en abril de 2026 el propio Senado le pidió la lista completa desde 2019 porque
+    el registro en línea está incompleto. La Cámara de Representantes lleva su propio
+    registro, que no se incluye todavía. Que una firma o un cliente no aparezca aquí no
+    significa que no cabildee. Los clientes se cruzan con el Registro de Contratos por nombre
+    normalizado, y solo cuando al menos uno de los dos nombres es claramente de una
+    organización: así no se confunde a un cliente individual con un contratista homónimo.`;
+}
+
+function renderFirma(id) {
+  const f = state.data.cabilderos.firmas.find((x) => x.id === id);
+  const host = document.getElementById('firmaDetalle');
+  if (!f) { host.innerHTML = ''; return; }
+  const withC = f.clientes.filter((c) => c.contratista);
+  const without = f.clientes.filter((c) => !c.contratista);
+  host.innerHTML = `<div class="detail" id="firmaDetalleBox">
+    <h3>${esc(f.nombre)}</h3>
+    <div class="t-sub">Inscripciones en Justicia: ${f.registros.map((r) => r.certificado
+      ? `<a href="${esc(r.certificado)}" target="_blank" rel="noopener">${esc(r.numero)} ↗</a>`
+      : esc(r.numero)).join(' · ')}</div>
+    <div class="kv">
+      <div><strong>${fmtNum(f.personal.length)}</strong>cabilderos autorizados</div>
+      <div><strong>${fmtNum(f.clientes_declarados)}</strong>clientes declarados</div>
+      <div><strong>${fmtNum(withC.length)}</strong>clientes con contratos</div>
+      <div><strong>${esc(fmtMoney(f.monto_clientes))}</strong>en contratos de esos clientes</div>
+    </div>
+    ${f.contratista ? `<div class="notice" style="max-width:none;margin:10px 0 0">
+      <strong>La firma misma recibe contratos del gobierno:</strong>
+      ${plural(f.contratista.contratos, 'contrato', 'contratos')} con
+      ${plural(f.contratista.agencias, 'agencia', 'agencias')}, por ${esc(fmtFull(f.contratista.monto))}
+      (como «${esc(f.contratista.nombre)}» en el Registro de Contratos).</div>` : ''}
+    <div class="subhead">Personas autorizadas a cabildear por esta firma</div>
+    <div class="chips">${f.personal.map((p) => `<span class="chip">${esc(p)}</span>`).join('')}</div>
+    <div class="subhead">Clientes que reciben contratos del gobierno (${fmtNum(withC.length)})</div>
+    <div class="table-scroll" id="tblClientes"></div>
+    ${without.length ? `<details class="more" style="margin-top:14px">
+      <summary>Otros ${fmtNum(without.length)} clientes sin contratos en el registro</summary>
+      <div class="chips">${without.map((c) => `<span class="chip">${esc(c.nombre)}</span>`).join('')}</div>
+    </details>` : ''}
+    ${f.clientes_sin_nombre ? `<p class="t-sub" style="margin-top:10px">
+      ${plural(f.clientes_sin_nombre, 'cliente más no se muestra', 'clientes más no se muestran')} por nombre
+      porque podría tratarse de personas naturales. Constan en el certificado oficial de la firma.</p>` : ''}
+    <div style="margin-top:16px">
+      <button class="toggle-table" data-red-firma="${esc(f.id)}">Ver esta firma en Conexiones →</button>
+    </div>
+  </div>`;
+  table('tblClientes',
+    [{ title: 'Cliente (como lo declara la firma)', key: 'nombre' },
+     { title: 'Contratista en el Registro', key: 'cnombre', render: (c) => contractorCell(c.contratista) },
+     { title: 'Contratos', key: 'ccontratos', num: true, render: (c) => fmtNum(c.ccontratos) },
+     { title: 'Agencias', key: 'cagencias', num: true, render: (c) => fmtNum(c.cagencias) },
+     { title: 'Monto', key: 'cmonto', num: true, render: (c) => fmtFull(c.cmonto) },
+     { title: '', key: 'k', render: (c) =>
+         `<button class="rowbtn" style="font-size:12.5px;white-space:nowrap" data-red-clave="${esc(c.contratista.clave)}">Conexiones →</button>` }],
+    withC.map((c) => ({ ...c, cnombre: c.contratista.nombre, ccontratos: c.contratista.contratos,
+      cagencias: c.contratista.agencias, cmonto: c.contratista.monto, k: c.contratista.clave })),
+    { sortIdx: 4 });
+  document.getElementById('firmaDetalleBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderSenado() {
+  const rows = state.data.cabilderos.senado || [];
+  const q = norm(document.getElementById('qSenado').value).trim();
+  const terms = q ? q.split(/\s+/) : [];
+  const hits = terms.length
+    ? rows.filter((r) => { const hay = norm(r.nombre + ' ' + (r.firma || '')); return terms.every((t) => hay.includes(t)); })
+    : rows;
+  document.getElementById('senadoMeta').textContent =
+    `${fmtNum(hits.length)} de ${fmtNum(rows.length)} inscripciones`;
+  const how = { archivo: 'según el nombre del archivo', justicia: 'según el registro de Justicia' };
+  table('tblSenado',
+    [{ title: 'Nombre', key: 'nombre', render: (r) => `<div class="t-name">${esc(r.nombre)}</div>` },
+     { title: 'Tipo', key: 'tipo', render: (r) => `<span class="pill">${esc(r.tipo || '—')}</span>` },
+     { title: 'Firma', key: 'firma', render: (r) => r.firma
+         ? esc(r.firma) + (how[r.firma_fuente] ? `<div class="tag">${how[r.firma_fuente]}</div>` : '') +
+           (r.firma_contratista ? `<div class="tag" style="color:var(--series-2)">la firma recibe contratos</div>` : '')
+         : '<span class="t-sub">—</span>' },
+     { title: 'Fecha', key: 'fecha', render: (r) => esc(dateEs(r.fecha)) },
+     { title: 'Certificación', key: 'pdf', render: (r) => r.pdf
+         ? `<a class="doclink" href="${esc(r.pdf)}" target="_blank" rel="noopener">PDF ↗</a>` : '—' }],
+    hits, { limit: 400 });
+}
+
+/* ── Legal ────────────────────────────────────────────── */
+let legalReady = null;
+const LEVEL_NAME = { 1: 'Condena o exclusión', 2: 'Acusación formal', 3: 'Demanda del gobierno' };
+function ensureLegal() {
+  legalReady = legalReady || loadLazy('legal').then((d) => {
+    state.data.legal = d;
+    renderLegal();
+  }).catch((err) => { legalReady = null; lazyError('legalTiles', err); });
+  return legalReady;
+}
+
+function renderLegal() {
+  const d = state.data.legal;
+  const s = d.senales;
+  const sum = (fn) => s.reduce((acc, x) => acc + fn(x), 0);
+  const post = sum((x) => x.contratos_posteriores);
+  const auto = d.automaticas.filter((a) => a.activa);
+  document.getElementById('legalTiles').innerHTML = `
+    <div class="tile"><div class="label">Empresas contratistas con un caso</div>
+      <div class="value">${fmtNum(s.length)}</div>
+      <div class="sub">nombradas por una fuente oficial</div></div>
+    <div class="tile"><div class="label">Sus contratos</div>
+      <div class="value">${fmtNum(sum((x) => x.contratos.length))}</div>
+      <div class="sub">${esc(fmtMoney(sum((x) => x.contratista.monto)))} en total</div></div>
+    <div class="tile ${post ? 'flag' : ''}"><div class="label">Otorgados después del caso</div>
+      <div class="value">${fmtNum(post)}</div>
+      <div class="sub">${esc(fmtMoney(sum((x) => x.monto_posterior)))} tras hacerse público</div></div>
+    <div class="tile"><div class="label">Listas federales revisadas</div>
+      <div class="value">${fmtNum(auto.length)}</div>
+      <div class="sub">${fmtNum(sum((x) => (x.automatica ? 1 : 0)))} coincidencias automáticas</div></div>`;
+
+  document.getElementById('legalLista').innerHTML = s.length ? s.map((x, i) => {
+    const c = x.contratista;
+    const fuentes = (x.fuentes || []).map((f) => `<li><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.titulo)} ↗</a>
+      <span class="t-sub">· ${esc(f.emisor)}${f.fecha ? ' · ' + esc(dateEs(f.fecha)) : ''}</span>
+      ${f.oficial ? '<span class="oficial">FUENTE OFICIAL</span>' : ''}</li>`).join('');
+    const rows = x.contratos.map((k) => `<tr class="${k.posterior ? 'post' : ''}">
+      <td><div class="t-name">${esc(k.numero)}</div><div class="t-sub">${esc(dateEs(k.fecha))}</div></td>
+      <td>${esc(k.agencia || '—')}<div class="t-sub">${esc(k.categoria || '')}</div></td>
+      <td class="num">${esc(fmtFull(k.monto))}</td>
+      <td>${k.posterior ? '<strong style="color:var(--critical)">después</strong>' : '<span class="t-sub">antes</span>'}</td>
+      <td>${k.doc ? `<a class="doclink" href="${DOC_BASE}${encodeURIComponent(k.doc)}" target="_blank" rel="noopener">PDF ↗</a>` : '—'}</td>
+    </tr>`).join('');
+    return `<article class="signal lvl-${x.nivel}" id="senal-${i}">
+      <div><span class="level">Nivel ${x.nivel} · ${esc(LEVEL_NAME[x.nivel])}</span>
+        <span class="t-sub">&nbsp;${esc(x.jurisdiccion || '')} · ${esc(dateEs(x.fecha))}${x.fecha_nota ? ' (' + esc(x.fecha_nota) + ')' : ''}</span></div>
+      <h3>${esc(x.entidad)}</h3>
+      <p><strong>Qué se alega:</strong> ${esc(x.alegacion)}</p>
+      <p><strong>Estatus:</strong> ${esc(x.estatus)}</p>
+      ${x.vinculo ? `<p><strong>Vínculo según la fuente:</strong> ${esc(x.vinculo)}</p>` : ''}
+      <div class="subhead">Fuentes</div>
+      <ul class="src">${fuentes}</ul>
+      <div class="subhead">En el Registro de Contratos</div>
+      <p>Coincide por nombre con <strong>${esc(c.nombre)}</strong>${c.variantes > 1
+        ? ` (agrupa ${c.variantes} grafías: ${esc((c.nombres || []).join(' · '))})` : ''}:
+        ${plural(c.contratos, 'contrato', 'contratos')} con ${plural(c.agencias, 'agencia', 'agencias')},
+        por ${esc(fmtFull(c.monto))}.</p>
+      ${x.contratos_posteriores ? `<div class="notice" style="max-width:none;margin:4px 0 12px">
+        <strong>${plural(x.contratos_posteriores, 'contrato se otorgó', 'contratos se otorgaron')}
+        después de que el caso se hizo público</strong> (${esc(fmtFull(x.monto_posterior))}).
+        ${x.nivel === 1 ? '' : 'La inhabilidad para contratar del Art. 3.4 de la Ley 2-2018 se activa con una condena, no con una acusación, así que esto <strong>no significa que esos contratos violen la ley</strong>. Es un dato para que el lector y las agencias lo evalúen.'}</div>` : ''}
+      <div class="table-scroll"><table>
+        <thead><tr><th>Contrato</th><th>Agencia</th><th class="num">Monto</th><th>Respecto al caso</th><th>Documento</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>
+      <div class="sig-foot">
+        <span>Verificado el ${esc(dateEs(x.verificado_el))}${x.automatica ? ' · cruce automático' : ' · revisado a mano'}</span>
+        <button class="toggle-table" data-red-clave="${esc(c.clave)}">Ver en Conexiones →</button>
+        <a href="mailto:contacto@dineropublicopr.com?subject=${encodeURIComponent('DineroPúblicoPR - Corrección en Legal: ' + x.entidad)}">Solicitar corrección</a>
+      </div>
+    </article>`;
+  }).join('') : '<div class="card"><div class="empty">Ninguna empresa contratista coincide hoy con una señal legal.</div></div>';
+
+  table('tblLegalAuto',
+    [{ title: 'Lista', key: 'fuente', render: (a) => `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.fuente)} ↗</a>` },
+     { title: 'Estado', key: 'activa', render: (a) => a.activa
+         ? `<span class="pill" style="color:var(--good)">activa</span><div class="t-sub">descargada el ${esc(dateEs(a.descargado))}</div>`
+         : '<span class="pill">no activa</span><div class="t-sub">requiere una llave gratuita de api.sam.gov</div>' },
+     { title: 'Entidades de PR en la lista', key: 'entidades_pr', num: true, render: (a) => a.activa ? fmtNum(a.entidades_pr) : '—' },
+     { title: 'Coinciden con contratistas', key: 'coincidencias', num: true, render: (a) => a.activa ? fmtNum(a.coincidencias) : '—' }],
+    d.automaticas);
+}
+
+/* ── Conexiones ───────────────────────────────────────── */
+const NODE_COLOR = { a: 'var(--series-1)', c: 'var(--series-3)', f: 'var(--series-2)', s: 'var(--critical)' };
+const NODE_TYPE = { a: 'Agencia', c: 'Contratista', f: 'Firma de cabilderos', s: 'Señal legal' };
+const EDGE_NAME = { k: 'contratos', l: 'cliente de cabildeo', p: 'la firma misma contrata', s: 'señal legal' };
+const TYPE_ORDER = { s: 0, f: 1, a: 2, c: 3 };
+const MAX_SHOWN = 36;
+const red = { nodes: new Map(), adj: new Map(), byName: new Map(), trail: [], center: null };
+let redReady = null;
+
+function ensureRed() {
+  redReady = redReady || loadLazy('red').then(buildRed)
+    .catch((err) => { redReady = null; lazyError('redGrafo', err); });
+  return redReady;
+}
+
+function buildRed(d) {
+  d.nodos.forEach(([id, t, name, amount, x]) => {
+    red.nodes.set(id, { id, t, name, amount, x });
+    red.adj.set(id, []);
+  });
+  d.aristas.forEach(([a, b, kind, amount, n]) => {
+    red.adj.get(a).push({ to: b, kind, amount, n });
+    red.adj.get(b).push({ to: a, kind, amount, n });
+  });
+  // Para el buscador: el nombre lleva el tipo para distinguir homónimos entre tipos.
+  const list = document.getElementById('redNombres');
+  const frag = document.createDocumentFragment();
+  [...red.nodes.values()].filter((n) => n.t !== 's').forEach((n) => {
+    const label = n.name + ' — ' + NODE_TYPE[n.t];
+    red.byName.set(norm(label), n.id);
+    if (!red.byName.has(norm(n.name))) red.byName.set(norm(n.name), n.id);
+    const opt = document.createElement('option');
+    opt.value = label;
+    frag.appendChild(opt);
+  });
+  list.appendChild(frag);
+  renderSuggestions();
+  if (!red.center && !red.pending) {
+    const firstFirm = [...red.nodes.values()].filter((n) => n.t === 'f').sort((a, b) => b.amount - a.amount)[0];
+    if (firstFirm) centerOn(firstFirm.id);
+  }
+}
+
+function renderSuggestions() {
+  const all = [...red.nodes.values()];
+  const top = (t, n, fn = () => true) => all.filter((x) => x.t === t && fn(x)).sort((a, b) => b.amount - a.amount).slice(0, n);
+  const picks = [...top('f', 3), ...top('c', 6, (x) => x.x.senal), ...top('a', 2)];
+  document.getElementById('redSugerencias').innerHTML =
+    '<span class="t-sub" style="align-self:center">Empieza por:</span>' +
+    picks.map((n) => `<button class="chip" data-node="${esc(n.id)}">${esc(n.name.length > 34 ? n.name.slice(0, 33) + '…' : n.name)}</button>`).join('');
+}
+
+function nodeByKey(attr, value) {
+  for (const n of red.nodes.values()) if (n.x && n.x[attr] === value) return n.id;
+  return null;
+}
+
+async function openRed(attr, value) {
+  red.pending = true;  // que la carga no centre primero la firma por defecto
+  showView('conexiones');
+  await ensureRed();
+  const id = attr === 'id' ? value : nodeByKey(attr, value);
+  if (id) centerOn(id);
+}
+
+function centerOn(id, fromTrail = false) {
+  if (!red.nodes.has(id)) return;
+  red.center = id;
+  if (!fromTrail) {
+    red.trail = red.trail.filter((x) => x !== id);
+    red.trail.push(id);
+    if (red.trail.length > 8) red.trail.shift();
+  }
+  drawEgo(id);
+}
+
+function nodeLabel(n) {
+  if (n.t === 's') return n.name + (n.x.fecha ? ' (' + dateEs(n.x.fecha) + ')' : '');
+  return n.name;
+}
+
+function drawEgo(id) {
+  const center = red.nodes.get(id);
+  const links = red.adj.get(id).map((e) => ({ ...e, node: red.nodes.get(e.to) }))
+    .sort((a, b) => (TYPE_ORDER[a.node.t] - TYPE_ORDER[b.node.t]) || (b.amount - a.amount));
+
+  // Si hay demasiados vecinos se dibujan los de más monto, pero las señales y las firmas
+  // nunca se recortan: son lo que la vista existe para mostrar.
+  const keep = links.filter((l) => l.node.t === 's' || l.node.t === 'f');
+  const rest = links.filter((l) => l.node.t !== 's' && l.node.t !== 'f')
+    .sort((a, b) => b.amount - a.amount).slice(0, Math.max(0, MAX_SHOWN - keep.length));
+  const shown = [...keep, ...rest].sort((a, b) =>
+    (TYPE_ORDER[a.node.t] - TYPE_ORDER[b.node.t]) || (b.amount - a.amount));
+
+  // Con muchos vecinos las etiquetas horizontales se enciman. En ese caso se escriben a lo
+  // largo del radio, como en un diagrama radial: cada una ocupa su propio ángulo.
+  const dense = shown.length > 14;
+  const W = 900, H = dense ? 900 : 640, cx = W / 2, cy = H / 2;
+  const maxNode = Math.max(1, ...shown.map((l) => l.node.amount));
+  const maxEdge = Math.max(1, ...shown.map((l) => l.amount));
+  const radius = (n) => n.t === 's' ? 9 : 5 + 10 * Math.sqrt((n.amount || 0) / maxNode);
+  const R = dense ? 225 : 215;
+
+  const placed = shown.map((l, i) => {
+    const angle = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(1, shown.length);
+    return { ...l, angle, x: cx + R * Math.cos(angle), y: cy + R * Math.sin(angle), r: radius(l.node) };
+  });
+
+  const edges = placed.map((p) => {
+    const w = p.kind === 'k' ? 1 + 4 * Math.sqrt(p.amount / maxEdge) : 2;
+    return `<line class="g-edge ${p.kind}" x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke-width="${w.toFixed(1)}"></line>`;
+  }).join('');
+
+  const ring = (n, r) => {
+    let out = '';
+    if (n.t === 'c' && n.x.cab) out += `<circle r="${r + 3.5}" fill="none" stroke="var(--series-2)" stroke-width="2"></circle>`;
+    if (n.t === 'c' && n.x.senal) out += `<circle r="${r + (n.x.cab ? 7 : 3.5)}" fill="none" stroke="var(--critical)" stroke-width="2.5"></circle>`;
+    return out;
+  };
+
+  const nodes = placed.map((p, i) => {
+    const right = Math.cos(p.angle) >= -0.01;
+    const label = nodeLabel(p.node);
+    const max = dense ? 27 : 30;
+    const short = label.length > max ? label.slice(0, max - 1) + '…' : label;
+    let text;
+    if (dense) {
+      // Girada sobre el radio; del lado izquierdo se voltea para no leerse al revés.
+      const deg = (p.angle * 180) / Math.PI + (right ? 0 : 180);
+      const off = (p.r + 9) * (right ? 1 : -1);
+      text = `<text class="g-label" transform="rotate(${deg.toFixed(1)})" x="${off.toFixed(1)}" y="0"
+        dominant-baseline="central" text-anchor="${right ? 'start' : 'end'}">${esc(short)}</text>`;
+    } else {
+      const lx = (p.r + 8) * Math.cos(p.angle), ly = (p.r + 8) * Math.sin(p.angle);
+      text = `<text class="g-label" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" dominant-baseline="central"
+        text-anchor="${right ? 'start' : 'end'}">${esc(short)}</text>`;
+    }
+    return `<g class="g-node" tabindex="0" role="button" data-i="${i}" transform="translate(${p.x.toFixed(1)},${p.y.toFixed(1)})"
+        aria-label="${esc(NODE_TYPE[p.node.t] + ': ' + label)}">
+      ${ring(p.node, p.r)}
+      <circle class="body" r="${p.r.toFixed(1)}" fill="${NODE_COLOR[p.node.t]}"></circle>
+      ${text}
+    </g>`;
+  }).join('');
+
+  const cLabel = nodeLabel(center);
+  document.getElementById('redGrafo').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="Conexiones de ${esc(cLabel)}">
+    ${edges}
+    ${nodes}
+    <g transform="translate(${cx},${cy})">
+      ${ring(center, 18)}
+      <circle class="body" r="18" fill="${NODE_COLOR[center.t]}" stroke="var(--card)" stroke-width="3"></circle>
+      <text class="g-center" y="36" text-anchor="middle">${esc(cLabel.length > 44 ? cLabel.slice(0, 43) + '…' : cLabel)}</text>
+    </g>
+  </svg>` + (shown.length ? '' : '<div class="empty">Este punto no tiene conexiones en los datos.</div>');
+
+  const svg = document.querySelector('#redGrafo svg');
+  svg.querySelectorAll('.g-node').forEach((g) => {
+    const p = placed[+g.dataset.i];
+    const go = () => { hideTip(); centerOn(p.to); };
+    g.addEventListener('click', go);
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    g.addEventListener('mousemove', (evt) => showTip(evt, nodeLabel(p.node), edgeLines(p, center)));
+    g.addEventListener('mouseleave', hideTip);
+  });
+
+  document.getElementById('redTitulo').innerHTML =
+    `<span class="pill" style="margin-right:8px;color:${NODE_COLOR[center.t]}">${esc(NODE_TYPE[center.t])}</span>${esc(cLabel)}`;
+  document.getElementById('redMeta').innerHTML = centerMeta(center, links.length, shown.length);
+  document.getElementById('redTrail').innerHTML = red.trail.length > 1
+    ? 'Recorrido: ' + red.trail.map((t, i) => {
+        const n = red.nodes.get(t);
+        const name = n.name.length > 26 ? n.name.slice(0, 25) + '…' : n.name;
+        return (i ? '<span>→</span>' : '') + (t === id ? `<strong>${esc(name)}</strong>`
+          : `<button class="rowbtn" data-trail="${esc(t)}">${esc(name)}</button>`);
+      }).join(' ')
+    : '';
+
+  table('tblRed',
+    [{ title: 'Conexión', key: 'name', render: (r) =>
+         `<button class="rowbtn" data-node="${esc(r.to)}">${esc(r.name)}</button>` },
+     { title: 'Tipo', key: 'tipo', render: (r) => `<span class="pill">${esc(r.tipo)}</span>` },
+     { title: 'Relación', key: 'rel' },
+     { title: 'Contratos', key: 'n', num: true, render: (r) => r.kind === 'k' ? fmtNum(r.n) : '—' },
+     { title: 'Monto', key: 'amount', num: true, render: (r) => r.kind === 'k' || r.kind === 'l' || r.kind === 'p' ? fmtFull(r.amount) : '—' }],
+    links.map((l) => ({ to: l.to, name: nodeLabel(l.node), tipo: NODE_TYPE[l.node.t], rel: EDGE_NAME[l.kind],
+      kind: l.kind, n: l.n, amount: l.amount })),
+    { limit: 300 });
+}
+
+function edgeLines(p, center) {
+  const out = [NODE_TYPE[p.node.t]];
+  if (p.kind === 'k') out.push(plural(p.n, 'contrato', 'contratos') + ' entre ambos', fmtFull(p.amount));
+  if (p.kind === 'l') out.push(center.t === 'f' ? 'Cliente de esta firma' : 'Firma que representa a este contratista');
+  if (p.kind === 'p') out.push('La firma misma recibe contratos');
+  if (p.node.t === 'c' && p.kind !== 'k') out.push('Total en contratos: ' + fmtFull(p.node.amount));
+  if (p.node.t === 's') out.push('Toca para ver el contratista; la ficha completa está en Legal');
+  out.push('Toca para ponerlo en el centro');
+  return out;
+}
+
+function centerMeta(n, total, shown) {
+  const parts = [];
+  if (n.t === 'c') parts.push(plural(n.x.n || 0, 'contrato', 'contratos'), esc(fmtFull(n.amount)));
+  if (n.t === 'a') parts.push(esc(fmtFull(n.amount)) + ' otorgado en total');
+  if (n.t === 'f') parts.push(plural(n.x.pe || 0, 'cabildero', 'cabilderos'), plural(n.x.cl || 0, 'cliente', 'clientes'),
+    `<button class="rowbtn" data-cab-firma="${esc(n.x.fid)}">ver en Cabilderos →</button>`);
+  if (n.t === 's') parts.push(`<button class="rowbtn" data-legal="${n.x.i}">ver la ficha en Legal →</button>`);
+  if (shown < total) parts.push(`se dibujan ${shown} de ${total} conexiones (las de más monto); la tabla las lista todas`);
+  if (n.x && n.x.mas) parts.push(`${n.x.mas} agencias menores no se incluyen en el mapa`);
+  return parts.join(' · ');
+}
+
 function renderApiList() {
   const files = [
     ['resumen.json', 'Totales generales y por año fiscal'],
@@ -1541,6 +2374,9 @@ function renderApiList() {
     ['enmiendas.json', 'Señal: cuánto crecieron los contratos tras adjudicarse'],
     ['mensual.json', 'Serie mensual de monto y conteo'],
     ['busqueda.json', 'Índice de contratos de $250,000 o más, con enlace a cada PDF'],
+    ['cabilderos.json', 'Firmas de cabilderos, su personal, sus clientes y los contratos de esos clientes'],
+    ['legal.json', 'Señales legales de empresas contratistas, con fuentes y contratos'],
+    ['red.json', 'Grafo de conexiones entre agencias, contratistas, cabilderos y señales legales'],
   ];
   document.getElementById('apiList').innerHTML = `
     <p style="font-size:14px;color:var(--text-secondary);margin-bottom:14px;max-width:700px">
@@ -1626,7 +2462,10 @@ async function boot() {
 }
 
 /* Navegación entre vistas */
-const VIEWS = { datos: 'viewDatos', buscar: 'viewBuscar', acerca: 'viewAcerca' };
+const VIEWS = {
+  datos: 'viewDatos', buscar: 'viewBuscar', cabilderos: 'viewCabilderos',
+  legal: 'viewLegal', conexiones: 'viewConexiones', acerca: 'viewAcerca',
+};
 function showView(name) {
   if (!VIEWS[name]) name = 'datos';
   Object.entries(VIEWS).forEach(([key, id]) => {
@@ -1641,6 +2480,9 @@ function showView(name) {
     loadSearchIndex().then(renderBuscar);
     document.getElementById('q').focus();
   }
+  if (name === 'cabilderos') ensureCabilderos();
+  if (name === 'legal') ensureLegal();
+  if (name === 'conexiones') ensureRed();
   window.scrollTo({ top: 0 });
 }
 document.querySelectorAll('.navlink').forEach((link) => {
@@ -1651,6 +2493,52 @@ window.addEventListener('hashchange', () => {
   const name = location.hash.slice(1);
   if (VIEWS[name]) showView(name);
 });
+
+/* Enlaces entre Cabilderos, Legal y Conexiones. Delegados en el documento porque las
+   tablas se vuelven a dibujar al ordenar y perderían sus propios listeners. */
+document.addEventListener('click', (evt) => {
+  const el = evt.target.closest('[data-firma],[data-red-firma],[data-red-clave],[data-node],[data-trail],[data-cab-firma],[data-legal]');
+  if (!el) return;
+  const ds = el.dataset;
+  if (ds.firma) renderFirma(ds.firma);
+  else if (ds.redFirma) openRed('fid', ds.redFirma);
+  else if (ds.redClave) openRed('k', ds.redClave);
+  else if (ds.node) { centerOn(ds.node); document.getElementById('redTrail').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  else if (ds.trail) centerOn(ds.trail, true);
+  else if (ds.cabFirma) { showView('cabilderos'); ensureCabilderos().then(() => renderFirma(ds.cabFirma)); }
+  else if (ds.legal !== undefined) {
+    showView('legal');
+    ensureLegal().then(() => {
+      const box = document.getElementById('senal-' + ds.legal);
+      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+});
+
+let senadoTimer = null;
+document.getElementById('qSenado').addEventListener('input', () => {
+  clearTimeout(senadoTimer);
+  senadoTimer = setTimeout(() => { if (state.data.cabilderos) renderSenado(); }, 140);
+});
+
+function pickRedFromSearch() {
+  const value = norm(document.getElementById('qRed').value).trim();
+  if (!value) return;
+  let id = red.byName.get(value);
+  if (!id) {
+    // Sin coincidencia exacta: entre los nombres que contienen todo lo escrito, primero
+    // las firmas de cabilderos, luego contratistas y agencias, y dentro de eso el de más monto.
+    const terms = value.split(/\s+/);
+    const rank = { f: 0, c: 1, a: 2 };
+    const hits = [...new Set([...red.byName].filter(([name]) => terms.every((t) => name.includes(t)))
+      .map(([, nid]) => nid))].map((nid) => red.nodes.get(nid));
+    hits.sort((a, b) => (rank[a.t] - rank[b.t]) || (b.amount - a.amount));
+    if (hits.length) id = hits[0].id;
+  }
+  if (id) { centerOn(id); document.getElementById('qRed').value = ''; }
+}
+document.getElementById('qRed').addEventListener('change', pickRedFromSearch);
+document.getElementById('qRed').addEventListener('keydown', (e) => { if (e.key === 'Enter') pickRedFromSearch(); });
 
 /* Búsqueda con pequeño retraso, para no filtrar en cada tecla */
 let searchTimer = null;
