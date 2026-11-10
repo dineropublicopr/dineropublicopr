@@ -65,9 +65,16 @@ LEIE_TYPES = {
 }
 
 
+# Intermedios que algunos servidores federales no envian completos. Ver el archivo.
+INTERMEDIOS = Path(__file__).resolve().parent / "certs" / "intermedios.pem"
+
+
 def download(url: str, timeout: int = 180) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=_ssl_context()))
+    ctx = _ssl_context()
+    if INTERMEDIOS.exists():
+        ctx.load_verify_locations(cafile=str(INTERMEDIOS))
+    opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx))
     with opener.open(req, timeout=timeout) as resp:
         return resp.read()
 
