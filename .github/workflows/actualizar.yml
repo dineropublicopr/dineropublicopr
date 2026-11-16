@@ -6,7 +6,15 @@ name: Actualizar datos
 on:
   schedule:
     - cron: "0 23 * * 0"
+    # Miercoles: no actualiza nada. Solo lee la cache de datos crudos para que GitHub no
+    # la borre (ver el job mantener-cache, abajo).
+    - cron: "0 23 * * 3"
   workflow_dispatch:
+    inputs:
+      permitir_baja:
+        description: "Aceptar que haya MENOS contratos que la semana pasada. Marcar solo despues de comprobar en el portal de la Contralora que la baja es real."
+        type: boolean
+        default: false
 
 concurrency:
   group: actualizar-datos
@@ -16,7 +24,29 @@ permissions:
   contents: write
 
 jobs:
+  # GitHub borra toda cache que nadie lee en 7 dias, y la corrida del domingo arranca con
+  # 2 o 3 horas de retraso variable: la cache de la semana anterior llegaba con 6 dias y
+  # 23 horas (servia) o con 7 dias y 45 minutos (borrada, y entonces habia que bajar los
+  # cuatro anos fiscales otra vez: una hora en vez de veinte minutos, y unas 2,400
+  # peticiones de mas al portal). Una lectura a mitad de semana reinicia ese plazo.
+  mantener-cache:
+    if: github.event_name == 'schedule' && github.event.schedule == '0 23 * * 3'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Leer la cache de datos crudos para que no caduque
+        uses: actions/cache/restore@v4
+        with:
+          path: data/raw
+          key: contratos-raw-lectura-${{ github.run_id }}
+          restore-keys: |
+            contratos-raw-
+
   actualizar:
+    # Todo menos el cron de los miercoles: el del domingo y las corridas a mano.
+    if: github.event_name != 'schedule' || github.event.schedule == '0 23 * * 0'
     runs-on: ubuntu-latest
     # La ingesta se autolimita a una peticion cada 1.5s por respeto al servidor publico,
     # asi que una corrida completa toma su tiempo.
@@ -44,29 +74,44 @@ jobs:
 
       # Los JSONL crudos no van al repositorio (son cientos de MB), asi que se cachean
       # entre corridas. Sin esto, cada semana volveria a bajar cuatro anos completos.
+      #
+      # Restaurar y guardar van en pasos separados (antes era un solo actions/cache, que
+      # guarda al final del job y solo si el job termino bien). Asi la cache se guarda
+      # tambien cuando el pipeline falla, y los 50 minutos de descargas de una corrida
+      # fallida no se pierden: el reintento sigue desde donde se quedo.
       - name: Restaurar cache de datos crudos
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: data/raw
-          key: contratos-raw-${{ github.run_id }}
+          key: contratos-raw-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             contratos-raw-
 
-      - name: Correr el pipeline
-        run: python3 pipeline/run.py
+      # Solo biblioteca estandar, sin red y en menos de un segundo. Si una prueba falla no
+      # se baja ni se publica nada.
+      - name: Correr las pruebas
+        run: python3 -m unittest discover -s tests
 
-      - name: Verificar que hay datos
-        run: |
-          python3 - <<'PY'
-          import json, pathlib, sys
-          resumen = pathlib.Path("web/datos/resumen.json")
-          if not resumen.exists():
-              sys.exit("no se genero resumen.json")
-          data = json.loads(resumen.read_text(encoding="utf-8"))
-          if (data.get("contratos") or 0) < 50_000:
-              sys.exit(f"muy pocos contratos: {data.get('contratos')}")
-          print(f"ok: {data['contratos']:,} contratos")
-          PY
+      - name: Correr el pipeline
+        run: python3 pipeline/run.py ${{ inputs.permitir_baja && '--aceptar-bajas' || '' }}
+
+      # always(): se guarda aunque el pipeline haya fallado. Es seguro porque ingest.py y
+      # enrich.py escriben cada mes a un temporal y lo renombran, y nunca reemplazan un
+      # mes bueno por uno incompleto. La condicion sobre catalogs.json evita intentar
+      # guardar un directorio que no existe si el job fallo antes de bajar nada.
+      - name: Guardar cache de datos crudos
+        if: always() && hashFiles('data/raw/catalogs.json') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data/raw
+          key: contratos-raw-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # Compara contra el resumen.json del commit anterior, que es lo que el sitio muestra
+      # hoy: el total no puede bajar mas de 0.5 %, ni un ano fiscal mas de 2 %. Antes solo
+      # se exigian 50,000 contratos, y con mas de 270,000 publicados eso dejaba pasar la
+      # perdida de un ano entero. Si falla, no se hace commit, ni despliegue, ni carga de D1.
+      - name: Verificar los datos contra los publicados
+        run: python3 pipeline/verificar.py ${{ inputs.permitir_baja && '--permitir-baja' || '' }}
 
       # El push deja el historial de los datos en main, pero no publica nada: el proyecto
       # de Pages es de subida directa, asi que el despliegue va en el paso siguiente.
