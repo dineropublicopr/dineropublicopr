@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import gzip
+import io
 import json
 import sqlite3
 from pathlib import Path
@@ -357,7 +358,13 @@ def build() -> None:
         cursor = conn.execute(contract_sql, (year,))
         header = [d[0] for d in cursor.description]
         target = downloads / f"contratos-{year}.csv.gz"
-        with gzip.open(target, "wt", encoding="utf-8", newline="") as handle:
+        # mtime=0 y sin nombre de archivo en la cabecera gzip: asi el mismo contenido da
+        # siempre los mismos bytes. Con gzip.open, la cabecera llevaba la hora de la
+        # corrida y los CSV de anos ya cerrados cambiaban cada semana sin cambiar de
+        # contenido, lo que metia megabytes de binarios "nuevos" en cada commit de datos.
+        with open(target, "wb") as raw, gzip.GzipFile(
+            filename="", mode="wb", fileobj=raw, mtime=0
+        ) as packed, io.TextIOWrapper(packed, encoding="utf-8", newline="") as handle:
             writer = csv.writer(handle)
             writer.writerow(header)
             writer.writerows(cursor)

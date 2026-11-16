@@ -8,10 +8,12 @@ y reenviar junto con las cookies de sesion.
 from __future__ import annotations
 
 import gzip
+import http.client
 import json
 import os
 import re
 import ssl
+import sys
 import time
 import urllib.error
 import urllib.parse
@@ -38,6 +40,21 @@ COLUMNS = [
     {"data": "EntityId", "name": "", "orderable": True, "searchable": True},
     {"data": "CancellationDate", "name": "", "orderable": True, "searchable": True},
 ]
+
+# Reintentos. Una corrida hace entre 500 y 3,000 peticiones a un portal publico que a veces
+# tarda, devuelve un 502 o deja caducar la sesion; sin reintentos, un solo tropiezo tumbaba
+# la corrida completa (paso el 2026-10-21 a los 50 minutos). Se espera cada vez mas entre
+# intentos para no martillar un servidor que ya esta en apuros.
+BACKOFF_SECONDS = (5, 15, 45)
+# Codigos HTTP que vale la pena repetir: saturacion o fallo temporal del servidor.
+RETRY_STATUS = frozenset({408, 425, 429, 500, 502, 503, 504})
+# Con estos el portal esta diciendo que la sesion o el token ya no valen.
+SESSION_STATUS = frozenset({401, 403})
+
+
+class PortalError(RuntimeError):
+    """El portal no contesto algo utilizable despues de agotar los reintentos."""
+
 
 def _ssl_context() -> ssl.SSLContext:
     """Contexto TLS con verificacion activa.
@@ -77,11 +94,19 @@ FILTER_KEYS = (
 class OcprClient:
     """Sesion contra el portal. Mantiene cookies y token anti-forgery."""
 
-    def __init__(self, delay: float = 1.5, timeout: int = 60):
+    def __init__(
+        self,
+        delay: float = 1.5,
+        timeout: int = 60,
+        backoff: tuple = BACKOFF_SECONDS,
+    ):
         self.delay = delay
         self.timeout = timeout
+        self.backoff = tuple(backoff)
         self.token: str | None = None
         self._last_request = 0.0
+        # Se guarda como atributo para que las pruebas no tengan que esperar de verdad.
+        self._sleep = time.sleep
         self._opener = urllib.request.build_opener(
             urllib.request.HTTPCookieProcessor(CookieJar()),
             urllib.request.HTTPSHandler(context=_ssl_context()),
@@ -91,7 +116,7 @@ class OcprClient:
         """Nunca mas de una peticion cada `delay` segundos: es un servidor publico."""
         elapsed = time.monotonic() - self._last_request
         if elapsed < self.delay:
-            time.sleep(self.delay - elapsed)
+            self._sleep(self.delay - elapsed)
         self._last_request = time.monotonic()
 
     def _read(self, resp) -> bytes:
@@ -118,37 +143,98 @@ class OcprClient:
             r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', html
         )
         if not match:
-            raise RuntimeError(
+            raise PortalError(
                 "No se encontro __RequestVerificationToken: el portal cambio de estructura."
             )
         self.token = match.group(1)
         return self.token
 
+    def _fetch_json(self, build_request) -> dict:
+        """Hace la peticion y devuelve el JSON, reintentando los fallos pasajeros.
+
+        `build_request` es una funcion sin argumentos que arma el Request. Se llama en cada
+        intento, y no una sola vez, porque el token va en las cabeceras y puede haberse
+        renovado entre un intento y el siguiente.
+
+        Se reintenta ante: error de red o timeout, HTTP 5xx/408/429, respuesta que no es
+        JSON (el portal contesta con la pagina HTML de inicio cuando la sesion caduca) y
+        HTTP 401/403. En los dos ultimos casos se abre una sesion nueva antes de repetir.
+        Cualquier otro 4xx es un error de la peticion misma y se propaga de inmediato:
+        repetirlo daria lo mismo.
+        """
+        attempts = len(self.backoff) + 1
+        last_error: Exception | None = None
+
+        for attempt in range(attempts):
+            renew_session = False
+            try:
+                if self.token is None:
+                    self.open_session()
+                self._throttle()
+                with self._opener.open(build_request(), timeout=self.timeout) as resp:
+                    # utf-8-sig, no utf-8: el servidor devuelve BOM de forma intermitente
+                    # y json.loads lo rechaza con "Unexpected UTF-8 BOM". Rompio la corrida
+                    # del 2026-10-21 despues de 50 minutos. Sin BOM es igual que utf-8.
+                    return json.loads(self._read(resp).decode("utf-8-sig", "replace"))
+            except urllib.error.HTTPError as err:
+                if err.code in SESSION_STATUS:
+                    renew_session = True
+                elif err.code not in RETRY_STATUS:
+                    raise
+                last_error = err
+            except json.JSONDecodeError as err:
+                renew_session = True
+                last_error = err
+            except (
+                urllib.error.URLError,
+                TimeoutError,
+                ConnectionError,
+                http.client.HTTPException,
+                PortalError,
+            ) as err:
+                last_error = err
+
+            if attempt == attempts - 1:
+                break
+            wait = self.backoff[attempt]
+            print(
+                f"      aviso: fallo del portal ({type(last_error).__name__}: {last_error}); "
+                f"reintento {attempt + 1} de {attempts - 1} en {wait}s",
+                file=sys.stderr,
+                flush=True,
+            )
+            self._sleep(wait)
+            if renew_session:
+                # Se descarta el token; el proximo intento abre sesion de nuevo. Si esa
+                # apertura falla, cuenta como un intento mas y no como un error aparte.
+                self.token = None
+
+        raise PortalError(
+            f"el portal de la Contralora no respondio bien tras {attempts} intentos: "
+            f"{type(last_error).__name__}: {last_error}"
+        ) from last_error
+
     def _post_json(self, path: str, payload: dict) -> dict:
-        if self.token is None:
-            self.open_session()
-        self._throttle()
         body = json.dumps(payload).encode("utf-8")
-        req = urllib.request.Request(
-            urllib.parse.urljoin(BASE, path),
-            data=body,
-            headers={
-                "User-Agent": UA,
-                "Content-Type": "application/json; charset=utf-8",
-                "Accept": "application/json, text/javascript, */*; q=0.01",
-                "Accept-Language": "es-PR,es;q=0.9",
-                "X-Requested-With": "XMLHttpRequest",
-                "__RequestVerificationToken": self.token,
-                "Referer": BASE,
-                "Origin": BASE.rstrip("/"),
-            },
-            method="POST",
-        )
-        with self._opener.open(req, timeout=self.timeout) as resp:
-            # utf-8-sig, no utf-8: el servidor devuelve BOM de forma intermitente y
-            # json.loads lo rechaza con "Unexpected UTF-8 BOM". Rompio la corrida del
-            # 2026-10-21 despues de 50 minutos. Sin BOM se comporta igual que utf-8.
-            return json.loads(self._read(resp).decode("utf-8-sig", "replace"))
+
+        def build() -> urllib.request.Request:
+            return urllib.request.Request(
+                urllib.parse.urljoin(BASE, path),
+                data=body,
+                headers={
+                    "User-Agent": UA,
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "Accept-Language": "es-PR,es;q=0.9",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "__RequestVerificationToken": self.token,
+                    "Referer": BASE,
+                    "Origin": BASE.rstrip("/"),
+                },
+                method="POST",
+            )
+
+        return self._fetch_json(build)
 
     def search(
         self,
@@ -221,19 +307,18 @@ class OcprClient:
         )
 
     def _get_json(self, path: str, params: dict) -> dict:
-        if self.token is None:
-            self.open_session()
-        self._throttle()
         url = urllib.parse.urljoin(BASE, path) + "?" + urllib.parse.urlencode(params)
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": UA,
-                "Accept": "application/json, text/javascript, */*; q=0.01",
-                "X-Requested-With": "XMLHttpRequest",
-                "__RequestVerificationToken": self.token,
-                "Referer": BASE,
-            },
-        )
-        with self._opener.open(req, timeout=self.timeout) as resp:
-            return json.loads(self._read(resp).decode("utf-8-sig", "replace"))
+
+        def build() -> urllib.request.Request:
+            return urllib.request.Request(
+                url,
+                headers={
+                    "User-Agent": UA,
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "__RequestVerificationToken": self.token,
+                    "Referer": BASE,
+                },
+            )
+
+        return self._fetch_json(build)

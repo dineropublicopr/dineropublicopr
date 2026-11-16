@@ -23,6 +23,7 @@ DB_PATH = ROOT / "data" / "out" / "contratos.sqlite"
 OUT_PATH = ROOT / "data" / "raw" / "amendments.json"
 
 DEFAULT_MIN = 1_000_000
+MAX_CONSECUTIVE_FAILURES = 5
 
 
 def main() -> None:
@@ -53,7 +54,10 @@ def main() -> None:
         print(f"ya en disco: {len(done):,}")
 
     client = OcprClient()
-    client.open_session()
+    # El cliente ya reintenta cada peticion con espera creciente. Si aun asi fallan varias
+    # seguidas, el portal esta caido: se deja el resto para la proxima corrida en vez de
+    # gastar mas de un minuto de reintentos por cada contrato pendiente.
+    consecutive_failures = 0
 
     for index, (contract_id, number, entity_id, _amount) in enumerate(targets, 1):
         key = str(contract_id)
@@ -63,7 +67,15 @@ def main() -> None:
             result = client.amendments(number, entity_id)
         except Exception as exc:  # noqa: BLE001
             print(f"  fallo {number}: {type(exc).__name__}")
+            consecutive_failures += 1
+            if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                print(
+                    f"  {consecutive_failures} fallos seguidos: el portal no responde. "
+                    "Se guarda lo obtenido y el resto queda para la proxima corrida."
+                )
+                break
             continue
+        consecutive_failures = 0
 
         # Un contrato sin enmiendas accesibles devuelve un dict de validacion, no una lista.
         if not isinstance(result, list):

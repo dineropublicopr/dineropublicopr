@@ -82,7 +82,6 @@ def fetch_entities(client: OcprClient) -> list[dict]:
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     client = OcprClient()
-    client.open_session()
 
     entities = fetch_entities(client)
     print(f"entidades: {len(entities)}")
