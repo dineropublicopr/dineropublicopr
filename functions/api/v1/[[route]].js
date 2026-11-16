@@ -15,6 +15,9 @@
  *   GET /api/v1/contratistas?q=
  *   GET /api/v1/resumen
  *   GET /api/v1/catalogos
+ *
+ * Un parametro invalido devuelve 400 con un mensaje que dice cual y por que. Los errores
+ * no se cachean y nunca incluyen texto interno de la base.
  */
 
 const MAX_LIMIT = 500;
@@ -26,18 +29,31 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
+/**
+ * Solo las respuestas buenas se guardan una hora. Un error nunca se cachea: antes un 500
+ * durante la recarga semanal de la base se quedaba una hora en el navegador de quien
+ * consultara en ese momento.
+ */
 const json = (body, status = 200, extra = {}) =>
   new Response(JSON.stringify(body, null, 2), {
     status,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': status >= 200 && status < 300 ? 'public, max-age=3600' : 'no-store',
       ...CORS,
       ...extra,
     },
   });
 
 const fail = (message, status = 400) => json({ error: message }, status);
+
+/**
+ * Parametro invalido. Se lanza desde los validadores y onRequest lo convierte en un 400.
+ * Su mensaje lo escribimos nosotros y es lo unico que se le devuelve al cliente; el texto
+ * de cualquier otro error (D1, JavaScript) se registra en el log y nunca sale en la
+ * respuesta.
+ */
+class BadRequest extends Error {}
 
 /** Columnas por las que se permite ordenar. Nunca interpolar entrada del usuario en SQL. */
 const SORTABLE = {
@@ -47,75 +63,131 @@ const SORTABLE = {
   numero: 'contract_number',
 };
 
-function intParam(value, fallback, min, max) {
-  const n = Number.parseInt(value ?? '', 10);
-  if (!Number.isFinite(n)) return fallback;
-  return Math.min(max, Math.max(min, n));
+/** Largo maximo de un filtro de texto. El nombre de agencia mas largo ronda los 100. */
+const MAX_TEXT = 120;
+
+/** Filtro de texto opcional. Devuelve null si no vino. */
+function textParam(params, key) {
+  const value = (params.get(key) ?? '').trim();
+  if (!value) return null;
+  if (value.length > MAX_TEXT) {
+    throw new BadRequest(`${key} admite hasta ${MAX_TEXT} caracteres`);
+  }
+  return value;
 }
 
-/** Fecha ISO estricta: evita que entre cualquier cosa al SQL aunque vaya parametrizada. */
-const isIsoDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value);
+/**
+ * Entero opcional. Un valor que no es un entero da 400 en vez de ignorarse: antes
+ * `metodo=abc` llegaba a la base como NaN y devolvia "0 resultados" con codigo 200, que
+ * se lee como "no hay contratos". Fuera de rango tambien es 400, salvo con `clamp`, que
+ * lo ajusta al limite (para `limite`, cuyo maximo esta documentado).
+ */
+function intParam(params, key, { fallback = null, min = 0, max = 2147483647, clamp = false } = {}) {
+  const raw = (params.get(key) ?? '').trim();
+  if (!raw) return fallback;
+  if (!/^\d{1,10}$/.test(raw)) throw new BadRequest(`${key} debe ser un número entero`);
+  const n = Number.parseInt(raw, 10);
+  if (n < min || n > max) {
+    if (clamp) return Math.min(max, Math.max(min, n));
+    throw new BadRequest(`${key} debe estar entre ${min} y ${max}`);
+  }
+  return n;
+}
+
+/** Monto opcional: solo digitos con decimales opcionales. Nada de NaN, Infinity ni 1e9. */
+function amountParam(params, key) {
+  const raw = (params.get(key) ?? '').trim();
+  if (!raw) return null;
+  if (!/^-?\d{1,15}(\.\d{1,4})?$/.test(raw)) {
+    throw new BadRequest(`${key} debe ser un número, por ejemplo 250000 o 250000.50`);
+  }
+  return Number(raw);
+}
+
+/** Fecha ISO estricta y real (2026-02-31 no pasa). */
+function dateParam(params, key) {
+  const raw = (params.get(key) ?? '').trim();
+  if (!raw) return null;
+  const ok = /^\d{4}-\d{2}-\d{2}$/.test(raw)
+    && new Date(raw + 'T00:00:00Z').toISOString().slice(0, 10) === raw;
+  if (!ok) throw new BadRequest(`${key} debe ser una fecha YYYY-MM-DD`);
+  return raw;
+}
+
+/** Valor opcional de una lista cerrada. */
+function choiceParam(params, key, choices, fallback) {
+  const raw = (params.get(key) ?? '').trim().toLowerCase();
+  if (!raw) return fallback;
+  if (!choices.includes(raw)) {
+    throw new BadRequest(`${key} debe ser uno de: ${choices.join(', ')}`);
+  }
+  return raw;
+}
+
+/**
+ * "La columna contiene este texto", sin distinguir mayusculas.
+ *
+ * Se usa instr() y no LIKE porque D1 limita los patrones de LIKE a 50 bytes: con los dos
+ * `%` que se le anadian, cualquier filtro de 49 caracteres o mas devolvia 500, y el nombre
+ * completo de la agencia con mas contratos ya pasaba de ahi. instr() no tiene patron, asi
+ * que tampoco trata `%` ni `_` como comodines: se busca el texto tal cual.
+ */
+const contains = (column) => `instr(lower(${column}), lower(?)) > 0`;
 
 async function listContracts(db, params) {
   const where = [];
   const binds = [];
 
-  const text = (key, column, exact = false) => {
-    const value = params.get(key);
-    if (!value) return;
-    if (exact) {
-      where.push(`${column} = ?`);
-      binds.push(value);
-    } else {
-      where.push(`${column} LIKE ?`);
-      binds.push('%' + value + '%');
-    }
-  };
-
-  text('agencia', 'c.entity_name');
-  text('categoria', 'c.service_group');
-  text('numero', 'c.contract_number');
-  text('ano', 'c.fiscal_year', true);
-
-  const metodo = params.get('metodo');
-  if (metodo) {
-    where.push('c.contracting_form_id = ?');
-    binds.push(Number.parseInt(metodo, 10));
+  // Toda la validacion va antes de tocar la base: un parametro malo no cuesta consultas.
+  const filters = [
+    ['agencia', 'c.entity_name'],
+    ['categoria', 'c.service_group'],
+    ['numero', 'c.contract_number'],
+  ];
+  for (const [key, column] of filters) {
+    const value = textParam(params, key);
+    if (value !== null) { where.push(contains(column)); binds.push(value); }
   }
 
-  const fondo = params.get('fondo');
-  if (fondo) {
-    where.push('c.fund_id = ?');
-    binds.push(Number.parseInt(fondo, 10));
+  const ano = (params.get('ano') ?? '').trim();
+  if (ano) {
+    if (!/^\d{4}-\d{2}$/.test(ano)) throw new BadRequest('ano debe tener la forma 2025-26');
+    where.push('c.fiscal_year = ?'); binds.push(ano);
   }
 
-  const min = params.get('min');
-  if (min) { where.push('c.amount_to_pay >= ?'); binds.push(Number(min)); }
-  const max = params.get('max');
-  if (max) { where.push('c.amount_to_pay <= ?'); binds.push(Number(max)); }
+  const metodo = intParam(params, 'metodo', { min: 0, max: 9999 });
+  if (metodo !== null) { where.push('c.contracting_form_id = ?'); binds.push(metodo); }
 
-  const desde = params.get('desde');
-  if (desde) {
-    if (!isIsoDate(desde)) return fail('desde debe ser YYYY-MM-DD');
-    where.push('c.date_of_grant >= ?'); binds.push(desde);
-  }
-  const hasta = params.get('hasta');
-  if (hasta) {
-    if (!isIsoDate(hasta)) return fail('hasta debe ser YYYY-MM-DD');
-    where.push('c.date_of_grant <= ?'); binds.push(hasta);
-  }
+  const fondo = intParam(params, 'fondo', { min: 0, max: 9999 });
+  if (fondo !== null) { where.push('c.fund_id = ?'); binds.push(fondo); }
 
-  const contratista = params.get('contratista');
-  if (contratista) {
+  const min = amountParam(params, 'min');
+  const max = amountParam(params, 'max');
+  if (min !== null && max !== null && min > max) {
+    throw new BadRequest('min no puede ser mayor que max');
+  }
+  if (min !== null) { where.push('c.amount_to_pay >= ?'); binds.push(min); }
+  if (max !== null) { where.push('c.amount_to_pay <= ?'); binds.push(max); }
+
+  const desde = dateParam(params, 'desde');
+  const hasta = dateParam(params, 'hasta');
+  if (desde !== null && hasta !== null && desde > hasta) {
+    throw new BadRequest('desde no puede ser posterior a hasta');
+  }
+  if (desde !== null) { where.push('c.date_of_grant >= ?'); binds.push(desde); }
+  if (hasta !== null) { where.push('c.date_of_grant <= ?'); binds.push(hasta); }
+
+  const contratista = textParam(params, 'contratista');
+  if (contratista !== null) {
     where.push(`c.contract_id IN (
-      SELECT contract_id FROM contractors WHERE name LIKE ?)`);
-    binds.push('%' + contratista + '%');
+      SELECT contract_id FROM contractors WHERE ${contains('name')})`);
+    binds.push(contratista);
   }
 
-  const sortKey = SORTABLE[params.get('orden') || 'fecha'] || SORTABLE.fecha;
-  const dir = (params.get('dir') || 'desc').toLowerCase() === 'asc' ? 'ASC' : 'DESC';
-  const limit = intParam(params.get('limite'), DEFAULT_LIMIT, 1, MAX_LIMIT);
-  const page = intParam(params.get('pagina'), 1, 1, 100000);
+  const sortKey = SORTABLE[choiceParam(params, 'orden', Object.keys(SORTABLE), 'fecha')];
+  const dir = choiceParam(params, 'dir', ['asc', 'desc'], 'desc') === 'asc' ? 'ASC' : 'DESC';
+  const limit = intParam(params, 'limite', { fallback: DEFAULT_LIMIT, min: 1, max: MAX_LIMIT, clamp: true });
+  const page = intParam(params, 'pagina', { fallback: 1, min: 1, max: 100000 });
   const offset = (page - 1) * limit;
 
   const clause = where.length ? 'WHERE ' + where.join(' AND ') : '';
@@ -162,11 +234,9 @@ export async function onRequest(context) {
   const db = env.DB;
 
   if (!db) {
-    return fail(
-      'La base de datos no esta conectada. Falta enlazar D1 con el nombre DB en el ' +
-        'proyecto de Pages.',
-      503
-    );
+    // El detalle es para quien opera el sitio y se queda en el log, no en la respuesta.
+    console.error('API: falta el binding de D1 llamado DB en el proyecto de Pages');
+    return fail('El API no está disponible en este momento. Intenta más tarde.', 503);
   }
 
   try {
@@ -190,7 +260,7 @@ export async function onRequest(context) {
 
     if (path === '/contratos') return await listContracts(db, url.searchParams);
 
-    const detail = path.match(/^\/contratos\/(\d+)$/);
+    const detail = path.match(/^\/contratos\/(\d{1,15})$/);
     if (detail) {
       const row = await db
         .prepare('SELECT * FROM contracts WHERE contract_id = ?')
@@ -219,8 +289,8 @@ export async function onRequest(context) {
     }
 
     if (path === '/contratistas') {
-      const q = url.searchParams.get('q') || '';
-      const limit = intParam(url.searchParams.get('limite'), 100, 1, MAX_LIMIT);
+      const q = textParam(url.searchParams, 'q') ?? '';
+      const limit = intParam(url.searchParams, 'limite', { fallback: 100, min: 1, max: MAX_LIMIT, clamp: true });
       const result = await db
         .prepare(
           `SELECT ct.name_key AS clave, MIN(ct.name) AS nombre,
@@ -229,10 +299,10 @@ export async function onRequest(context) {
                   SUM(c.amount_to_pay) AS monto
              FROM contractors ct
              JOIN contracts c ON c.contract_id = ct.contract_id
-            WHERE (? = '' OR ct.name LIKE ?)
+            WHERE (? = '' OR ${contains('ct.name')})
             GROUP BY ct.name_key ORDER BY monto DESC LIMIT ?`
         )
-        .bind(q, '%' + q + '%', limit)
+        .bind(q, q, limit)
         .all();
       return json(result.results ?? []);
     }
@@ -287,6 +357,10 @@ export async function onRequest(context) {
 
     return fail('Ruta no encontrada', 404);
   } catch (err) {
-    return fail('Error interno: ' + err.message, 500);
+    if (err instanceof BadRequest) return fail(err.message, 400);
+    // Nunca se devuelve el texto del error: puede traer detalles de la base o del codigo.
+    // Queda en el log de la funcion, que solo ve quien opera el sitio.
+    console.error('API: error interno en', path || '/', err);
+    return fail('Error interno. Intenta de nuevo más tarde.', 500);
   }
 }
