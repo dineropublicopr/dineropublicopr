@@ -57,18 +57,19 @@ señales que indican dónde mirar**, con API abierto y datos descargables.
 ## El hallazgo principal
 
 **Dos de cada tres contratos del gobierno se clasifican como «Otros»**, una categoría que no
-dice nada sobre si hubo competencia. De 268,505 contratos entre 2023-24 y 2026-27:
+dice nada sobre si hubo competencia. De 273,818 contratos entre 2023-24 y 2026-27
+(corte del 15 de noviembre de 2026; el sitio muestra siempre la cifra de la semana):
 
 | Método | Contratos | Monto |
 |---|---:|---:|
-| **Otros** | **176,544** | $30,645,182,284 |
-| No registrado | 41,308 | $6,162,200,406 |
-| Solicitud de Propuesta (RFP) | 23,075 | $46,519,974,323 |
-| Subasta Pública | 17,803 | $11,742,715,229 |
-| Solicitud de Cotización | 8,555 | $834,847,743 |
-| Solicitud de Calificaciones (RFQ) | 497 | $399,646,150 |
-| Subasta Informal | 420 | $49,367,427 |
-| Contrataciones por Emergencia | 303 | $41,623,651 |
+| **Otros** | **181,043** | $30,918,938,735 |
+| No registrado | 41,394 | $6,181,310,048 |
+| Solicitud de Propuesta (RFP) | 23,433 | $47,260,063,976 |
+| Subasta Pública | 17,981 | $11,864,007,775 |
+| Solicitud de Cotización | 8,675 | $838,978,107 |
+| Solicitud de Calificaciones (RFQ) | 551 | $405,655,263 |
+| Subasta Informal | 437 | $51,066,502 |
+| Contrataciones por Emergencia | 304 | $41,623,651 |
 
 El campo existe, se llena, y aun así no informa: el 66% de los contratos lleva una etiqueta
 vacía.
@@ -100,23 +101,30 @@ sitio publica la cobertura por año para que nadie generalice un hueco ya cerrad
 pipeline/     Python sin dependencias externas (solo biblioteca estándar)
   ocpr_client.py   Cliente del API de la Contralora
   catalogs.py      Catálogo de 416 agencias + enums oficiales
-  ingest.py        Descarga de contratos, mes por mes, reanudable
+  ingest.py        Descarga de contratos, mes por mes, reanudable; nunca reemplaza un
+                   mes guardado por un resultado incompleto o mucho más pequeño
   enrich.py        Etiqueta método de contratación y origen de fondos
   build_db.py      Construye SQLite y normaliza nombres de contratistas
   amendments.py    Baja las enmiendas de contratos de $1M o más
   export_api.py    Genera el API estático, las señales y los CSV
   cabilderos.py    Baja los registros de cabilderos de Justicia y del Senado
-  exclusiones.py   Baja las exclusiones federales (LEIE; SAM.gov con SAM_API_KEY)
+  exclusiones.py   Baja las exclusiones federales. Hoy solo LEIE: el cruce con SAM.gov
+                   está programado pero no activo (falta configurar SAM_API_KEY)
   conexiones.py    Cruza cabilderos y señales legales con los contratos
+  verificar.py     Control antes de publicar: compara con el resumen ya publicado
   run.py           Orquesta todo lo anterior
+
+tests/        Pruebas con unittest (biblioteca estándar); las del API usan Node si está
 
 data/legal/   Señales legales revisadas a mano, con sus reglas (README.md)
 
 web/          Sitio estático: un index.html, SVG en línea, sin librerías
   datos/*.json              JSON pre-agregado que alimenta el dashboard
   descargas/*.csv.gz        Contratos completos, por año fiscal
-  functions/api/v1/         API consultable (Cloudflare Pages Function + D1)
   _headers                  Cabeceras y política de seguridad
+
+functions/api/v1/   API consultable (Cloudflare Pages Function + D1). Va en la raíz del
+                    proyecto, no dentro de web/
 ```
 
 El sitio tiene seis vistas: **Los datos** (dashboard), **Buscar** (índice de contratos de
@@ -144,7 +152,7 @@ Las reglas completas para añadir una señal a mano están en
 
 - **JSON estático** (`web/datos/*.json`): sin servidor, nunca se cae, cero mantenimiento.
   Alimenta el dashboard, que por eso carga al instante.
-- **Pages Function + D1** (`web/functions/api/v1/`): consultas con parámetros libres, para
+- **Pages Function + D1** (`functions/api/v1/`): consultas con parámetros libres, para
   periodistas y desarrolladores. Si no está montada, el sitio funciona igual.
 
 ### Enlace al documento original
@@ -167,7 +175,36 @@ Requiere Python 3.11 o más reciente. No hay dependencias que instalar.
 ```bash
 python3 pipeline/run.py          # actualización incremental
 python3 pipeline/run.py --full   # rehace todo desde cero
+python3 pipeline/verificar.py    # control antes de publicar
 ```
+
+### Protecciones contra datos incompletos
+
+El portal de la Contralora a veces responde a medias. Para que eso no termine publicado
+como si fuera un dato oficial:
+
+- El cliente reintenta cada petición hasta cuatro veces, esperando 5, 15 y 45 segundos.
+- `ingest.py` y `enrich.py` no reemplazan un mes ya guardado por un resultado incompleto,
+  vacío o más de un 2 % menor. Conservan el archivo anterior y terminan con error.
+- `verificar.py` compara el resumen nuevo con el publicado y detiene la corrida si el total
+  baja más de 0.5 %, si un año fiscal baja más de 2 % o desaparece, o si el monto baja más
+  de 5 %.
+
+Si la baja es real (la Contralora eliminó registros), hay que comprobarlo en el portal y
+entonces correr `python3 pipeline/run.py --aceptar-bajas` y
+`python3 pipeline/verificar.py --permitir-baja`. En el workflow es la casilla
+`permitir_baja` al lanzarlo a mano.
+
+### Pruebas
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+No tocan la red. Cubren la protección de la ingesta, el control de `verificar.py`, los
+reintentos del cliente y la validación del API. Las del API ejecutan el manejador real con
+Node y una base falsa; si Node no está instalado, se saltan. No cubren D1 real ni el
+enrutado de Cloudflare Pages.
 
 Para ver el sitio localmente (hace falta un servidor por la política CORS del navegador):
 

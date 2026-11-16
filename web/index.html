@@ -568,8 +568,10 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     <h1>¿A dónde va el dinero del gobierno de Puerto Rico?</h1>
     <p class="lede">
       Todos los contratos que otorga el gobierno tienen que registrarse en la Oficina de la
-      Contralora. Esta herramienta los recoge, los organiza y los pone a tu disposición:
-      quién recibió el dinero, qué agencia lo otorgó, por cuál método y de qué fondos.
+      Contralora. Esta herramienta recoge los registrados
+      <strong>desde el año fiscal <span class="js-desde">2023-24</span></strong>, los organiza
+      y los pone a tu disposición: quién recibió el dinero, qué agencia lo otorgó, por cuál
+      método y de qué fondos.
     </p>
     <div class="notice">
       <strong>Una anomalía no es un delito.</strong> Las señales que aparecen abajo indican
@@ -897,7 +899,8 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     <div class="sec-head">
       <h2>Registro del Senado</h2>
       <p>
-        Cabildeo legislativo desde 2017. El Senado publica una certificación por persona o
+        Inscripciones de cabildeo ante el Senado desde 2017; la Cámara de Representantes no
+        está incluida en este sitio. El Senado publica una certificación por persona o
         firma, sin clientes. Cuando la firma no está en el registro, se deduce del nombre del
         archivo o del personal inscrito en Justicia, y se indica de dónde salió.
       </p>
@@ -964,13 +967,24 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
 
   <section>
     <div class="sec-head">
-      <h2>Verificación automática contra listas federales</h2>
+      <h2>Verificación automática contra listas federales de exclusión</h2>
       <p>
-        Cada semana se cruzan los contratistas con las listas federales de entidades
-        excluidas. Solo se comparan entidades de Puerto Rico con nombres de al menos dos
-        palabras: sin esos filtros, el cruce le ponía bandera roja a empresas inocentes por
-        coincidir con un nombre genérico de otro estado.
+        Cada semana se cruzan los contratistas con la lista de exclusiones LEIE de la Oficina
+        del Inspector General de HHS, que cubre los programas federales de salud. Solo se
+        comparan entidades de Puerto Rico con nombres de al menos dos palabras: sin esos
+        filtros, el cruce le ponía bandera roja a empresas inocentes por coincidir con un
+        nombre genérico de otro estado.
       </p>
+      <!-- El texto por defecto dice lo que es cierto hoy. renderLegal() lo ajusta según
+           legal.json, para que no quede desmentido el día que SAM.gov se active. -->
+      <div class="notice" id="legalAutoAviso" style="margin:14px 0 0">
+        <strong>El cruce con las exclusiones de SAM.gov todavía no está activo.</strong>
+        SAM.gov es la lista de exclusiones de toda la contratación federal. Este sitio aún no
+        ha comparado a ningún contratista contra ella, así que no aparecer en esta página
+        <strong>no dice nada</strong> sobre si una empresa está excluida en SAM.gov. Se puede
+        consultar directamente en
+        <a href="https://sam.gov/search/?index=ex" target="_blank" rel="noopener">sam.gov</a>.
+      </div>
     </div>
     <div class="card"><div class="table-scroll" id="tblLegalAuto"></div></div>
   </section>
@@ -986,7 +1000,8 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
               <td>La empresa fue convicta o está excluida de programas federales. Una condena
                 por delitos contra fondos públicos la inhabilita para contratar con el
                 gobierno (Art. 3.4, Ley 2-2018).</td>
-              <td>Sentencia, SAM.gov, LEIE de HHS-OIG</td></tr>
+              <td>Sentencia; exclusión en la LEIE de HHS-OIG. La de SAM.gov entrará cuando ese
+                cruce esté activo: hoy no lo está.</td></tr>
             <tr><td class="t-name">2 · Acusación formal</td>
               <td>Un gran jurado o fiscal acusó a la empresa por nombre. No hay determinación de
                 culpabilidad.</td>
@@ -1100,8 +1115,9 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
       <li>¿Qué proporción viene de fondos federales y qué proporción de fondos locales?</li>
     </ul>
     <p>
-      Esta herramienta baja todos los contratos, los organiza y los pone en forma de esas
-      preguntas. El propósito es <strong>darle claridad a la ciudadanía sobre a dónde va su
+      Esta herramienta baja los contratos registrados desde el año fiscal
+      <span class="js-desde">2023-24</span> (los de años anteriores no están aquí), los
+      organiza y los pone en forma de esas preguntas. El propósito es <strong>darle claridad a la ciudadanía sobre a dónde va su
       dinero</strong>, no acusar a nadie.
     </p>
 
@@ -1126,7 +1142,9 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
 
     <h3>Qué cubre y qué no</h3>
     <ul>
-      <li>Cubre los años fiscales <strong id="aboutYears">recientes</strong>.</li>
+      <li>Cubre los años fiscales <strong id="aboutYears">recientes</strong>. El año fiscal
+        va del 1 de julio al 30 de junio. Los contratos otorgados antes no están en este
+        sitio: para esos, consulta el portal oficial.</li>
       <li>
         La <strong>Ley 122-2019</strong> de Datos Abiertos <strong>no aplica</strong> a la
         Rama Legislativa, la Rama Judicial ni a los municipios. Hay huecos reales de
@@ -1261,8 +1279,11 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     </p>
     <ul>
       <li><strong>Automática:</strong> cada semana se cruzan los contratistas con la lista de
-        exclusiones de la Oficina del Inspector General de HHS (LEIE) y, cuando hay llave, con
-        las exclusiones de SAM.gov. Solo entidades de Puerto Rico, nunca personas.</li>
+        exclusiones de la Oficina del Inspector General de HHS (LEIE). Solo entidades de
+        Puerto Rico, nunca personas. <strong>El cruce con las exclusiones de SAM.gov está
+        programado, pero todavía no está activo</strong>: hoy no se compara a ningún
+        contratista contra esa lista. La tabla de la pestaña «Legal» indica qué listas están
+        activas.</li>
       <li><strong>Revisada a mano:</strong> casos documentados en comunicados oficiales de la
         Fiscalía Federal, del Departamento de Justicia o de la Rama Judicial. Cada uno se
         verifica contra la fuente y lleva la fecha de esa verificación.</li>
@@ -1454,7 +1475,8 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
         </p>
         <p>
           Cabilderos: registros del Departamento de Justicia y del Senado. Señales legales:
-          comunicados oficiales y listas federales de exclusión, enlazados en cada caso.
+          comunicados oficiales y la lista federal de exclusiones LEIE, enlazados en cada caso
+          (el cruce con SAM.gov todavía no está activo).
         </p>
       </div>
       <div>
@@ -2297,6 +2319,8 @@ function renderLegal() {
   const sum = (fn) => s.reduce((acc, x) => acc + fn(x), 0);
   const post = sum((x) => x.contratos_posteriores);
   const auto = d.automaticas.filter((a) => a.activa);
+  const inactivas = d.automaticas.filter((a) => !a.activa);
+  const shortList = (a) => (/SAM/i.test(a.fuente) ? 'SAM.gov' : /LEIE/i.test(a.fuente) ? 'LEIE' : a.fuente);
   document.getElementById('legalTiles').innerHTML = `
     <div class="tile"><div class="label">Empresas contratistas con un caso</div>
       <div class="value">${fmtNum(s.length)}</div>
@@ -2307,9 +2331,23 @@ function renderLegal() {
     <div class="tile ${post ? 'flag' : ''}"><div class="label">Otorgados después del caso</div>
       <div class="value">${fmtNum(post)}</div>
       <div class="sub">${esc(fmtMoney(sum((x) => x.monto_posterior)))} tras hacerse público</div></div>
-    <div class="tile"><div class="label">Listas federales revisadas</div>
-      <div class="value">${fmtNum(auto.length)}</div>
-      <div class="sub">${fmtNum(sum((x) => (x.automatica ? 1 : 0)))} coincidencias automáticas</div></div>`;
+    <div class="tile"><div class="label">Listas federales activas</div>
+      <div class="value">${fmtNum(auto.length)} de ${fmtNum(d.automaticas.length)}</div>
+      <div class="sub">${fmtNum(sum((x) => (x.automatica ? 1 : 0)))} coincidencias automáticas${
+        inactivas.length ? ' · ' + esc(inactivas.map(shortList).join(', ')) + ' todavía no activa' : ''}</div></div>`;
+
+  // El aviso sobre las listas que todavía no se cruzan sale de los datos, no de un texto
+  // fijo: si mañana se activa SAM.gov, desaparece solo; si se cae LEIE, lo dice.
+  const aviso = document.getElementById('legalAutoAviso');
+  aviso.hidden = !inactivas.length;
+  if (inactivas.length) {
+    aviso.innerHTML = `<strong>${inactivas.length === 1 ? 'Una lista todavía no está activa' : 'Hay listas que todavía no están activas'}:
+      ${esc(inactivas.map((a) => a.fuente).join('; '))}.</strong>
+      Este sitio aún no ha comparado a ningún contratista contra ${inactivas.length === 1 ? 'ella' : 'ellas'},
+      así que no aparecer en esta página <strong>no dice nada</strong> sobre si una empresa
+      figura ahí. ${auto.length ? 'Hoy solo se cruza: ' + esc(auto.map((a) => a.fuente).join('; ')) + '.' : 'Hoy no hay ninguna lista activa.'}
+      Consulta directa: ${inactivas.map((a) => `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(shortList(a))} ↗</a>`).join(', ')}.`;
+  }
 
   document.getElementById('legalLista').innerHTML = s.length ? s.map((x, i) => {
     const c = x.contratista;
@@ -2358,7 +2396,7 @@ function renderLegal() {
     [{ title: 'Lista', key: 'fuente', render: (a) => `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.fuente)} ↗</a>` },
      { title: 'Estado', key: 'activa', render: (a) => a.activa
          ? `<span class="pill" style="color:var(--good-text)">activa</span><div class="t-sub">descargada el ${esc(dateEs(a.descargado))}</div>`
-         : '<span class="pill">no activa</span><div class="t-sub">requiere una llave gratuita de api.sam.gov</div>' },
+         : '<span class="pill">todavía no activa</span><div class="t-sub">no se ha cruzado ningún contratista con esta lista</div>' },
      { title: 'Entidades de PR en la lista', key: 'entidades_pr', num: true, render: (a) => a.activa ? fmtNum(a.entidades_pr) : '—' },
      { title: 'Coinciden con contratistas', key: 'coincidencias', num: true, render: (a) => a.activa ? fmtNum(a.coincidencias) : '—' }],
     d.automaticas);
@@ -2683,6 +2721,8 @@ async function boot() {
   if (years.length) {
     document.getElementById('aboutYears').textContent =
       years[0].ano + ' a ' + years.at(-1).ano;
+    // El primer año cubierto sale de los datos, para que el texto no se quede viejo.
+    document.querySelectorAll('.js-desde').forEach((el) => { el.textContent = years[0].ano; });
   }
 
   showView(location.hash.slice(1) || 'datos');
