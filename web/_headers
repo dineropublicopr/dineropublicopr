@@ -5,6 +5,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  # Un ano, sin includeSubDomains ni preload a proposito: asi solo compromete a los
+  # nombres que sirven este sitio y se puede retirar sin dejar ningun subdominio atrapado.
+  Strict-Transport-Security: max-age=31536000
   # El sitio no carga nada de terceros: ni fuentes, ni analitica, ni librerias. La politica
   # lo hace explicito, asi que si algun dia se cuela un script externo, falla visiblemente
   # en vez de ejecutarse en silencio. form-action 'none' porque no hay formularios.
@@ -23,3 +26,8 @@
 /descargas/*
   Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
+
+# La direccion tecnica de Pages sirve una copia completa del sitio. Que los buscadores no
+# la indexen como si fuera otro sitio; la etiqueta canonical ya apunta al dominio propio.
+https://dineropublicopr.pages.dev/*
+  X-Robots-Tag: noindex
