@@ -7,7 +7,13 @@ Genera tres archivos para el sitio:
 - legal.json       empresas contratistas que aparecen en una fuente oficial como acusadas,
                    condenadas o excluidas, con sus contratos y cuáles se otorgaron después.
 - red.json         el grafo que dibuja la pestaña «Conexiones»: agencias, contratistas,
-                   firmas de cabildeo y señales legales, y cómo se tocan.
+                   firmas de cabildeo y señales legales, y cómo se tocan. Cada conexión lleva
+                   de cuándo es: las fechas del primer y del último contrato, o la
+                   inscripción de Justicia que declara al cliente.
+- cabilderos_historial.json
+                   lo que este sitio ha visto en el registro de Justicia, semana a semana.
+                   Justicia solo publica lo vigente; sin esto, una inscripción que vence
+                   desaparece sin dejar rastro (ver historial.py).
 
 Tres reglas que gobiernan todo el archivo:
 
@@ -38,6 +44,7 @@ from urllib.parse import unquote
 from zoneinfo import ZoneInfo
 
 from build_db import normalize_name
+from historial import NOMBRE as HISTORIAL, actualizar_historial
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "data" / "out" / "contratos.sqlite"
@@ -92,7 +99,15 @@ def may_be_person(name: str) -> bool:
     Errar hacia el lado de esconder: un nombre de varias palabras sin ninguna marca de
     organización se trata como persona. Una sola palabra («AbbVie», «T-Mobile») o un número
     («Condado 4») delatan una marca o un proyecto, no a alguien.
+
+    «Fulano de Tal (Asociación X de Puerto Rico)»: el cliente declarado es quien está fuera
+    del paréntesis, y el paréntesis solo dice a quién representa. Se juzga lo de afuera;
+    si no, la organización del paréntesis hacía pasar el nombre de una persona como si fuera
+    el de una empresa, y se publicaba.
     """
+    fuera = re.sub(r"\([^)]*\)?", " ", name).strip()
+    if len(fuera.split()) >= 2:
+        name = fuera
     if is_org(name) or re.search(r"\d", name):
         return False
     return len(name.split()) >= 2
@@ -163,12 +178,14 @@ class Contractors:
                       COUNT(DISTINCT ct.name),
                       COUNT(DISTINCT ct.contract_id),
                       COUNT(DISTINCT c.entity_name),
-                      COALESCE(SUM(c.amount_to_pay), 0)
+                      COALESCE(SUM(c.amount_to_pay), 0),
+                      MIN(c.date_of_grant),
+                      MAX(c.date_of_grant)
                  FROM contractors ct
                  JOIN contracts c ON c.contract_id = ct.contract_id
                 GROUP BY ct.name_key"""
         )
-        for key, name, variants, contracts, agencies, amount in rows:
+        for key, name, variants, contracts, agencies, amount, first, last in rows:
             self.summary[key] = {
                 "clave": key,
                 "nombre": name,
@@ -176,6 +193,10 @@ class Contractors:
                 "contratos": contracts,
                 "agencias": agencies,
                 "monto": round(amount, 2),
+                # De cuándo son esos contratos. Sin esto, «recibe contratos» no dice si es
+                # de este año o de hace tres.
+                "desde": first,
+                "hasta": last,
             }
         self._names: dict[str, list[str]] = {}
 
@@ -256,6 +277,9 @@ def build_cabilderos(raw: dict, idx: Contractors) -> tuple[dict, list[dict]]:
                 "registros": [],
                 "personal": {},
                 "clientes": {},
+                # cliente -> inscripciones que lo declaran. Una firma puede tener varias
+                # inscripciones vigentes con listas de clientes distintas.
+                "clientes_reg": {},
             },
         )
         firm["registros"].append(
@@ -268,7 +292,11 @@ def build_cabilderos(raw: dict, idx: Contractors) -> tuple[dict, list[dict]]:
         for person in rec.get("personal") or []:
             firm["personal"].setdefault(person_key(person), re.sub(r"\s+", " ", person))
         for client in rec.get("clientes") or []:
-            firm["clientes"].setdefault(normalize_name(client) or client.upper(), client)
+            ckey = normalize_name(client) or client.upper()
+            firm["clientes"].setdefault(ckey, client)
+            declared = firm["clientes_reg"].setdefault(ckey, [])
+            if rec["registro"] and rec["registro"] not in declared:
+                declared.append(rec["registro"])
 
     out_firms = []
     for key, firm in firms.items():
@@ -281,7 +309,7 @@ def build_cabilderos(raw: dict, idx: Contractors) -> tuple[dict, list[dict]]:
 
         clients = []
         hidden = 0
-        for client in firm["clientes"].values():
+        for ckey, client in firm["clientes"].items():
             matched = idx.match(client)
             # Un cliente que puede ser una persona natural no se publica por nombre: no se
             # inscribió él, lo declaró la firma. Se cuenta, y su nombre consta en el
@@ -293,6 +321,9 @@ def build_cabilderos(raw: dict, idx: Contractors) -> tuple[dict, list[dict]]:
                 {
                     "nombre": client,
                     "contratista": idx.public(matched["clave"]) if matched else None,
+                    # Las inscripciones de Justicia que lo declaran: es lo que le pone
+                    # fecha a la relación entre la firma y el cliente.
+                    "registros": sorted(firm["clientes_reg"].get(ckey, []), reverse=True),
                 }
             )
         clients.sort(key=lambda c: (-(c["contratista"] or {}).get("monto", -1), c["nombre"].casefold()))
@@ -532,14 +563,49 @@ def build_legal(exclusiones: dict, curadas: dict, idx: Contractors) -> dict:
 # ── Grafo ─────────────────────────────────────────────────────────────────
 
 
-def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], legal: dict) -> dict:
+def build_periodo(conn: sqlite3.Connection, cabilderos: dict) -> dict:
+    """Qué período cubre lo que se dibuja, para que el mapa lo diga.
+
+    Los contratos van de una fecha a otra; el cabildeo no es una serie histórica sino la
+    foto de las inscripciones vigentes el día de la descarga.
+    """
+    first, last, fy_first, fy_last = conn.execute(
+        """SELECT MIN(date_of_grant), MAX(date_of_grant), MIN(fiscal_year), MAX(fiscal_year)
+             FROM contracts WHERE date_of_grant IS NOT NULL"""
+    ).fetchone()
+    quarters = sorted(
+        {r["trimestre"] for f in cabilderos.get("firmas") or [] for r in f["registros"] if r["trimestre"]}
+    )
+    return {
+        "contratos": {"desde": first, "hasta": last, "ano_desde": fy_first, "ano_hasta": fy_last},
+        "cabildeo": {
+            "trimestre_desde": quarters[0] if quarters else None,
+            "trimestre_hasta": quarters[-1] if quarters else None,
+            "inscripciones": (cabilderos.get("resumen") or {}).get("inscripciones", 0),
+            "descargado": ((cabilderos.get("fuentes") or {}).get("justicia") or {}).get("descargado"),
+        },
+    }
+
+
+def build_red(
+    conn: sqlite3.Connection,
+    idx: Contractors,
+    firms: list[dict],
+    legal: dict,
+    periodo: dict | None = None,
+) -> dict:
     """Nodos y aristas para la vista de conexiones, en formato compacto.
 
     nodos:   [id, tipo, nombre, monto, extra]   tipo: a agencia, c contratista,
                                                 f firma de cabildeo, s señal legal
-    aristas: [origen, destino, tipo, monto, contratos]
+             extra del contratista: d = [primer contrato, último contrato]
+             extra de la firma:     reg = [[inscripción, certificado], ...]
+    aristas: [origen, destino, tipo, monto, contratos, cuándo]
              tipo: k contrato (c-a), l cabildeo (f-c), p la firma misma contrata (f-c),
                    s señal (s-c)
+             cuándo: en k, [primer contrato, último contrato] entre ese contratista y esa
+                     agencia; en l, las inscripciones que declaran al cliente. El sexto
+                     campo es opcional: p y s no lo llevan.
     """
     include: set[str] = set(
         key
@@ -570,10 +636,10 @@ def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], leg
     contractor_ids = {}
     for key in include:
         info = idx.summary[key]
-        contractor_ids[key] = add(
-            "c", key, info["nombre"], info["monto"],
-            {"n": info["contratos"], "v": info["variantes"], "k": key},
-        )
+        extra = {"n": info["contratos"], "v": info["variantes"], "k": key}
+        if info.get("desde"):
+            extra["d"] = [info["desde"], info["hasta"]]
+        contractor_ids[key] = add("c", key, info["nombre"], info["monto"], extra)
 
     edges: list[list] = []
 
@@ -584,15 +650,16 @@ def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], leg
         chunk = keys[start:start + 500]
         rows = conn.execute(
             f"""SELECT ct.name_key, c.entity_name, COUNT(DISTINCT c.contract_id),
-                       COALESCE(SUM(c.amount_to_pay), 0)
+                       COALESCE(SUM(c.amount_to_pay), 0),
+                       MIN(c.date_of_grant), MAX(c.date_of_grant)
                   FROM contractors ct JOIN contracts c ON c.contract_id = ct.contract_id
                  WHERE ct.name_key IN ({','.join('?' * len(chunk))})
                    AND c.entity_name IS NOT NULL
                  GROUP BY ct.name_key, c.entity_name""",
             chunk,
         )
-        for key, agency, count, amount in rows:
-            per_contractor[key].append((agency, count, amount))
+        for key, agency, count, amount, first, last in rows:
+            per_contractor[key].append((agency, count, amount, first, last))
 
     agency_totals = dict(
         conn.execute(
@@ -603,9 +670,9 @@ def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], leg
     for key, rows in per_contractor.items():
         rows.sort(key=lambda r: -r[2])
         cid = contractor_ids[key]
-        for agency, count, amount in rows[:GRAPH_AGENCIES_PER_CONTRACTOR]:
+        for agency, count, amount, first, last in rows[:GRAPH_AGENCIES_PER_CONTRACTOR]:
             aid = add("a", agency, agency, agency_totals.get(agency, 0))
-            edges.append([cid, aid, "k", round(amount), count])
+            edges.append([cid, aid, "k", round(amount), count, [first, last]])
         hidden = len(rows) - GRAPH_AGENCIES_PER_CONTRACTOR
         if hidden > 0:
             nodes[int(cid[1:])][4]["mas"] = hidden
@@ -614,12 +681,16 @@ def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], leg
         fid = add(
             "f", firm["id"], firm["nombre"], firm["monto_clientes"],
             {"cl": firm["clientes_declarados"], "pe": len(firm["personal"]), "ind": firm["individuo"],
-             "fid": firm["id"]},
+             "fid": firm["id"],
+             "reg": [[r["numero"], r.get("certificado")] for r in firm["registros"]]},
         )
         for client in firm["clientes"]:
             if client["contratista"]:
                 ck = client["contratista"]["clave"]
-                edges.append([fid, contractor_ids[ck], "l", round(idx.summary[ck]["monto"]), 0])
+                edges.append(
+                    [fid, contractor_ids[ck], "l", round(idx.summary[ck]["monto"]), 0,
+                     client.get("registros") or []]
+                )
         if firm["contratista"]:
             ck = firm["contratista"]["clave"]
             edges.append([fid, contractor_ids[ck], "p", round(idx.summary[ck]["monto"]), 0])
@@ -642,6 +713,7 @@ def build_red(conn: sqlite3.Connection, idx: Contractors, firms: list[dict], leg
 
     return {
         "generado": datetime.now(AST).isoformat(timespec="seconds"),
+        "periodo": periodo or {},
         "nodos": nodes,
         "aristas": edges,
     }
@@ -656,10 +728,18 @@ def main() -> None:
     cabilderos, firms = build_cabilderos(load_json(CABILDEROS_RAW, {}), idx)
     write("cabilderos.json", cabilderos)
 
+    # El historial se lee de web/datos, que es lo único que la automatización guarda en el
+    # repositorio de una semana a otra. Sin una foto válida de Justicia no se toca.
+    historial = actualizar_historial(
+        load_json(API_DIR / HISTORIAL, None), cabilderos, es_persona=may_be_person
+    )
+    if historial is not None:
+        write(HISTORIAL, historial)
+
     legal = build_legal(load_json(EXCLUSIONES_RAW, {}), load_json(SENALES_CURADAS, {}), idx)
     write("legal.json", legal)
 
-    write("red.json", build_red(conn, idx, firms, legal))
+    write("red.json", build_red(conn, idx, firms, legal, build_periodo(conn, cabilderos)))
 
     r = cabilderos["resumen"]
     print(

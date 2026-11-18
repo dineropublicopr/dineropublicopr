@@ -392,6 +392,9 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--grid); vertical-align: to
 tbody tr:hover { background: var(--plane); }
 .t-name { font-weight: 550; }
 .t-sub { font-size: 12px; color: var(--text-muted); }
+/* Dato que en pantalla ancha va en su propia columna y en teléfono se repite bajo el
+   nombre, porque allí la columna queda fuera de la pantalla. */
+.solo-movil { display: none; }
 
 .meter { display: flex; align-items: center; gap: 8px; min-width: 128px; }
 .meter-track { flex: 1; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; }
@@ -530,6 +533,7 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
   .sig-foot a { display: inline-flex; align-items: center; min-height: 44px; }
   .th-sort { min-height: 44px; }
   details.more summary { min-height: 44px; display: flex; align-items: center; }
+  .solo-movil { display: block; }
 
   /* Conexiones: en teléfono la tabla va primero (el script la sube) y el mapa se puede
      deslizar en vez de encogerse hasta que los rótulos midan 3 px. */
@@ -915,6 +919,27 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
     </div>
   </section>
 
+  <!-- Se muestra solo si el historial trae algo que ya no está vigente. -->
+  <section id="histSeccion" hidden>
+    <div class="sec-head">
+      <h2>Lo que ya no aparece en el registro de Justicia</h2>
+      <p id="histTexto"></p>
+    </div>
+    <div class="card">
+      <div id="histInscripciones">
+        <div class="card-head">
+          <h3>Inscripciones que dejaron de aparecer</h3>
+          <span class="meta" id="histMeta"></span>
+        </div>
+        <div class="table-scroll" id="tblHistorial"></div>
+      </div>
+      <details class="more" id="histClientes" style="margin-top:14px" hidden>
+        <summary id="histClientesSum"></summary>
+        <div class="table-scroll" id="tblHistClientes"></div>
+      </details>
+    </div>
+  </section>
+
   <div class="notice" id="cabFuentes" style="max-width:none"></div>
 </div><!-- /viewCabilderos -->
 
@@ -1035,6 +1060,8 @@ footer .fine { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--
       de cabilderos la representa y si tiene alguna señal legal. Toca cualquier nombre de la
       tabla o cualquier punto del mapa para ponerlo en el centro y seguir conectando.
     </p>
+    <!-- Lo llena renderPeriodo() con las fechas que trae red.json. -->
+    <div class="notice" id="redPeriodo" hidden></div>
   </div>
 
   <div class="card">
@@ -2154,6 +2181,22 @@ const dateEs = (iso) => {
   return new Date(y, m - 1, d).toLocaleDateString('es-PR', { day: 'numeric', month: 'short', year: 'numeric' });
 };
 const plural = (n, one, many) => fmtNum(n) + ' ' + (n === 1 ? one : many);
+// «jul 2023» y «jul 2023 a nov 2026»: de cuándo son los contratos detrás de una cifra.
+const mesEs = (iso) => {
+  if (!iso) return '';
+  const [y, m] = iso.slice(0, 7).split('-').map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString('es-PR', { month: 'short', year: 'numeric' });
+};
+const rangoEs = (d) => {
+  if (!d || !d[0]) return '';
+  const a = mesEs(d[0]), b = mesEs(d[1] || d[0]);
+  return a === b ? a : a + ' a ' + b;
+};
+const rangoIso = (d) => {
+  if (!d || !d[0]) return '';
+  const a = d[0].slice(0, 7), b = (d[1] || d[0]).slice(0, 7);
+  return a === b ? a : a + ' a ' + b;
+};
 
 /** El contratista cruzado, con sus grafías: la agrupación es heurística y se dice. */
 function contractorCell(c) {
@@ -2172,6 +2215,8 @@ function ensureCabilderos() {
   cabReady = cabReady || loadLazy('cabilderos').then((d) => {
     state.data.cabilderos = d;
     renderCabilderos();
+    // El historial es un extra: si el archivo no está, la sección se queda escondida.
+    loadLazy('cabilderos_historial').then(renderHistorial).catch(() => {});
   }).catch((err) => { cabReady = null; lazyError('cabTiles', err); });
   return cabReady;
 }
@@ -2265,18 +2310,74 @@ function renderFirma(id) {
       <button class="toggle-table" data-red-firma="${esc(f.id)}">Ver esta firma en Conexiones →</button>
     </div>
   </div>`;
+  // Qué inscripción declara a cada cliente y de cuándo son sus contratos. Los JSON
+  // anteriores a este cambio no traen esos campos: la celda queda en raya.
+  const certs = new Map(f.registros.map((r) => [r.numero, r.certificado]));
   table('tblClientes',
     [{ title: 'Cliente (como lo declara la firma)', key: 'nombre' },
+     { title: 'Inscripción que lo declara', key: 'cregistros', render: (c) => (c.registros || []).length
+         ? c.registros.map((r) => certs.get(r)
+             ? `<a href="${esc(certs.get(r))}" target="_blank" rel="noopener" style="white-space:nowrap">${esc(r)} ↗</a>`
+             : esc(r)).join(', ')
+         : '<span class="t-sub">—</span>' },
      { title: 'Contratista en el Registro', key: 'cnombre', render: (c) => contractorCell(c.contratista) },
+     { title: 'Contratos de', key: 'cfechas', render: (c) =>
+         esc(rangoEs([c.contratista.desde, c.contratista.hasta])) || '<span class="t-sub">—</span>' },
      { title: 'Contratos', key: 'ccontratos', num: true, render: (c) => fmtNum(c.ccontratos) },
      { title: 'Agencias', key: 'cagencias', num: true, render: (c) => fmtNum(c.cagencias) },
      { title: 'Monto', key: 'cmonto', num: true, render: (c) => fmtFull(c.cmonto) },
      { title: '', key: 'k', render: (c) =>
          `<button class="rowbtn" style="font-size:12.5px;white-space:nowrap" data-red-clave="${esc(c.contratista.clave)}">Conexiones →</button>` }],
     withC.map((c) => ({ ...c, cnombre: c.contratista.nombre, ccontratos: c.contratista.contratos,
-      cagencias: c.contratista.agencias, cmonto: c.contratista.monto, k: c.contratista.clave })),
-    { sortIdx: 4 });
+      cagencias: c.contratista.agencias, cmonto: c.contratista.monto, k: c.contratista.clave,
+      cregistros: (c.registros || []).join(', '),
+      cfechas: rangoIso([c.contratista.desde, c.contratista.hasta]) })),
+    { sortIdx: 6 });
   document.getElementById('firmaDetalleBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderHistorial(h) {
+  const idas = (h.inscripciones || []).filter((i) => !i.vigente);
+  const clientes = (h.clientes || []).filter((c) => !c.vigente);
+  if (!idas.length && !clientes.length) return;
+  document.getElementById('histSeccion').hidden = false;
+  document.getElementById('histTexto').innerHTML = `
+    Justicia solo publica las inscripciones vigentes: cuando una deja de estarlo, desaparece
+    de su página junto con la lista de clientes que declaraba. Desde el
+    ${esc(dateEs(h.desde))} este sitio guarda lo que ve en cada descarga semanal. Lo de abajo
+    apareció en alguna descarga y no está en la más reciente (${esc(dateEs(h.hasta))}).
+    <strong>No dice por qué:</strong> una inscripción puede vencer, renovarse con otro número o
+    corregirse, y un cliente puede volver a declararse con otro nombre. Las fechas son las de
+    las descargas de este sitio, no las de cuándo alguien se inscribió o dejó de cabildear, y
+    el enlace al certificado puede dejar de funcionar.`;
+
+  document.getElementById('histInscripciones').hidden = !idas.length;
+  if (idas.length) {
+    document.getElementById('histMeta').textContent = plural(idas.length, 'inscripción', 'inscripciones');
+    table('tblHistorial',
+      [{ title: 'Firma o persona inscrita', key: 'firma', render: (i) => `<div class="t-name">${esc(i.firma)}</div>` +
+           `<div class="t-sub solo-movil">vista del ${esc(dateEs(i.primera_vez))} al ${esc(dateEs(i.ultima_vez))}</div>` },
+       { title: 'Inscripción', key: 'numero', render: (i) => i.certificado
+           ? `<a href="${esc(i.certificado)}" target="_blank" rel="noopener" style="white-space:nowrap">${esc(i.numero)} ↗</a>`
+           : esc(i.numero) },
+       { title: 'Vista por primera vez', key: 'primera_vez', render: (i) => esc(dateEs(i.primera_vez)) },
+       { title: 'Vista por última vez', key: 'ultima_vez', render: (i) => esc(dateEs(i.ultima_vez)) }],
+      idas, { sortIdx: 3 });
+  }
+
+  const box = document.getElementById('histClientes');
+  box.hidden = !clientes.length;
+  if (clientes.length) {
+    document.getElementById('histClientesSum').textContent =
+      `${plural(clientes.length, 'cliente que dejó de aparecer', 'clientes que dejaron de aparecer')} en la lista de su firma`;
+    table('tblHistClientes',
+      [{ title: 'Firma', key: 'firma' },
+       { title: 'Cliente (como lo declaraba la firma)', key: 'cliente', render: (c) => esc(c.cliente) +
+           `<div class="t-sub solo-movil">visto del ${esc(dateEs(c.primera_vez))} al ${esc(dateEs(c.ultima_vez))}</div>` },
+       { title: 'Visto por primera vez', key: 'primera_vez', render: (c) => esc(dateEs(c.primera_vez)) },
+       { title: 'Visto por última vez', key: 'ultima_vez', render: (c) => esc(dateEs(c.ultima_vez)) }],
+      clientes, { sortIdx: 3 });
+  }
 }
 
 function renderSenado() {
@@ -2422,10 +2523,13 @@ function buildRed(d) {
     red.nodes.set(id, { id, t, name, amount, x });
     red.adj.set(id, []);
   });
-  d.aristas.forEach(([a, b, kind, amount, n]) => {
-    red.adj.get(a).push({ to: b, kind, amount, n });
-    red.adj.get(b).push({ to: a, kind, amount, n });
+  // `when` es el sexto campo, opcional: fechas del primer y último contrato (k) o las
+  // inscripciones de Justicia que declaran al cliente (l).
+  d.aristas.forEach(([a, b, kind, amount, n, when]) => {
+    red.adj.get(a).push({ to: b, kind, amount, n, when });
+    red.adj.get(b).push({ to: a, kind, amount, n, when });
   });
+  renderPeriodo(d.periodo);
   // Para el buscador: el nombre lleva el tipo para distinguir homónimos entre tipos.
   const list = document.getElementById('redNombres');
   const frag = document.createDocumentFragment();
@@ -2443,6 +2547,57 @@ function buildRed(d) {
     const firstFirm = [...red.nodes.values()].filter((n) => n.t === 'f').sort((a, b) => b.amount - a.amount)[0];
     if (firstFirm) centerOn(firstFirm.id);
   }
+}
+
+/** El aviso de arriba del mapa: qué fechas cubre lo que se dibuja. */
+function renderPeriodo(p) {
+  const c = (p && p.contratos) || {}, cab = (p && p.cabildeo) || {};
+  const years = (state.data.resumen || {}).anos_fiscales || [];
+  let contratos;
+  if (c.desde && c.hasta) {
+    contratos = `los otorgados del ${dateEs(c.desde)} al ${dateEs(c.hasta)}` +
+      (c.ano_desde ? ` (años fiscales ${c.ano_desde} a ${c.ano_hasta})` : '');
+  } else if (years.length) {
+    // red.json anterior a este cambio: se dice al menos qué años fiscales hay.
+    contratos = `los de los años fiscales ${years[0].ano} a ${years.at(-1).ano}`;
+  } else return;
+  let cabildeo = 'solo las inscripciones vigentes en el registro de Justicia';
+  if (cab.descargado) cabildeo += ` al ${dateEs(cab.descargado)}`;
+  const y1 = (cab.trimestre_desde || '').slice(0, 4), y2 = (cab.trimestre_hasta || '').slice(0, 4);
+  if (y1) cabildeo += y1 === y2 ? ` (todas de ${y1})` : ` (de ${y1} a ${y2})`;
+  const host = document.getElementById('redPeriodo');
+  host.innerHTML = `<strong>Qué período cubre este mapa.</strong>
+    Contratos: ${esc(contratos)}; los anteriores no están aquí.
+    Cabildeo: ${esc(cabildeo)}, no un historial. Una línea de cabildeo dice que la firma
+    declara a esa empresa como cliente en una inscripción vigente; no dice desde cuándo la
+    representa ni para qué gestión. Cada conexión de la tabla dice de cuándo es.`;
+  host.hidden = false;
+}
+
+/** De cuándo es una conexión: texto llano para ordenar y exportar, y HTML para la tabla. */
+function cuando(l, center) {
+  if (l.kind === 'k') {
+    return { texto: rangoIso(l.when), html: esc(rangoEs(l.when)) };
+  }
+  if (l.kind === 'l') {
+    const firma = center.t === 'f' ? center : l.node;
+    const certs = new Map(firma.x.reg || []);
+    const regs = l.when || [];
+    if (!regs.length) return { texto: 'inscripción vigente', html: '<span class="t-sub">inscripción vigente</span>' };
+    return { texto: 'inscripción ' + regs.join(', '),
+      html: 'inscripción ' + regs.map((r) => certs.get(r)
+        ? `<a href="${esc(certs.get(r))}" target="_blank" rel="noopener" style="white-space:nowrap">${esc(r)} ↗</a>`
+        : esc(r)).join(', ') };
+  }
+  if (l.kind === 'p') {
+    const c = center.t === 'c' ? center : l.node;
+    return { texto: rangoIso(c.x.d), html: esc(rangoEs(c.x.d)) };
+  }
+  if (l.kind === 's') {
+    const s = center.t === 's' ? center : l.node;
+    return { texto: s.x.fecha || '', html: s.x.fecha ? esc(dateEs(s.x.fecha)) : '' };
+  }
+  return { texto: '', html: '' };
 }
 
 function renderSuggestions() {
@@ -2592,20 +2747,27 @@ function drawEgo(id) {
 
   table('tblRed',
     [{ title: 'Conexión', key: 'name', render: (r) =>
-         `<button class="rowbtn" data-node="${esc(r.to)}">${esc(r.name)}</button>` },
+         `<button class="rowbtn" data-node="${esc(r.to)}">${esc(r.name)}</button>` +
+         `<div class="t-sub solo-movil">${esc(r.rel)}${r.cuandoHtml ? ' · ' + r.cuandoHtml : ''}</div>` },
      { title: 'Tipo', key: 'tipo', render: (r) => `<span class="pill">${esc(r.tipo)}</span>` },
      { title: 'Relación', key: 'rel' },
+     { title: 'De cuándo', key: 'cuando', render: (r) => r.cuandoHtml || '<span class="t-sub">—</span>' },
      { title: 'Contratos', key: 'n', num: true, render: (r) => r.kind === 'k' ? fmtNum(r.n) : '—' },
      { title: 'Monto', key: 'amount', num: true, render: (r) => r.kind === 'k' || r.kind === 'l' || r.kind === 'p' ? fmtFull(r.amount) : '—' }],
-    links.map((l) => ({ to: l.to, name: nodeLabel(l.node), tipo: NODE_TYPE[l.node.t], rel: EDGE_NAME[l.kind],
-      kind: l.kind, n: l.n, amount: l.amount })),
+    links.map((l) => {
+      const w = cuando(l, center);
+      return { to: l.to, name: nodeLabel(l.node), tipo: NODE_TYPE[l.node.t], rel: EDGE_NAME[l.kind],
+        kind: l.kind, n: l.n, amount: l.amount, cuando: w.texto, cuandoHtml: w.html };
+    }),
     { limit: 300 });
 }
 
 function edgeLines(p, center) {
   const out = [NODE_TYPE[p.node.t]];
   if (p.kind === 'k') out.push(plural(p.n, 'contrato', 'contratos') + ' entre ambos', fmtFull(p.amount));
+  if (p.kind === 'k' && rangoEs(p.when)) out.push('De ' + rangoEs(p.when));
   if (p.kind === 'l') out.push(center.t === 'f' ? 'Cliente de esta firma' : 'Firma que representa a este contratista');
+  if (p.kind === 'l' && (p.when || []).length) out.push('Según la inscripción ' + p.when.join(', '));
   if (p.kind === 'p') out.push('La firma misma recibe contratos');
   if (p.node.t === 'c' && p.kind !== 'k') out.push('Total en contratos: ' + fmtFull(p.node.amount));
   if (p.node.t === 's') out.push('Toca para ver el contratista; la ficha completa está en Legal');
@@ -2615,9 +2777,13 @@ function edgeLines(p, center) {
 
 function centerMeta(n, total, shown) {
   const parts = [];
-  if (n.t === 'c') parts.push(plural(n.x.n || 0, 'contrato', 'contratos'), esc(fmtFull(n.amount)));
+  if (n.t === 'c') parts.push(plural(n.x.n || 0, 'contrato', 'contratos') +
+    (rangoEs(n.x.d) ? ' de ' + esc(rangoEs(n.x.d)) : ''), esc(fmtFull(n.amount)));
   if (n.t === 'a') parts.push(esc(fmtFull(n.amount)) + ' otorgado en total');
   if (n.t === 'f') parts.push(plural(n.x.pe || 0, 'cabildero', 'cabilderos'), plural(n.x.cl || 0, 'cliente', 'clientes'),
+    ...((n.x.reg || []).length ? ['inscripción ' + n.x.reg.map(([num, cert]) => cert
+      ? `<a href="${esc(cert)}" target="_blank" rel="noopener" style="white-space:nowrap">${esc(num)} ↗</a>`
+      : esc(num)).join(', ')] : []),
     `<button class="rowbtn" data-cab-firma="${esc(n.x.fid)}">ver en Cabilderos →</button>`);
   if (n.t === 's') parts.push(`<button class="rowbtn" data-legal="${n.x.i}">ver la ficha en Legal →</button>`);
   if (shown < total) parts.push(`se dibujan ${shown} de ${total} conexiones (las de más monto); la tabla las lista todas`);
@@ -2639,6 +2805,7 @@ function renderApiList() {
     ['mensual.json', 'Serie mensual de monto y conteo'],
     ['busqueda.json', 'Índice de contratos de $250,000 o más, con enlace a cada PDF'],
     ['cabilderos.json', 'Firmas de cabilderos, su personal, sus clientes y los contratos de esos clientes'],
+    ['cabilderos_historial.json', 'Inscripciones y clientes de cabildeo vistos en cada descarga, incluidos los que ya no están vigentes'],
     ['legal.json', 'Señales legales de empresas contratistas, con fuentes y contratos'],
     ['red.json', 'Grafo de conexiones entre agencias, contratistas, cabilderos y señales legales'],
   ];
