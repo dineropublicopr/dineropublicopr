@@ -83,8 +83,8 @@ registra el método». **Eso era un artefacto de muestrear únicamente 2023-24:*
 |---|---:|---:|
 | 2023-24 | 80,137 | 49.6% |
 | 2024-25 | 79,913 | **99.5%** |
-| 2025-26 | 78,317 | **99.5%** |
-| 2026-27 | 30,138 | **99.7%** |
+| 2025-26 | 78,325 | **99.5%** |
+| 2026-27 | 35,443 | **99.5%** |
 
 El hueco de 2023-24 es real, pero **se cerró**. Generalizarlo a todo el gobierno habría sido
 incorrecto. Lo mismo con «Subasta Informal» y «Contrataciones por Emergencia»: aparecían en
@@ -110,8 +110,12 @@ pipeline/     Python sin dependencias externas (solo biblioteca estándar)
   cabilderos.py    Baja los registros de cabilderos de Justicia y del Senado
   exclusiones.py   Baja las exclusiones federales. Hoy solo LEIE: el cruce con SAM.gov
                    está programado pero no activo (falta configurar SAM_API_KEY)
-  conexiones.py    Cruza cabilderos y señales legales con los contratos
-  verificar.py     Control antes de publicar: compara con el resumen ya publicado
+  conexiones.py    Cruza cabilderos y señales legales con los contratos, y le pone a cada
+                   conexión de cuándo es: fechas de los contratos o inscripción de Justicia
+  historial.py     Guarda lo que Justicia va dejando de publicar: inscripciones y clientes
+                   de cabildeo con la primera y la última vez que se vieron
+  verificar.py     Control antes de publicar: compara contratos, cabilderos, señales legales
+                   y el grafo con lo ya publicado
   run.py           Orquesta todo lo anterior
 
 tests/        Pruebas con unittest (biblioteca estándar); las del API usan Node si está
@@ -134,6 +138,26 @@ una fuente oficial nombra en un caso por delitos relacionados con dinero), **Con
 (mapa navegable entre agencias, contratistas, cabilderos y señales legales) y **Cómo
 funciona** (procedencia de los datos, guía de uso y avisos legales).
 
+### De cuándo es cada cosa
+
+Dos fuentes con relojes distintos, y el sitio lo dice en la vista de Conexiones:
+
+- **Contratos:** los otorgados desde el 1 de julio de 2023 (año fiscal 2023-24) hasta la
+  última descarga. Los anteriores no están. Cada contratista y cada par contratista-agencia
+  lleva la fecha de su primer y de su último contrato.
+- **Cabildeo:** Justicia solo publica las inscripciones vigentes, así que el mapa es una
+  foto de hoy y no una serie histórica. Cada cliente lleva el número de la inscripción que
+  lo declara, con enlace al certificado oficial. Una línea entre una firma y una empresa
+  dice que la firma la declara como cliente en una inscripción vigente; no dice desde
+  cuándo la representa ni para qué gestión.
+
+Como una inscripción que vence desaparece del registro de Justicia sin dejar rastro, el
+pipeline guarda cada semana lo que ve en `web/datos/cabilderos_historial.json`: cada
+inscripción y cada cliente con la primera y la última descarga en que apareció. Esas fechas
+son de las descargas de este sitio (desde el 28 de octubre de 2026), no de cuándo alguien se
+inscribió o dejó de cabildear. **Ese archivo no se regenera desde cero:** es la única copia
+de lo que Justicia ya no publica.
+
 ### Las reglas de Legal y Conexiones
 
 1. **Solo empresas, nunca personas.** Ningún nodo, señal ni texto lleva el nombre de una
@@ -144,6 +168,9 @@ funciona** (procedencia de los datos, guía de uso y avisos legales).
 3. **Las listas federales se cruzan solo con entidades de PR** y nombres de dos palabras o
    más. Sin ese filtro, el cruce marcaba a contratistas de PR por coincidir con sanciones de
    OFAC llamadas «H» o «THE BASE».
+4. **Lo de afuera del paréntesis es el cliente.** Un cliente declarado como «Fulano de Tal
+   (Asociación X de Puerto Rico)» es una persona, aunque el paréntesis nombre una
+   organización: se cuenta y no se publica. La regla vale también para el historial.
 
 Las reglas completas para añadir una señal a mano están en
 [`data/legal/README.md`](data/legal/README.md).
@@ -189,6 +216,11 @@ como si fuera un dato oficial:
 - `verificar.py` compara el resumen nuevo con el publicado y detiene la corrida si el total
   baja más de 0.5 %, si un año fiscal baja más de 2 % o desaparece, o si el monto baja más
   de 5 %.
+- `verificar.py` también revisa Cabilderos, Legal y Conexiones: detiene la corrida si no hay
+  firmas, si las firmas bajan a menos de la mitad, si el registro del Senado baja más de
+  10 %, si el grafo viene vacío o con conexiones rotas, o si una señal legal no cita fuente.
+  Y avisa, sin detener nada, cuando una señal revisada a mano lleva más de 45 días sin
+  verificarse: un caso puede haberse desestimado o resuelto.
 
 Si la baja es real (la Contralora eliminó registros), hay que comprobarlo en el portal y
 entonces correr `python3 pipeline/run.py --aceptar-bajas` y
@@ -202,7 +234,8 @@ python3 -m unittest discover -s tests
 ```
 
 No tocan la red. Cubren la protección de la ingesta, el control de `verificar.py`, los
-reintentos del cliente y la validación del API. Las del API ejecutan el manejador real con
+reintentos del cliente, la validación del API, el filtro de personas del cruce de cabilderos,
+las fechas de cada conexión y el historial de cabildeo. Las del API ejecutan el manejador real con
 Node y una base falsa; si Node no está instalado, se saltan. No cubren D1 real ni el
 enrutado de Cloudflare Pages.
 
